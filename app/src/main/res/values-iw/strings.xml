@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">ניהול אפליקציה</string>
+    <string name="upload_photo">אישור</string>
+    <string name="choose_photo">בחר תמונה</string>
+    <string name="gallery">גלריה</string>
+    <string name="all_permissions">כל ההרשאות ניתנו בהצלחה!</string>
+    <string name="manage_calendar">ניהול לוח שנה</string>
+    <string name="btn_add_new_appointment">הוסף פגישה חדשה</string>
+    <string name="title_activity_manage_calendar">Manage Calendar</string>
+    <string name="manage_dates">ניהול תאריכים</string>
+    <string name="manage_appoint">ניהול פגישות</string>
+    <string name="opening_mng_dates">ניהול תאריכים</string>
+    <string name="btn_choose_date">בחר תאריך</string>
+    <string name="btn_date_delete">מחק</string>
+    <string name="btn_date_catch">תפוס</string>
+    <string name="appointment_deleted">פגישה הוסרה!</string>
+    <string name="popup_menu_catch_block_date">האם את\ה רוצה לתפוס פגישה זו?</string>
+    <string name="btn_yes">כן</string>
+    <string name="btn_no">לא</string>
+    <string name="appointment_catch">פגישה נתפסה!</string>
+    <string name="btn_ok_to_upload">אישור</string>d
+    <string name="text_choose_hour">שעה</string>
+    <string name="text_choose_min">דקות</string>
+    <string name="text_duration">משך</string>
+    <string name="btn_choose_date_in_form">בחר</string>
+    <string name="btn_add_new_window">אישור</string>
+    <string name="new_window_added">חלון חדש לפגישות נוסף בהצלחה!</string>
+    <string name="please_choose_date">בחר תאריך</string>
+    <string name="btn_choose_date_for_new">יומן</string>
+    <string name="popup_delete_image_q">האם אתה בטוח שברצונך להסיר קובץ זה מהמערכת?</string>
+    <string name="file_deleted_successfully">קובץ הוסר בהצלחה!</string>
+    <string name="export_event_to_calendar">יצוא</string>
+</resources>

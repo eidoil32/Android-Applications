@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Manage Application</string>
+    <string name="upload_photo">Upload</string>
+    <string name="choose_photo">Choose Picture</string>
+    <string name="gallery">Enter Gallery</string>
+    <string name="all_permissions">All permissions are granted by user!</string>
+    <string name="manage_calendar">Manage Calendar</string>
+    <string name="btn_add_new_appointment">Add new appointment</string>
+    <string name="title_activity_manage_calendar">Manage Calendar</string>
+    <string name="manage_dates">Manage Dates</string>
+    <string name="manage_appoint">Manage Appointments</string>
+    <string name="opening_mng_dates">Manage dates</string>
+    <string name="btn_choose_date">Choose date</string>
+    <string name="btn_date_delete">DEL</string>
+    <string name="btn_date_catch">BLOCK</string>
+    <string name="appointment_deleted">Appointment deleted!</string>
+    <string name="popup_menu_catch_block_date">Do you want to block this date?</string>
+    <string name="btn_yes">YES</string>
+    <string name="btn_no">No</string>
+    <string name="appointment_catch">Appointment is blocked!</string>
+    <string name="btn_ok_to_upload">UPLOAD NOW!</string>
+    <string name="text_choose_hour">Hour</string>
+    <string name="text_choose_min">Min</string>
+    <string name="text_duration">Duration</string>
+    <string name="btn_choose_date_in_form">CHOOSE</string>
+    <string name="btn_add_new_window">OK</string>
+    <string name="new_window_added">New window for appointment added successfully!</string>
+    <string name="please_choose_date">Please choose date</string>
+    <string name="btn_choose_date_for_new">Calendar</string>
+    <string name="popup_delete_image_q">Do you want to delete this image from server?</string>
+    <string name="file_deleted_successfully">File deleted successfully!</string>
+    <string name="export_event_to_calendar">EXPORT</string>
+</resources>
