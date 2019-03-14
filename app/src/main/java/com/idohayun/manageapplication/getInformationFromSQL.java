@@ -42,7 +42,7 @@ public class getInformationFromSQL {
 
         @Override
         protected String doInBackground(Void... voids) {
-            String serverUrl = "http://eidoil32.myhf.in/getLastID.php";
+            String serverUrl = "http://example.com/file";
             try {
                 java.net.URL url = new URL(serverUrl);
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();

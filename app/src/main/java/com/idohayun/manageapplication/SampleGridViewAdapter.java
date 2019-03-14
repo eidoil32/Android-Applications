@@ -38,7 +38,7 @@ final class SampleGridViewAdapter extends BaseAdapter {
     private ArrayList<String> urls;
     private RequestQueue queue;
     private JsonObjectRequest request;
-    private String updateUrl = "http://eidoil32.myhf.in/deleteFileFromServer.php";
+    private String updateUrl = "http://example.com/file";
 
     public SampleGridViewAdapter(Context context, ArrayList<String> images) {
         this.context = context;

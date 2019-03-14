@@ -25,7 +25,7 @@ public class ManageDates extends Fragment {
     private int mday, mmonth, myear;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private ListView listView;
-    private String databaseURL = "http://eidoil32.myhf.in/getDateDatabase.php";
+    private String databaseURL = "http://example.com/file";
     private boolean firstTime = true;
 
 

@@ -45,7 +45,7 @@ public class ManageAppointments extends Fragment {
     private int colorBad = Color.RED, colorGood = Color.GRAY;
     private ColorStateList colorStateListBAD = ColorStateList.valueOf(colorBad),
             colorStateListGOOD = ColorStateList.valueOf(colorGood);
-    private String urlAddNewWindow = "http://eidoil32.myhf.in/addNewWindow.php";
+    private String urlAddNewWindow = "http://example.com/file";
     private getInformationFromSQL getID = new getInformationFromSQL();
     private RequestQueue queue;
     private JsonObjectRequest request;

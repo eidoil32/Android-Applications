@@ -67,30 +67,17 @@ public class GalleryShow extends AppCompatActivity {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    //creating a URL
                     java.net.URL url = new URL(images.getURL());
-
-                    //Opening the URL using HttpURLConnection
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-                    //StringBuilder object to read the string from the service
                     StringBuilder sb = new StringBuilder();
-
-                    //We will use a buffered reader to read the string from service
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
-
-                    //A simple string to read values from each line
                     String json;
-
-                    //reading until we don't find null
                     while ((json = bufferedReader.readLine()) != null) {
-
-                        //appending it to string builder
                         sb.append(json + "\n");
                     }
 
-                    //finally returning the read string
                     return sb.toString().trim();
+
                 } catch (Exception e) {
                     return null;
                 }

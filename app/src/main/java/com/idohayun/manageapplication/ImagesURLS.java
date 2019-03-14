@@ -3,7 +3,7 @@ package com.idohayun.manageapplication;
 import java.util.ArrayList;
 
 public class ImagesURLS {
-    private String URL = "http://eidoil32.myhf.in/getImages.php";
+    private String URL = "http://example.com/file";
     private ArrayList<FeedEntry> images;
 
     public ImagesURLS() { images = new ArrayList<>();}

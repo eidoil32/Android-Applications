@@ -45,7 +45,7 @@ public class FeedAdapter extends ArrayAdapter {
     private RequestQueue queue;
     private JsonObjectRequest request;
     private Map<String, String> map = new HashMap<String, String>();
-    private String updateUrl = "http://eidoil32.myhf.in/updateDateDatabase.php", downloadURL = "http://eidoil32.myhf.in/getDateDatabase.php";
+    private String updateUrl = "http://example.com/file", downloadURL = "http://example.com/file";
 
     public FeedAdapter(Context context, int resource, List<DateListArray> application, ListView listView) {
         super(context, resource);
@@ -90,7 +90,7 @@ public class FeedAdapter extends ArrayAdapter {
         viewHolder.exportEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Location location = new Location("MyAdress");
+                Location location = new Location("MyAddress");
                 location.setLatitude(31.941525);
                 location.setLongitude(34.841592);
                 Calendar beginTime = Calendar.getInstance();
@@ -103,7 +103,7 @@ public class FeedAdapter extends ArrayAdapter {
                 intent.putExtra("endTime", cal.getTimeInMillis() + hourInMilli);
                 intent.putExtra("title", currentDate.getType());
                 intent.putExtra(CalendarContract.Reminders.MINUTES, 60);
-                intent.putExtra(CalendarContract.Events.EVENT_LOCATION,"אפרים קישון 8 קומה 7 דירה 32 ,באר יעקב");
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION,"address");
                 layoutInflater.getContext().startActivity(intent);
             }
         });

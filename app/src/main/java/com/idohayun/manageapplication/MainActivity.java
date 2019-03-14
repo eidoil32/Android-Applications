@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn,galleryShow, mngCalendar,btnOKtoUpload;
     private ImageView imageView;
     private final int GALLERY = 1;
-    private String upload_URL = "http://eidoil32.myhf.in/uploadfile.php?";
+    private String upload_URL = "http://example.com/file";
     private RequestQueue rQueue;
     private ArrayList<HashMap<String, String>> arraylist;
 
