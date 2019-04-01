@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#e5e5e5</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorTextSimple">#000000</color>
+    <color name="colorText_Hint_simple">#969696</color>
+    <color name="drawer_background_color">#ed0677</color>
+    <color name="drawer_icon_color">#f0f0f0</color>
+    <color name="toast_error">#99b23737</color>
+    <color name="toast_success">#996bb237</color>
+    <color name="toast_message">#99808080</color>
+    <color name="toast_text_color">#FFFFFF</color>
+    <color name="white_text">#FFFFFF</color>
+    <color name="background_text_order">#ececec</color>
+</resources>
