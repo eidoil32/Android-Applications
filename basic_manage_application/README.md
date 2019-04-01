@@ -16,7 +16,7 @@ Homescreen:<br/>
 
 Gallery: (short touch for enlarge picture, long touch for deleting from server)<br/>
 
-<img src="https://github.com/eidoil32/Manage-appointment-application/blob/master/screenshots/Screenshot_0%20(3).png" width="40%" height="40%"/>
+<img src="https://github.com/eidoil32/Android-Applications/tree/master/basic_manage_application/screenshots/Screenshot_0%20(3).png" width="40%" height="40%"/>
 
 Manage appointments: </br>
 <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
