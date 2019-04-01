@@ -5,7 +5,7 @@ A simple application allow you to upload and manage a gallery for the business, 
 Homescreen:<br/>
 <div id="banner" style="overflow: hidden; display: flex; justify-content:space-around;">
         <div class="" style="max-width: 50%; max-height: 50%;">
-                    <img src="https://github.com/eidoil32/Android-Applications/tree/master/basic_manage_application/screenshots/Screenshot_0%20(1).png"
+                    <img src="https://github.com/eidoil32/Android-Applications/blob/master/basic_manage_application/screenshots/Screenshot_0%20(1).png?raw=true"
                          width="40%" height="40%"/>
         </div>
      <div class="" style="max-width: 100%; max-height: 100%;">
