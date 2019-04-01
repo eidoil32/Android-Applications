@@ -1,4 +1,4 @@
-# Manage-appointment-application
+# Manage appointment application
 A simple application allow you to upload and manage a gallery for the business, add and manage appointments window.  
 <b>An application for manage only, not for client.</b>
 
