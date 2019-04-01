@@ -34,7 +34,6 @@ public class GetAppointmentListData {
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private static String convertTypeToInt_ifNull;
     private static boolean available;
-    private static String serverUrl = "http://eidoil32.myhf.in/showListOfAppointment.php";
     private static StringBuilder sb = new StringBuilder();
 
     public static void getData(final Context context, int selected_day, int selected_month, int selected_year, final ListView listView, final ProgressBar progressBar) {
@@ -48,7 +47,7 @@ public class GetAppointmentListData {
         final JSONObject jsonObject = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
-                serverUrl, jsonObject,
+                ServerURLSManager.Appointment_show_list, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
                     public void onResponse(JSONObject response) {

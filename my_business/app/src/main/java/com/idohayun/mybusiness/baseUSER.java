@@ -22,8 +22,6 @@ public class baseUSER {
     private static final String TAG = "baseUSER";
     private String name, password;
     private int phone, id;
-    private final String updateToServerDB = "http://eidoil32.myhf.in/updateUserDetails.php",
-            newUserToServerDB = "http://eidoil32.myhf.in/newUserToDB.php";
     private boolean exist;
     private View view;
     private static StringBuilder sb = new StringBuilder();
@@ -79,7 +77,7 @@ public class baseUSER {
         final JSONObject jsonObject = new JSONObject(data);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
-                updateToServerDB, jsonObject,
+                ServerURLSManager.User_manager_update_user_data, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
                     public void onResponse(JSONObject response) {
@@ -114,7 +112,7 @@ public class baseUSER {
         final JSONObject jsonObject = new JSONObject(data);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
-                newUserToServerDB, jsonObject,
+                ServerURLSManager.User_manager_register_new_user, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
                     public void onResponse(JSONObject response) {

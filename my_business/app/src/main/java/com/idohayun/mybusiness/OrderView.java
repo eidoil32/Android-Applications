@@ -45,7 +45,6 @@ public class OrderView extends Fragment {
     private static int func_day, func_month, func_year, func_hour, func_min, func_personID, func_tempAvailable;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private static boolean available, firstTime = true;
-    private static String serverUrl = "http://eidoil32.myhf.in/showListOfAppointment.php";
     private static StringBuilder sb = new StringBuilder();
     private static ProgressBar progressBar;
     private boolean dateSelected = false;

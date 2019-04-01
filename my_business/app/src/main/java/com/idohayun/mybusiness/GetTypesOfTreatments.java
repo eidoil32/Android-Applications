@@ -19,7 +19,6 @@ import java.util.Locale;
 
 class GetTypesOfTreatments  {
     private static final String TAG = "GetTypesOfTreatments";
-    private static String serverUrl = "http://eidoil32.myhf.in/getAppointments.php";
     private static Context context;
     private static Spinner spinner;
     private static StringBuilder sb = new StringBuilder();
@@ -50,7 +49,7 @@ class GetTypesOfTreatments  {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL(serverUrl);
+                    URL url = new URL(ServerURLSManager.Appointment_get_appointment_types);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;

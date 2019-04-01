@@ -44,7 +44,7 @@ public class ImageAdapter extends BaseAdapter {
             view.setScaleType(CENTER_CROP);
         }
 
-        String thumbnailUrl = "http://eidoil32.myhf.in/uploadedFiles/" + createThumbnailURL(url) + "_resized.jpg";
+        String thumbnailUrl = ServerURLSManager.Images_based_uploaded_folder + createThumbnailURL(url) + "_resized.jpg";
 
         Picasso.get() //
                 .load(thumbnailUrl) //

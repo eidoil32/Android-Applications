@@ -34,7 +34,7 @@ public class ToolsView extends Fragment {
     private Button btnLogin, btnRegister, btnOK;
     private String input_username = null, input_password = null, input_phone = null;
     private boolean userExist = false;
-    private static String userlogin_url = "http://eidoil32.myhf.in/user_login.php";
+
     private static StringBuilder sb = new StringBuilder();
 
     private static final String TAG = "ToolsView";
@@ -145,7 +145,7 @@ public class ToolsView extends Fragment {
         final JSONObject jsonObject = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
-                userlogin_url, jsonObject,
+                ServerURLSManager.User_manager_login, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
                     public void onResponse(JSONObject response) {

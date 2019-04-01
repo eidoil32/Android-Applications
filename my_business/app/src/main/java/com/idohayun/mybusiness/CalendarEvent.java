@@ -27,7 +27,6 @@ import java.util.Locale;
 public class CalendarEvent {
     private static ContentResolver contentResolver;
     private static ContentValues contentValues;
-    private static String serverUrl = "http://eidoil32.myhf.in/getAppointments.php";
     private static StringBuilder sb = new StringBuilder();
     private static List<appointment> typeList;
     private static final String TAG = "CalendarEvent";
@@ -68,7 +67,7 @@ public class CalendarEvent {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL(serverUrl);
+                    URL url = new URL(ServerURLSManager.Appointment_show_list);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;

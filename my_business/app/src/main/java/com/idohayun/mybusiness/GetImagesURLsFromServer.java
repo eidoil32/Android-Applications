@@ -18,7 +18,6 @@ import java.util.List;
 
 public class GetImagesURLsFromServer {
     private static final String TAG = "GetImagesURLsFromServer";
-    private static String dataURL = "http://eidoil32.myhf.in/getImages.php",numURL = "http://eidoil32.myhf.in/getImages.php";
     private List<ImageURL> imageURLList;
     private static StringBuilder sb = new StringBuilder();
     private Context context;
@@ -63,7 +62,7 @@ public class GetImagesURLsFromServer {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL(dataURL);
+                    URL url = new URL(ServerURLSManager.Gallery_get_pictures);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;
