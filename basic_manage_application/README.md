@@ -9,7 +9,7 @@ Homescreen:<br/>
                          width="40%" height="40%"/>
         </div>
      <div class="" style="max-width: 100%; max-height: 100%;">
-        <img src="https://github.com/eidoil32/Android-Applications/tree/master/basic_manage_application/screenshots/Screenshot_0%20(2).png?raw=true" 
+        <img src="https://github.com/eidoil32/Android-Applications/blob/master/basic_manage_application/screenshots/Screenshot_0%20(2).png?raw=true" 
              width="40%" height="40%"/>
     </div>
 </div>
