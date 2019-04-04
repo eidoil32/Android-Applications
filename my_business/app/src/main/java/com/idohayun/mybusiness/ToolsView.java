@@ -48,19 +48,21 @@ public class ToolsView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MainActivity.changeTitlePage(inflater.getContext().getResources().getString(R.string.text_tools_title));
          return inflater.inflate(R.layout.fragment_tools_view, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         baseUSER.getUserDetails(view);
         userExist = checkIfUserAlreadyExist();
 
         if(userExist) {
             Log.d(TAG, "onViewCreated: user exist: " + baseUSER.getName());
-            getFragmentManager().beginTransaction().replace(R.id.fragment,new UserPanel()).commit();
+            getFragmentManager().popBackStack();
+            getFragmentManager().beginTransaction().add(R.id.fragment,new UserPanel()).addToBackStack("UserPanel").commit();
         } else {
             Log.d(TAG, "onViewCreated: user doesn't exist!");
         }
@@ -106,7 +108,7 @@ public class ToolsView extends Fragment {
                                 if (baseUSER.isExist()) {
                                     CustomToast.showToast(getContext(), getString(R.string.user_registered_successfully), 1);
                                     getFragmentManager().popBackStack();
-                                    getFragmentManager().beginTransaction().replace(R.id.fragment, new UserPanel()).commit();
+                                    getFragmentManager().beginTransaction().add(R.id.fragment, new UserPanel()).addToBackStack("UserPanel").commit();
                                 }
                             } else {
                                 errorText.setVisibility(View.VISIBLE);

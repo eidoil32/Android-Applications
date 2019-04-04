@@ -77,9 +77,10 @@ public class GetAppointmentListData {
                                 available = (func_tempAvailable == 1 ? TRUE : FALSE);
                                 DateArray dateArray = new DateArray(func_day, func_month, func_year, func_hour, func_min, func_type, func_personID, available,func_userId);
                                 dateArrayList.add(dateArray);
+                                Log.d(TAG, "onResponse: creating (" + i + ") dates dateArray= " +  dateArray.toString() + " type: " + func_type);
                             }
                             progressBar.setVisibility(View.INVISIBLE);
-                            DatesListAdapter datesListAdapter = new DatesListAdapter(context, R.layout.order_list_adapter, dateArrayList);
+                            DatesListAdapter datesListAdapter = new DatesListAdapter(context, R.layout.order_list_adapter, dateArrayList,listView,progressBar);
                             listView.setAdapter(datesListAdapter);
                         } catch (JSONException e) {
                             e.printStackTrace();

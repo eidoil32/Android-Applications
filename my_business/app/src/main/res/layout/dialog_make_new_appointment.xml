@@ -203,12 +203,10 @@
     <Button
         android:id="@+id/dialog_new_apt_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginEnd="8dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/heebo_bold"
-        style="@style/Button_no_background"
-        android:textSize="14sp"
+        style="@style/button_no_background"
+        android:background="@drawable/button_no_background"
         android:text="@string/btn_cancel"
         app:layout_constraintBaseline_toBaselineOf="@+id/dialog_new_apt_ok"
         app:layout_constraintEnd_toStartOf="@+id/guide_center_line" />
@@ -216,12 +214,11 @@
     <Button
         android:id="@+id/dialog_new_apt_ok"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="36dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="14sp"
-        style="@style/SimpleButton"
-        android:fontFamily="@font/heebo_bold"
+        style="@style/button_with_background"
+        android:background="@drawable/button_with_background"
         android:text="@string/btn_order"
         app:layout_constraintStart_toStartOf="@+id/guide_center_line"
         app:layout_constraintTop_toTopOf="@+id/guideline7" />

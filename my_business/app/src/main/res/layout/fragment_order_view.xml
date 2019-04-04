@@ -52,12 +52,13 @@
         <Button
             android:id="@+id/order_btn_select_date"
             android:layout_width="wrap_content"
-            android:layout_height="0dp"
+            android:layout_height="36dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/order_btn_select_date"
-            style="@style/SimpleButton"
+            style="@style/button_with_background"
+            android:background="@drawable/button_with_background"
             app:layout_constraintBottom_toTopOf="@+id/guideline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

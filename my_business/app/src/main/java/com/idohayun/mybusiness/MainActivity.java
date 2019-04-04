@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         pageTitle = findViewById(R.id.main_page_title);
+        pageTitle.setVisibility(View.INVISIBLE);
         menuButton = findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,17 +70,18 @@ public class MainActivity extends AppCompatActivity
                 }
             }
         });
+
         if(savedInstanceState == null) {
-            HomePage homePage = new HomePage(navigationView,pageTitle);
+            HomePage homePage = new HomePage();
             pageTitle.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().add(R.id.fragment,homePage).commit();
         }
+
         frameLayout = (FrameLayout) findViewById(R.id.fragment);
-        orderView = new OrderView(frameLayout);
-        homePage = new HomePage(navigationView,pageTitle);
+        orderView = new OrderView();
+        homePage = new HomePage();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
-        //HomePage.HomePage_View(this, fragmentManager, navigationView);
     }
 
     @Override
@@ -95,18 +97,6 @@ public class MainActivity extends AppCompatActivity
                     FragmentManager.BackStackEntry backEntry = fragmentManager.getBackStackEntryAt(index);
                     String tag = backEntry.getName();
                     Log.d(TAG, "onBackPressed: " + tag);
-                    if (tag.equals("HomePage")) {
-                        pageTitle.setVisibility(View.INVISIBLE);
-                    } else if (tag.equals("GalleryView")) {
-                        pageTitle.setVisibility(View.VISIBLE);
-                        pageTitle.setText(R.string.text_gallery_title);
-                    } else if (tag.equals("OrderView")) {
-                        pageTitle.setVisibility(View.VISIBLE);
-                        pageTitle.setText(R.string.text_order_title);
-                    } else if (tag.equals("ToolsView")) {
-                        pageTitle.setVisibility(View.VISIBLE);
-                        pageTitle.setText(R.string.text_tools_title);
-                    }
                 } else {
                     pageTitle.setVisibility(View.INVISIBLE);
                 }
@@ -150,17 +140,12 @@ public class MainActivity extends AppCompatActivity
         Fragment foundFragment;
 
         if (id == R.id.nav_homepage) {
-            pageTitle.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.fragment, homePage, "HomePage").addToBackStack("HomePage").commit();
             frameLayout.removeAllViews();
         } else if (id == R.id.nav_gallery) {
-            pageTitle.setVisibility(View.VISIBLE);
-            pageTitle.setText(R.string.text_gallery_title);
             fragmentManager.beginTransaction().replace(R.id.fragment, galleryView, "GalleryView").addToBackStack("GalleryView").commit();
             frameLayout.removeAllViews();
         } else if (id == R.id.nav_order) {
-            pageTitle.setVisibility(View.VISIBLE);
-            pageTitle.setText(R.string.text_order_title);
             foundFragment = fragmentManager.findFragmentByTag("OrderView");
             if(foundFragment != null) {
                 fragmentManager.popBackStackImmediate("OrderView", 0);
@@ -170,8 +155,6 @@ public class MainActivity extends AppCompatActivity
                 frameLayout.removeAllViews();
             }
         } else if (id == R.id.nav_manage) {
-            pageTitle.setVisibility(View.VISIBLE);
-            pageTitle.setText(R.string.text_tools_title);
             fragmentManager.beginTransaction().replace(R.id.fragment, toolsView, "ToolsView").addToBackStack("ToolsView").commit();
             frameLayout.removeAllViews();
         }

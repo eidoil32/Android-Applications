@@ -1,9 +1,14 @@
 package com.idohayun.mybusiness;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.Guideline;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +28,7 @@ public class UserPanel extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        MainActivity.changeTitlePage(inflater.getContext().getResources().getString(R.string.text_tools_title));
         return inflater.inflate(R.layout.fragment_tools_user_panel_exist, container, false);
     }
 
@@ -31,6 +37,14 @@ public class UserPanel extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) view.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        Guideline centerGuideLine = view.findViewById(R.id.center_guideline);
+        centerGuideLine.setGuidelineBegin((displayWidth - (int)(20*displayMetrics.density))/2);
 
         baseUSER.getUserDetails(view);
         userName = baseUSER.getName();
@@ -51,7 +65,7 @@ public class UserPanel extends Fragment {
 
         input_phone.setHint(Integer.toString(phone));
         input_username.setText(userName);
-        input_password.setHint(getString(R.string.password_hint));
+        input_password.setHint(getString(R.string.change_password_hint));
 
 
         btnOK.setVisibility(View.VISIBLE);
@@ -84,7 +98,12 @@ public class UserPanel extends Fragment {
             public void onClick(View v) {
                 if(baseUSER.logout()) {
                     CustomToast.showToast(getContext(), getString(R.string.user_logout_success), 1);
-                    getFragmentManager().popBackStack();
+                    try {
+                        getFragmentManager().popBackStack();
+                    } catch (NullPointerException e) {
+                        Log.d(TAG, "onClick: " + e.getMessage());
+                    }
+
                 }
                 else {
                     CustomToast.showToast(getContext(),getString(R.string.user_logout_failed),0);

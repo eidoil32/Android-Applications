@@ -16,6 +16,14 @@ public class DateArray {
         this.type = type;
     }
 
+    public String toString() {
+        return ("Day: " + day +
+                "Month: " + month +
+                "Year: " + year +
+                "Hour: " + hour +
+                "Min: " + min);
+    }
+
     public int getType() {
         return type;
     }
@@ -86,5 +94,11 @@ public class DateArray {
 
     public void setAvailable(boolean available) {
         this.available = available;
+    }
+
+    public void resetDate() {
+        this.setUserID(0);
+        this.setAvailable(true);
+        this.setType(-1);
     }
 }

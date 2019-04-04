@@ -82,5 +82,10 @@
     <string name="error_username_is_less">User name is less than 3 characters</string>
     <string name="error_password_is_less">Password less than 8 characters</string>
     <string name="welcome_user_exist_text">Welcome %s%n</string>
-    <string name="welcome_user_doesnt_exist">Welcome dear guest!\\nregister now and make new appointment faster and easier</string>
+    <string name="welcome_user_doesnt_exist">Welcome dear guest!\nregister now and make new appointment faster and easier</string>
+    <string name="error_export_to_calendar">Oops.. We have some problem, please contact us</string>
+    <string name="change_password_hint">Change password</string>
+    <string name="dialog_delete_appointment_title">Deleting appointment</string>
+    <string name="dialog_delete_appointment_confirm">Are you sure you want to delete the appointment?</string>
+    <string name="dialog_appointment_cancled_successfully">Appointment cancled successfully!</string>
 </resources>

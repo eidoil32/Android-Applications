@@ -6,6 +6,7 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -41,26 +42,12 @@ public class OrderView extends Fragment {
     private Button selectDateBtn;
     private static Context context;
     private static int calendar_day, calendar_month, calendar_year;
-    private static List<DateArray> dateArrayList = new ArrayList<>();
-    private static int func_day, func_month, func_year, func_hour, func_min, func_personID, func_tempAvailable;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    private static boolean available, firstTime = true;
-    private static StringBuilder sb = new StringBuilder();
     private static ProgressBar progressBar;
-    private boolean dateSelected = false;
-    private static FrameLayout frameLayout;
-    private static int userID = MainActivity.getUserID();
+    private static boolean dateSelected = false;
     private SwipeRefreshLayout swipeRefreshLayout;
-    private OnSaveClicked mSaveListener = null;
-    private static Bundle arguments = new Bundle();
-
-    interface OnSaveClicked {
-        void onSaveClicked();
-    }
-
-    public OrderView(FrameLayout frameLayout) {
-        this.frameLayout = frameLayout;
-    }
+    final Calendar calendar = Calendar.getInstance();
+    private String saveDay = "Day", saveMonth = "Month", saveYear = "Year";
 
     public OrderView() {
         // Required empty public constructor
@@ -69,16 +56,8 @@ public class OrderView extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        MainActivity.changeTitlePage(getResources().getString(R.string.text_order_title));
-        Log.d(TAG, "onActivityCreated: called");
-        arguments = getArguments();
-        if(arguments != null) {
-            Log.d(TAG, "onActivityCreated: " + arguments.getInt("Year"));
-        } else {
-            arguments = new Bundle();
-        }
         if(savedInstanceState != null) {
-            Log.d(TAG, "onViewStateRestored: restored! " + savedInstanceState.getInt("Selected Year"));
+            Log.d(TAG, "onActivityCreated: " + savedInstanceState.getInt(saveYear));
         }
     }
 
@@ -86,15 +65,6 @@ public class OrderView extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         Log.d(TAG, "onActivityResult: called");
-    }
-
-
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Log.d(TAG, "onCreate: ");
-        setRetainInstance(true);
     }
 
     @Override
@@ -107,51 +77,38 @@ public class OrderView extends Fragment {
     public void onAttach(Context context) {
         Log.d(TAG, "onAttach: starts");
         super.onAttach(context);
-
-        // Activities containing this fragment must implement it's callbacks.
-        Activity activity = getActivity();
-        arguments = getArguments();
-        if(arguments != null) {
-            Log.d(TAG, "onAttach:  " + arguments.getInt("Year"));
-        } else {
-            arguments = new Bundle();
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_view, container, false);
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         container.removeAllViews();
-        Log.d(TAG, "onCreateView: ?");
+
+        MainActivity.changeTitlePage(getResources().getString(R.string.text_order_title));
+
         selectDateBtn = (Button) view.findViewById(R.id.order_btn_select_date);
         selectedDate = (TextView) view.findViewById(R.id.order_show_selected_date);
         listView = (ListView) view.findViewById(R.id.order_appointment_list);
         progressBar = (ProgressBar) view.findViewById(R.id.order_progressBar);
-
-        final Calendar calendar = Calendar.getInstance();
-        context = view.getContext();
-        calendar_year = calendar.get(Calendar.YEAR);
-        calendar_month = calendar.get(Calendar.MONTH) + 1;
-        calendar_day = calendar.get(Calendar.DAY_OF_MONTH);
-
-        arguments = getArguments();
-        if(arguments != null) {
-            Log.d(TAG, "onCreateView: retrieving task details.");
-            Log.d(TAG, "onCreateView: " + arguments.getInt("Year"));
-            
-        } else {
-            Log.d(TAG, "onCreateView: first time here");
-        }
+        int orientation = view.getContext().getResources().getConfiguration().orientation;
 
         if (savedInstanceState != null) {
-            frameLayout.removeAllViews();
-            calendar_day = savedInstanceState.getInt("Selected Day");
-            calendar_month = savedInstanceState.getInt("Selected Month");
-            calendar_year = savedInstanceState.getInt("Selected Year");
-            Log.d(TAG, "onViewCreated: recover " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
+
+            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+
+            } else {
+
+            }
+
+            Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
+            calendar_year = savedInstanceState.getInt(saveYear,0);
+            calendar_month = savedInstanceState.getInt(saveMonth,0);
+            calendar_day = savedInstanceState.getInt(saveDay,0);
+            Log.d(TAG, "onCreateView recovering date: " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
 
             if (calendar_day != 0 && calendar_month != 0 && calendar_year != 0) {
-                Log.d(TAG, "onViewCreated: in " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
+                Log.d(TAG, "onCreateView: in " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
 
                 selectedDate.setText(calendar_day + "/" + (calendar_month) + "/" + calendar_year);
                 GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
@@ -160,7 +117,13 @@ public class OrderView extends Fragment {
                 calendar_month = calendar.get(Calendar.MONTH) + 1;
                 calendar_day = calendar.get(Calendar.DAY_OF_MONTH);
             }
+        } else {
+            calendar_year = calendar.get(Calendar.YEAR);
+            calendar_month = calendar.get(Calendar.MONTH) + 1;
+            calendar_day = calendar.get(Calendar.DAY_OF_MONTH);
         }
+
+        context = view.getContext();
 
         selectDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -170,16 +133,8 @@ public class OrderView extends Fragment {
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener, calendar_year, calendar_month - 1, calendar_day);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
-                dateSelected = true;
-                dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-                    @Override
-                    public void onDismiss(DialogInterface dialog) {
-                        dateSelected = false;
-                    }
-                });
                 dialog.show();
                 dialog.getDatePicker().setSpinnersShown(true);
-                dateSelected = true;
                 Log.d(TAG, "onClick: click select button");
             }
         });
@@ -191,10 +146,7 @@ public class OrderView extends Fragment {
                 calendar_day = dayOfMonth;
                 calendar_month = month + 1;
                 selectedDate.setText(calendar_day + "/" + (calendar_month) + "/" + calendar_year);
-                arguments.putInt("Day",calendar_day);
-                arguments.putInt("Month",calendar_month);
-                arguments.putInt("Year",calendar_year);
-
+                dateSelected = true;
                 GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
             }
         };
@@ -219,13 +171,14 @@ public class OrderView extends Fragment {
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        Log.d(TAG, "onSaveInstanceState: " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
-        if(dateSelected) {
-            outState.putInt("Selected Year", calendar_year);
-            outState.putInt("Selected Month", calendar_month);
-            outState.putInt("Selected Day", calendar_day);
-        }
         super.onSaveInstanceState(outState);
+        Log.d(TAG, "onSaveInstanceState: " + dateSelected);
+        if(dateSelected) {
+            Log.d(TAG, "onSaveInstanceState: entering");
+            outState.putInt(saveYear, calendar_year);
+            outState.putInt(saveMonth, calendar_month);
+            outState.putInt(saveDay, calendar_day);
+        }
     }
 
 

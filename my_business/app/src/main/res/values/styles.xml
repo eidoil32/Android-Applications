@@ -27,6 +27,24 @@
         <item name="android:topRightRadius">4dp</item>
     </style>
 
+    <style name="button_no_background" >
+        <item name="android:textColor" >@color/colorAccent</item>
+        <item name="android:gravity" >center</item>
+        <item name="android:layout_margin" >8dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:textSize" >14dp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+    </style>
+
+    <style name="button_with_background" >
+        <item name="android:textColor" >@color/white_text</item>
+        <item name="android:gravity" >center</item>
+        <item name="android:layout_margin" >8dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:textSize" >14dp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+    </style>
+
     <style name="ToastStyle">
         <item name="android:bottomLeftRadius">4dp</item>
         <item name="android:bottomRightRadius">4dp</item>
@@ -42,6 +60,11 @@
 
     <style name="Button_no_background" parent="Widget.AppCompat.Button.Colored">
         <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:bottomLeftRadius">4dp</item>
+        <item name="android:bottomRightRadius">4dp</item>
+        <item name="android:topLeftRadius">4dp</item>
+        <item name="android:topRightRadius">4dp</item>
+        <item name="android:strokeColor">@color/colorAccent</item>
     </style>
 
 

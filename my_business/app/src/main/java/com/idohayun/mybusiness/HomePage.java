@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,71 +23,57 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class HomePage extends Fragment {
-    private static NavigationView navigationView;
-    private static String deviceLocale = Locale.getDefault().getLanguage();
-    private static TextView pageTitle, userState;
+    private static TextView userState;
+    private static final String TAG = "HomePage";
 
     public HomePage() {
         // Required empty public constructor
-    }
-
-    public HomePage(NavigationView navigationView, TextView pageTitle) {
-        this.navigationView = navigationView;
-        this.pageTitle = pageTitle;
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.content_main, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-        HomePage_View(view.getContext(),fragmentManager,navigationView);
-    }
-
-    public static void HomePage_View(final Context context, final FragmentManager fragmentManager,final NavigationView navigationView) {
+        View view = inflater.inflate(R.layout.content_main, container, false);
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
+        MainActivity.changeTitlePage(" ");
+        Log.d(TAG, "onCreateView: homepage started!");
 
         final ImageView appointmentButton, galleryButton;
-        final FrameLayout frameLayout = (FrameLayout) ((Activity)(context)).findViewById(R.id.fragment);
-        appointmentButton = (ImageView) ((Activity)(context)).findViewById(R.id.btn_new_appointment);
-        galleryButton = (ImageView) ((Activity)(context)).findViewById(R.id.btn_gallery);
-        userState = (TextView) ((Activity)(context)).findViewById(R.id.homepage_user_details);
-        baseUSER user = new baseUSER();
-        user.getUserDetails(((Activity)(context)).getCurrentFocus());
-        if(user.isExist()) {
-            userState.setText(context.getString(R.string.welcome_user_exist_text,user.getName()));
-        } else {
-            userState.setText(context.getString(R.string.welcome_user_doesnt_exist));
-        }
+        final FrameLayout frameLayout = (FrameLayout) view.findViewById(R.id.fragment);
 
+        appointmentButton = (ImageView) view.findViewById(R.id.btn_new_appointment);
+        galleryButton = (ImageView) view.findViewById(R.id.btn_gallery);
+        userState = (TextView) view.findViewById(R.id.homepage_user_details);
+
+        baseUSER user = new baseUSER();
+        user.getUserDetails(view);
+        if(user.isExist()) {
+            userState.setText(view.getResources().getString(R.string.welcome_user_exist_text,user.getName()));
+        } else {
+            userState.setText(view.getResources().getString(R.string.welcome_user_doesnt_exist));
+        }
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageTitle.setVisibility(View.VISIBLE);
-                pageTitle.setText(R.string.text_order_title);
                 OrderView orderView = new OrderView();
-                fragmentManager.beginTransaction().add(R.id.fragment,orderView).commit();
-                navigationView.getMenu().getItem(1).setChecked(true);
+                getFragmentManager().beginTransaction().replace(R.id.fragment,orderView).addToBackStack("OrderView").commit();
             }
         });
 
         galleryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pageTitle.setVisibility(View.VISIBLE);
-                pageTitle.setText(R.string.text_gallery_title);
                 GalleryView galleryView = new GalleryView();
-                fragmentManager.beginTransaction().add(R.id.fragment,galleryView).commit();
-                navigationView.getMenu().getItem(1).setChecked(true);
+                getFragmentManager().beginTransaction().replace(R.id.fragment,galleryView).addToBackStack("GalleryView").commit();
             }
         });
+        return view;
     }
 
-
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
 }

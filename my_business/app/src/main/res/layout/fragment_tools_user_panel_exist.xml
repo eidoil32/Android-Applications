@@ -131,32 +131,26 @@
 
         <Button
             android:id="@+id/btn_save_data"
-            style="@style/SimpleButton"
+            style="@style/button_with_background"
+            android:background="@drawable/button_with_background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_height="36dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/heebo_bold"
             android:text="@string/btn_tools_save"
-            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
-            app:layout_constraintEnd_toStartOf="@+id/guideline20"
+            app:layout_constraintEnd_toStartOf="@+id/center_guideline"
             app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
         <Button
             android:id="@+id/btn_logout"
-            style="@style/SimpleButton"
+            style="@style/button_no_background"
+            android:background="@drawable/button_no_background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:fontFamily="@font/heebo_bold"
             android:text="@string/btn_user_logout"
-            android:textColor="@color/colorPrimaryDark"
             app:layout_constraintBottom_toTopOf="@+id/guideline16"
-            app:layout_constraintStart_toStartOf="@+id/guideline20"
+            app:layout_constraintStart_toStartOf="@+id/center_guideline"
             app:layout_constraintTop_toBottomOf="@+id/user_panel_phone" />
 
         <EditText
@@ -180,6 +174,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center|start"
+            android:paddingStart="4dp"
             android:text="TextView"
             android:textColor="@color/colorText_Hint_simple"
             android:textSize="14sp"
@@ -191,12 +186,12 @@
         <android.support.constraint.Guideline
             android:id="@+id/guideline9"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="36dp"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="150dp" />
 
         <android.support.constraint.Guideline
-            android:id="@+id/guideline20"
+            android:id="@+id/center_guideline"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"

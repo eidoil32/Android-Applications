@@ -45,6 +45,7 @@ public class SpinnerAdapter extends ArrayAdapter<appointment> {
     private View createItemView(int position, View convertView, ViewGroup parent){
         final View view = layoutInflater.inflate(resources, parent, false);
 
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         TextView description = (TextView) view.findViewById(R.id.spinner_adapter_description),
                 price = (TextView) view.findViewById(R.id.spinner_adapter_price);
 
