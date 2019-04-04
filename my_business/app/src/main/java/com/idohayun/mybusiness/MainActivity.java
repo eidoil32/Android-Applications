@@ -21,11 +21,10 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private static FloatingActionButton fab;
     private static final String TAG = "MainActivity";
     private ImageView menuButton;
     private static FragmentManager fragmentManager;
-    private TextView pageTitle;
+    private static TextView pageTitle;
     private ToolsView toolsView = new ToolsView();
     private FrameLayout frameLayout;
     private OrderView orderView;
@@ -41,15 +40,15 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-        fab = (FloatingActionButton) findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        fab = (FloatingActionButton) findViewById(R.id.fab);
+//
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -97,23 +96,18 @@ public class MainActivity extends AppCompatActivity
                     String tag = backEntry.getName();
                     Log.d(TAG, "onBackPressed: " + tag);
                     if (tag.equals("HomePage")) {
-                        fab.show();
                         pageTitle.setVisibility(View.INVISIBLE);
                     } else if (tag.equals("GalleryView")) {
-                        fab.hide();
                         pageTitle.setVisibility(View.VISIBLE);
                         pageTitle.setText(R.string.text_gallery_title);
                     } else if (tag.equals("OrderView")) {
-                        fab.hide();
                         pageTitle.setVisibility(View.VISIBLE);
                         pageTitle.setText(R.string.text_order_title);
                     } else if (tag.equals("ToolsView")) {
-                        fab.hide();
                         pageTitle.setVisibility(View.VISIBLE);
                         pageTitle.setText(R.string.text_tools_title);
                     }
                 } else {
-                    fab.show();
                     pageTitle.setVisibility(View.INVISIBLE);
                 }
                 fragmentManager.popBackStack();
@@ -138,6 +132,11 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    public static void changeTitlePage(String i_title)
+    {
+        pageTitle.setVisibility(View.VISIBLE);
+        pageTitle.setText(i_title);
+    }
 
 
     public static int getUserID() {
@@ -151,18 +150,15 @@ public class MainActivity extends AppCompatActivity
         Fragment foundFragment;
 
         if (id == R.id.nav_homepage) {
-            fab.show();
             pageTitle.setVisibility(View.INVISIBLE);
             fragmentManager.beginTransaction().replace(R.id.fragment, homePage, "HomePage").addToBackStack("HomePage").commit();
             frameLayout.removeAllViews();
         } else if (id == R.id.nav_gallery) {
-            fab.hide();
             pageTitle.setVisibility(View.VISIBLE);
             pageTitle.setText(R.string.text_gallery_title);
             fragmentManager.beginTransaction().replace(R.id.fragment, galleryView, "GalleryView").addToBackStack("GalleryView").commit();
             frameLayout.removeAllViews();
         } else if (id == R.id.nav_order) {
-            fab.hide();
             pageTitle.setVisibility(View.VISIBLE);
             pageTitle.setText(R.string.text_order_title);
             foundFragment = fragmentManager.findFragmentByTag("OrderView");
@@ -174,7 +170,6 @@ public class MainActivity extends AppCompatActivity
                 frameLayout.removeAllViews();
             }
         } else if (id == R.id.nav_manage) {
-            fab.hide();
             pageTitle.setVisibility(View.VISIBLE);
             pageTitle.setText(R.string.text_tools_title);
             fragmentManager.beginTransaction().replace(R.id.fragment, toolsView, "ToolsView").addToBackStack("ToolsView").commit();

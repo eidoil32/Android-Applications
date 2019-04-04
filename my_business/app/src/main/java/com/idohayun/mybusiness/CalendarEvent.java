@@ -67,7 +67,7 @@ public class CalendarEvent {
             @Override
             protected String doInBackground(Void... voids) {
                 try {
-                    URL url = new URL(ServerURLSManager.Appointment_show_list);
+                    URL url = new URL(ServerURLSManager.Appointment_get_appointment_types);
                     HttpURLConnection con = (HttpURLConnection) url.openConnection();
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;
@@ -99,11 +99,11 @@ public class CalendarEvent {
             description = obj.getString("Description");
             lang = obj.getString("Lang");
             price = obj.getInt("Price");
-            if((deviceLocale.equals("he") && lang.equals("Hebrew"))) {
+            if((deviceLocale.equals("iw") && lang.equals("Hebrew"))) {
                 typeList.add(new appointment(description,lang,price));
             } else if (deviceLocale.equals("en") && lang.equals("English")) {
                 typeList.add(new appointment(description, lang, price));
-            } else if (!deviceLocale.equals("en") && !deviceLocale.equals("he") && lang.equals("English")) {
+            } else if (!deviceLocale.equals("en") && !deviceLocale.equals("iw") && lang.equals("English")) {
                 typeList.add(new appointment(description, lang, price)); //default language is english
             }
         }

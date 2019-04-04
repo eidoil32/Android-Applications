@@ -69,6 +69,7 @@ public class OrderView extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        MainActivity.changeTitlePage(getResources().getString(R.string.text_order_title));
         Log.d(TAG, "onActivityCreated: called");
         arguments = getArguments();
         if(arguments != null) {

@@ -3,6 +3,7 @@ package com.idohayun.mybusiness;
 import android.database.Cursor;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -127,7 +128,11 @@ public class baseUSER {
                                 setId(obj.getInt("UserID"));
                                 saveDataToPhone();
                             } else {
-                                Log.d(TAG, "onResponse: failed!");
+                                String errorMessageFromServer = response.getString("message");
+                                if(errorMessageFromServer.equals("user_already_exist"))
+                                    CustomToast.showToast(view.getContext(),
+                                            view.getResources().getString(R.string.register_user_already_exist),0);
+                                Log.d(TAG, "onResponse: failed!, message: " + errorMessageFromServer);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -197,5 +202,39 @@ public class baseUSER {
 
     public boolean logout() {
         return dbHelper.onDeleteData();
+    }
+
+    public boolean validData(TextView errorText) {
+        StringBuilder buildErrorMessage = new StringBuilder();
+        boolean foundSomethingWrong = false;
+        String phoneString = Integer.toString(phone);
+        if(phoneString.length() != 9 || phone < 0 || firstTwoDigitsNotExist(phoneString)) {
+            buildErrorMessage.append(view.getResources().getString(R.string.error_phone_is_invalid));
+            buildErrorMessage.append("\n");
+            foundSomethingWrong = true;
+        }
+        if(name.length() < 3) {
+            buildErrorMessage.append(view.getResources().getString(R.string.error_username_is_less));
+            buildErrorMessage.append("\n");
+            foundSomethingWrong = true;
+        }
+        if(password.length() < 8) {
+            buildErrorMessage.append(view.getResources().getString(R.string.error_password_is_less));
+            buildErrorMessage.append("\n");
+            foundSomethingWrong = true;
+        }
+        errorText.setText(buildErrorMessage);
+        return !foundSomethingWrong;
+    }
+
+    private boolean firstTwoDigitsNotExist(String phoneString) {
+        String firstTwoDigits = Character.toString(phoneString.charAt(0)) + Character.toString(phoneString.charAt(1));
+        int twoDigit = Integer.parseInt(firstTwoDigits);
+
+        if((twoDigit < 50 || twoDigit > 59))
+            if(twoDigit < 64 || twoDigit > 69)
+                return true;
+
+        return false;
     }
 }

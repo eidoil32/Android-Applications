@@ -5,11 +5,16 @@
     android:id="@+id/frameLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:scrollIndicators="start"
+    android:scrollbars="vertical"
     tools:context=".ToolsView">
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:focusable="auto"
+        android:scrollIndicators="start"
+        android:scrollbars="vertical">
 
         <EditText
             android:id="@+id/tools_user_phonenumber"
@@ -20,7 +25,7 @@
             android:layout_marginBottom="8dp"
             android:ems="10"
             android:hint="@string/tools_enter_phone_number"
-            android:inputType="textPersonName"
+            android:inputType="number|textPersonName"
             android:textColorHint="@color/colorText_Hint_simple"
             android:visibility="invisible"
             app:layout_constraintBottom_toTopOf="@+id/guideline10"
@@ -80,12 +85,12 @@
 
         <Button
             android:id="@+id/tools_btn_ok"
+            style="@style/SimpleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            style="@style/SimpleButton"
             android:fontFamily="@font/heebo_bold"
             android:text="@string/btn_user_ok"
             android:visibility="invisible"
@@ -113,6 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:scrollbars="vertical"
             app:layout_constraintGuide_begin="65dp" />
 
         <TextView
@@ -133,12 +139,12 @@
 
         <Button
             android:id="@+id/btn_tools_login"
+            style="@style/SimpleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            style="@style/SimpleButton"
             android:fontFamily="@font/heebo_bold"
             android:text="@string/btn_tools_login"
             android:visibility="visible"
@@ -148,12 +154,12 @@
 
         <Button
             android:id="@+id/btn_tools_register"
+            style="@style/SimpleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            style="@style/SimpleButton"
             android:fontFamily="@font/heebo_bold"
             android:text="@string/btn_register"
             android:visibility="visible"
@@ -166,6 +172,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:scrollbars="vertical"
             app:layout_constraintGuide_begin="130dp" />
 
         <EditText
@@ -203,7 +210,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:scrollbars="vertical"
             app:layout_constraintGuide_begin="340dp" />
+
+        <TextView
+            android:id="@+id/text_error_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tools_btn_ok"
+            tools:text="Error if not entered @string/tools_enter_password" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

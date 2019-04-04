@@ -11,6 +11,7 @@ anim abc_slide_out_bottom
 anim abc_slide_out_top
 anim abc_tooltip_enter
 anim abc_tooltip_exit
+anim bounce
 anim design_bottom_sheet_slide_in
 anim design_bottom_sheet_slide_out
 anim design_snackbar_in
@@ -704,6 +705,7 @@ color toast_success
 color toast_text_color
 color tooltip_background_dark
 color tooltip_background_light
+color transparent
 color white_text
 dimen abc_action_bar_content_inset_material
 dimen abc_action_bar_content_inset_with_nav
@@ -1218,6 +1220,7 @@ id guideline18
 id guideline19
 id guideline2
 id guideline20
+id guideline21
 id guideline3
 id guideline4
 id guideline5
@@ -1227,6 +1230,7 @@ id guideline8
 id guideline9
 id home
 id homeAsUp
+id homepage_user_details
 id icon
 id icon_group
 id ifRoom
@@ -1350,6 +1354,7 @@ id textSpacerNoTitle
 id textStart
 id textView3
 id textView4
+id text_error_type
 id text_input_password_toggle
 id text_password
 id text_password2
@@ -1549,13 +1554,17 @@ string character_counter_pattern
 string copyrights
 string dialog_new_apt_title
 string error_download_images
+string error_entered_invalid_data
+string error_need_to_fill_all_fields
+string error_password_is_less
 string error_permissions
+string error_phone_is_invalid
+string error_username_is_less
 string event_desctiption_with_type
 string event_location
 string fab_transformation_scrim_behavior
 string fab_transformation_sheet_behavior
 string gallery_title_image
-string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string homepage_enjoy
 string homepage_welcome
@@ -1593,6 +1602,7 @@ string path_password_strike_through
 string permissions_granted_successfully
 string permissions_no_granted
 string refresh_gallery_msg
+string register_user_already_exist
 string search_menu_title
 string status_bar_notification_info_overflow
 string text_choose_type
@@ -1618,6 +1628,8 @@ string user_connect_successfully
 string user_logout_failed
 string user_logout_success
 string user_registered_successfully
+string welcome_user_doesnt_exist
+string welcome_user_exist_text
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style Animation_AppCompat_Dialog

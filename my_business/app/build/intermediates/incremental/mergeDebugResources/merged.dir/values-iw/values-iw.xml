@@ -37,20 +37,25 @@
     <string name="btn_tools_login">התחברות</string>
     <string name="btn_tools_logout">התנתקי</string>
     <string name="btn_tools_save">שמירה</string>
-    <string name="btn_user_logout">LOGOUT</string>
+    <string name="btn_user_logout">התנתקות</string>
     <string name="btn_user_ok">אישור</string>
     <string name="copyrights">Design by OMRI DESIGN | create by Ido Hayun</string>
     <string name="dialog_new_apt_title">קבעי את הפגישה הבאה שלך!</string>
     <string name="error_download_images">מצטערים! אבל יש כאן תקלה</string>
-    <string name="error_permissions">FATAL ERROR!</string>
+    <string name="error_entered_invalid_data">מצטערים! אבל הנתונים שהוזנו שגויים</string>
+    <string name="error_need_to_fill_all_fields">שגיאה! עליך למלא את כל השדות</string>
+    <string name="error_password_is_less">סיסמה קטנה מ8 תווים</string>
+    <string name="error_permissions">שגיאה לא ידועה!</string>
+    <string name="error_phone_is_invalid">מספר טלפון לא תקין</string>
+    <string name="error_username_is_less">שם משתמש מתחת ל3 תווים</string>
     <string name="event_desctiption_with_type">ההזמנה שלך לLior beauty לתור מסוג %1$2s</string>
     <string name="event_location">אפרים קישון 8, באר יעקב</string>
     <string name="gallery_title_image">גלריה</string>
     <string name="homepage_enjoy">למראה החדש שלך!</string>
     <string name="homepage_welcome">ברוכה הבאה</string>
-    <string name="login_error_unknown">Unknown Error!</string>
-    <string name="login_password_incorrect">Password wrong!</string>
-    <string name="login_user_not_found">User doesn\'t exist!</string>
+    <string name="login_error_unknown">שגיאה לא ידועה!</string>
+    <string name="login_password_incorrect">סיסמה שגויה!</string>
+    <string name="login_user_not_found">משתמש לא קיים!</string>
     <string name="menu_communicate">שיתוף</string>
     <string name="nav_gallery_string">גלריה</string>
     <string name="nav_header_desc">Navigation header</string>
@@ -73,9 +78,10 @@
     <string name="order_btn_select_date">בחרי</string>
     <string name="order_please_select_date">אנא בחרי תאריך</string>
     <string name="password_hint">-הסיסמה שלך-</string>
-    <string name="permissions_granted_successfully">Permissions granted successfully!</string>
-    <string name="permissions_no_granted">No permissions! Action canceled</string>
+    <string name="permissions_granted_successfully">הרשאות ניתנו בהצלחה!</string>
+    <string name="permissions_no_granted">לא התקבלו הרשאות, הפעולה מבוטלת!</string>
     <string name="refresh_gallery_msg">מרענן</string>
+    <string name="register_user_already_exist">מצטערים! אבל מישהו כבר רשום עם מספר טלפון כזה</string>
     <string msgid="146198913615257606" name="search_menu_title">"חיפוש"</string>
     <string msgid="7988687684186075107" name="status_bar_notification_info_overflow">"999+"</string>
     <string name="text_choose_type">בחרי את סוג הטיפול</string>
@@ -97,8 +103,10 @@
     <string name="tools_user_name">שם משתמש</string>
     <string name="tools_welcome_guest">ברוכה הבאה אורחת יקרה!</string>
     <string name="tools_welcome_text">ברוך הבא %1$s</string>
-    <string name="user_connect_successfully">Connected successfully</string>
-    <string name="user_logout_failed">Logout failed! please try again later</string>
-    <string name="user_logout_success">Logging out successfully</string>
-    <string name="user_registered_successfully">You Have Been Successfully Registered!</string>
+    <string name="user_connect_successfully">התחברות בוצעה בהצלחה</string>
+    <string name="user_logout_failed">התנתקות נכשלה! אנא נסי יותר מאוחר</string>
+    <string name="user_logout_success">התנתקות בוצעה בהצלחה</string>
+    <string name="user_registered_successfully">נירשמת בהצלחה!</string>
+    <string name="welcome_user_doesnt_exist">Welcome dear guest!\\nregister now and make new appointment faster and easier</string>
+    <string name="welcome_user_exist_text">ברוכה הבאה %s%n</string>
 </resources>

@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -35,13 +36,14 @@ public class GalleryView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        MainActivity.changeTitlePage(inflater.getContext().getResources().getString(R.string.text_gallery_title));
         return inflater.inflate(R.layout.fragment_gallery_view, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         gridView = view.findViewById(R.id.gallery_grid_view);
         getImagesURLsFromServer = new GetImagesURLsFromServer();
         getImagesURLsFromServer.CreateImageGridView(view.getContext(),gridView);

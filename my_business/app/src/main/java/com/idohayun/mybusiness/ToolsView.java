@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,7 +30,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ToolsView extends Fragment {
-    private TextView password, username, phone;
+    private TextView password, username, phone, errorText;
     private baseUSER baseUSER = new baseUSER();
     private Button btnLogin, btnRegister, btnOK;
     private String input_username = null, input_password = null, input_phone = null;
@@ -67,13 +68,17 @@ public class ToolsView extends Fragment {
         password = (TextView) view.findViewById(R.id.tools_user_password);
         username = (TextView) view.findViewById(R.id.tools_user_name);
         phone = (TextView) view.findViewById(R.id.tools_user_phonenumber);
+        errorText = (TextView) view.findViewById(R.id.text_error_type);
         btnRegister = (Button) view.findViewById(R.id.btn_tools_register);
         btnLogin = (Button) view.findViewById(R.id.btn_tools_login);
         btnOK = (Button) view.findViewById(R.id.tools_btn_ok);
 
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                errorText.clearAnimation();
+                errorText.setVisibility(View.GONE);
                 phone.setVisibility(View.VISIBLE);
                 password.setVisibility(View.VISIBLE);
                 username.setVisibility(View.VISIBLE);
@@ -82,6 +87,7 @@ public class ToolsView extends Fragment {
                 view.findViewById(R.id.text_phone_number2).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.text_user_name2).setVisibility(View.VISIBLE);
 
+
                 btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -89,18 +95,29 @@ public class ToolsView extends Fragment {
                         input_phone = phone.getText().toString();
                         input_password = password.getText().toString();
 
-                        if(!input_password.isEmpty() && !input_password.isEmpty() && !input_username.isEmpty()) {
+                        if(!input_password.isEmpty() && !input_phone.isEmpty() && !input_username.isEmpty()) {
                             baseUSER.getUserDetails(view);
                             baseUSER.setView(view);
                             baseUSER.setName(input_username);
                             baseUSER.setPassword(input_password);
                             baseUSER.setPhone(Integer.parseInt(input_phone));
-                            baseUSER.add_newUserToDB();
-                            if(baseUSER.isExist()) {
-                                CustomToast.showToast(getContext(),getString(R.string.user_registered_successfully),1);
-                                getFragmentManager().popBackStack();
-                                getFragmentManager().beginTransaction().replace(R.id.fragment,new UserPanel()).commit();
+                            if(baseUSER.validData(errorText)) {
+                                baseUSER.add_newUserToDB();
+                                if (baseUSER.isExist()) {
+                                    CustomToast.showToast(getContext(), getString(R.string.user_registered_successfully), 1);
+                                    getFragmentManager().popBackStack();
+                                    getFragmentManager().beginTransaction().replace(R.id.fragment, new UserPanel()).commit();
+                                }
+                            } else {
+                                errorText.setVisibility(View.VISIBLE);
+                                errorText.setTextColor(getResources().getColor(R.color.toast_error,null));
+                                errorText.setAnimation(AnimationUtils.loadAnimation(view.getContext(),R.anim.bounce));
                             }
+                        } else {
+                            errorText.setVisibility(View.VISIBLE);
+                            errorText.setTextColor(getResources().getColor(R.color.toast_error,null));
+                            errorText.setText(getString(R.string.error_need_to_fill_all_fields));
+                            errorText.setAnimation(AnimationUtils.loadAnimation(view.getContext(),R.anim.bounce));
                         }
                     }
                 });
@@ -111,6 +128,8 @@ public class ToolsView extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                errorText.clearAnimation();
+                errorText.setVisibility(View.GONE);
                 view.findViewById(R.id.text_password2).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.text_phone_number2).setVisibility(View.VISIBLE);
                 view.findViewById(R.id.text_user_name2).setVisibility(View.INVISIBLE);
@@ -127,8 +146,11 @@ public class ToolsView extends Fragment {
                         s_phone = phone.getText().toString();
                         Log.d(TAG, "onClick: phone: " + s_phone + " password: " + s_password);
                         if(s_phone.isEmpty() || s_password.isEmpty()) {
-
+                            errorText.setVisibility(View.VISIBLE);
+                            errorText.setTextColor(getResources().getColor(R.color.toast_error,null));
+                            errorText.setText(getString(R.string.error_need_to_fill_all_fields));
                         } else {
+                            errorText.setVisibility(View.INVISIBLE);
                             loginUser(view.getContext(),s_phone,s_password);
                         }
                     }

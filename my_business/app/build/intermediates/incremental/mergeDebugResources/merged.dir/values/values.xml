@@ -267,6 +267,7 @@
     <color name="toast_text_color">#FFFFFF</color>
     <color name="tooltip_background_dark">#e6616161</color>
     <color name="tooltip_background_light">#e6FFFFFF</color>
+    <color name="transparent">#00000000</color>
     <color name="white_text">#FFFFFF</color>
     <dimen name="abc_action_bar_content_inset_material">16dp</dimen>
     <dimen name="abc_action_bar_content_inset_with_nav">72dp</dimen>
@@ -604,13 +605,17 @@
     <string name="copyrights">Design by OMRI DESIGN | create by Ido Hayun</string>
     <string name="dialog_new_apt_title">Make an appointment!</string>
     <string name="error_download_images">Sorry! we have an error</string>
+    <string name="error_entered_invalid_data">Sorry, but you entered invalid data</string>
+    <string name="error_need_to_fill_all_fields">Error! you need to fill all the fields</string>
+    <string name="error_password_is_less">Password less than 8 characters</string>
     <string name="error_permissions">FATAL ERROR!</string>
+    <string name="error_phone_is_invalid">Phone number is invalid</string>
+    <string name="error_username_is_less">User name is less than 3 characters</string>
     <string name="event_desctiption_with_type">Your appointment for Lior beauty about %1$2s</string>
     <string name="event_location">Efrayim Kishon Street 8, Be\'er Ya\'akov</string>
     <string name="fab_transformation_scrim_behavior" translatable="false">android.support.design.transformation.FabTransformationScrimBehavior</string>
     <string name="fab_transformation_sheet_behavior" translatable="false">android.support.design.transformation.FabTransformationSheetBehavior</string>
     <string name="gallery_title_image">Gallery</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">android.support.design.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="homepage_enjoy">And be ready to enjoy your new look!</string>
     <string name="homepage_welcome">WELCOME</string>
@@ -639,7 +644,7 @@
     <string name="order_adapter_your_order">This is your order, you can add it to your calendar!</string>
     <string name="order_btn_select_date">SELECT</string>
     <string name="order_please_select_date">Please select date</string>
-    <string name="password_hint">-Your password-</string>
+    <string name="password_hint">Your password</string>
     <string name="password_toggle_content_description">Show password</string>
     <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
     <string name="path_password_eye_mask_strike_through" translatable="false">M2,4.27 L19.73,22 L22.27,19.46 L4.54,1.73 L4.54,1 L23,1 L23,23 L1,23 L1,4.27 Z</string>
@@ -647,7 +652,8 @@
     <string name="path_password_strike_through" translatable="false">M3.27,4.27 L19.74,20.74</string>
     <string name="permissions_granted_successfully">Permissions granted successfully!</string>
     <string name="permissions_no_granted">No permissions! Action canceled</string>
-    <string name="refresh_gallery_msg">Refresh...</string>
+    <string name="refresh_gallery_msg">Refreshing</string>
+    <string name="register_user_already_exist">Sorry! but this phone is already exist!</string>
     <string name="search_menu_title">Search</string>
     <string name="status_bar_notification_info_overflow">999+</string>
     <string name="text_choose_type">Type of treatment:</string>
@@ -673,6 +679,8 @@
     <string name="user_logout_failed">Logout failed! please try again later</string>
     <string name="user_logout_success">Logging out successfully</string>
     <string name="user_registered_successfully">You Have Been Successfully Registered!</string>
+    <string name="welcome_user_doesnt_exist">Welcome dear guest!\\nregister now and make new appointment faster and easier</string>
+    <string name="welcome_user_exist_text">Welcome %s%n</string>
     <style name="AlertDialog.AppCompat" parent="Base.AlertDialog.AppCompat"/>
     <style name="AlertDialog.AppCompat.Light" parent="Base.AlertDialog.AppCompat.Light"/>
     <style name="Animation.AppCompat.Dialog" parent="Base.Animation.AppCompat.Dialog"/>
@@ -683,7 +691,7 @@
     <item name="android:windowExitAnimation">@anim/design_bottom_sheet_slide_out</item>
   </style>
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="android:background">@color/colorBackground</item>
+        <item name="android:background">@color/transparent</item>
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -2132,7 +2140,7 @@
     <item name="android:backgroundDimEnabled">false</item>
   </style>
     <style name="MainActivityTheme" parent="AppTheme">
-        <item name="android:background">@color/colorBackground</item>
+        <item name="android:background">@color/transparent</item>
     </style>
     <style name="MyAppTheme.NoAction" parent="AppTheme">
         <item name="android:windowNoTitle">true</item>

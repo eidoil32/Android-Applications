@@ -88,34 +88,34 @@ public final class R {
         public static final int chronometer = 0x7f09003b;
         public static final int forever = 0x7f09006e;
         public static final int ghost_view = 0x7f090073;
-        public static final int icon = 0x7f09008f;
-        public static final int icon_group = 0x7f090090;
-        public static final int info = 0x7f090094;
-        public static final int italic = 0x7f090096;
-        public static final int line1 = 0x7f09009b;
-        public static final int line3 = 0x7f09009c;
-        public static final int normal = 0x7f0900b7;
-        public static final int notification_background = 0x7f0900b8;
-        public static final int notification_main_column = 0x7f0900b9;
-        public static final int notification_main_column_container = 0x7f0900ba;
-        public static final int parent_matrix = 0x7f0900c9;
-        public static final int right_icon = 0x7f0900d0;
-        public static final int right_side = 0x7f0900d1;
-        public static final int save_image_matrix = 0x7f0900d2;
-        public static final int save_non_transition_alpha = 0x7f0900d3;
-        public static final int save_scale_type = 0x7f0900d4;
-        public static final int tag_transition_group = 0x7f090100;
-        public static final int tag_unhandled_key_event_manager = 0x7f090101;
-        public static final int tag_unhandled_key_listeners = 0x7f090102;
-        public static final int text = 0x7f090103;
-        public static final int text2 = 0x7f090104;
-        public static final int time = 0x7f090115;
-        public static final int title = 0x7f090116;
-        public static final int transition_current_scene = 0x7f090121;
-        public static final int transition_layout_save = 0x7f090122;
-        public static final int transition_position = 0x7f090123;
-        public static final int transition_scene_layoutid_cache = 0x7f090124;
-        public static final int transition_transform = 0x7f090125;
+        public static final int icon = 0x7f090091;
+        public static final int icon_group = 0x7f090092;
+        public static final int info = 0x7f090096;
+        public static final int italic = 0x7f090098;
+        public static final int line1 = 0x7f09009d;
+        public static final int line3 = 0x7f09009e;
+        public static final int normal = 0x7f0900b9;
+        public static final int notification_background = 0x7f0900ba;
+        public static final int notification_main_column = 0x7f0900bb;
+        public static final int notification_main_column_container = 0x7f0900bc;
+        public static final int parent_matrix = 0x7f0900cb;
+        public static final int right_icon = 0x7f0900d2;
+        public static final int right_side = 0x7f0900d3;
+        public static final int save_image_matrix = 0x7f0900d4;
+        public static final int save_non_transition_alpha = 0x7f0900d5;
+        public static final int save_scale_type = 0x7f0900d6;
+        public static final int tag_transition_group = 0x7f090102;
+        public static final int tag_unhandled_key_event_manager = 0x7f090103;
+        public static final int tag_unhandled_key_listeners = 0x7f090104;
+        public static final int text = 0x7f090105;
+        public static final int text2 = 0x7f090106;
+        public static final int time = 0x7f090118;
+        public static final int title = 0x7f090119;
+        public static final int transition_current_scene = 0x7f090124;
+        public static final int transition_layout_save = 0x7f090125;
+        public static final int transition_position = 0x7f090126;
+        public static final int transition_scene_layoutid_cache = 0x7f090127;
+        public static final int transition_transform = 0x7f090128;
     }
     public static final class integer {
         private integer() {}
@@ -135,7 +135,7 @@ public final class R {
     public static final class string {
         private string() {}
 
-        public static final int status_bar_notification_info_overflow = 0x7f0f0067;
+        public static final int status_bar_notification_info_overflow = 0x7f0f006c;
     }
     public static final class style {
         private style() {}

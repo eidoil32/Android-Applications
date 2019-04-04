@@ -24,7 +24,7 @@ import java.util.Locale;
 public class HomePage extends Fragment {
     private static NavigationView navigationView;
     private static String deviceLocale = Locale.getDefault().getLanguage();
-    private static TextView pageTitle;
+    private static TextView pageTitle, userState;
 
     public HomePage() {
         // Required empty public constructor
@@ -55,6 +55,15 @@ public class HomePage extends Fragment {
         final FrameLayout frameLayout = (FrameLayout) ((Activity)(context)).findViewById(R.id.fragment);
         appointmentButton = (ImageView) ((Activity)(context)).findViewById(R.id.btn_new_appointment);
         galleryButton = (ImageView) ((Activity)(context)).findViewById(R.id.btn_gallery);
+        userState = (TextView) ((Activity)(context)).findViewById(R.id.homepage_user_details);
+        baseUSER user = new baseUSER();
+        user.getUserDetails(((Activity)(context)).getCurrentFocus());
+        if(user.isExist()) {
+            userState.setText(context.getString(R.string.welcome_user_exist_text,user.getName()));
+        } else {
+            userState.setText(context.getString(R.string.welcome_user_doesnt_exist));
+        }
+
 
         appointmentButton.setOnClickListener(new View.OnClickListener() {
             @Override

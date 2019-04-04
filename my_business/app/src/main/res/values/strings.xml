@@ -52,9 +52,8 @@
     <string name="tools_enter_phone_number">Phone number</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="text_username_exist">User name:</string>
-    <string name="password_hint">-Your password-</string>
+    <string name="password_hint">Your password</string>
     <string name="tools_welcome_guest">Welcome dear guest</string>
     <string name="btn_user_ok">OK</string>
     <string name="copyrights">Design by OMRI DESIGN | create by Ido Hayun</string>
@@ -62,7 +61,7 @@
     <string name="text_order_title">Order</string>
     <string name="text_tools_title">My Account</string>
     <string name="error_download_images">Sorry! we have an error</string>
-    <string name="refresh_gallery_msg">Refresh...</string>
+    <string name="refresh_gallery_msg">Refreshing</string>
     <string name="event_desctiption_with_type">Your appointment for Lior beauty about %1$2s</string>
     <string name="event_location">Efrayim Kishon Street 8, Be\'er Ya\'akov</string>
     <string name="user_registered_successfully">You Have Been Successfully Registered!</string>
@@ -76,4 +75,12 @@
     <string name="login_error_unknown">Unknown Error!</string>
     <string name="user_connect_successfully">Connected successfully</string>
     <string name="user_logout_success">Logging out successfully</string>
+    <string name="error_need_to_fill_all_fields">Error! you need to fill all the fields</string>
+    <string name="register_user_already_exist">Sorry! but this phone is already exist!</string>
+    <string name="error_entered_invalid_data">Sorry, but you entered invalid data</string>
+    <string name="error_phone_is_invalid">Phone number is invalid</string>
+    <string name="error_username_is_less">User name is less than 3 characters</string>
+    <string name="error_password_is_less">Password less than 8 characters</string>
+    <string name="welcome_user_exist_text">Welcome %s%n</string>
+    <string name="welcome_user_doesnt_exist">Welcome dear guest!\\nregister now and make new appointment faster and easier</string>
 </resources>
