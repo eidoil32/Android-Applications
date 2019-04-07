@@ -1,12 +1,10 @@
 package com.idohayun.mybusiness;
 
 
-import android.app.Activity;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -20,30 +18,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Objects;
 
-import static java.lang.Boolean.valueOf;
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class OrderView extends Fragment {
     private static final String TAG = "OrderView";
     private ListView listView;
     private TextView selectedDate;
-    private Button selectDateBtn;
-    private static Context context;
+    private Context context;
     private static int calendar_day, calendar_month, calendar_year;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    private static ProgressBar progressBar;
+    private ProgressBar progressBar;
     private static boolean dateSelected = false;
     private SwipeRefreshLayout swipeRefreshLayout;
     final Calendar calendar = Calendar.getInstance();
@@ -80,27 +69,57 @@ public class OrderView extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onDestroy() {
+        super.onDestroy();
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_order_view, container, false);
         view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         container.removeAllViews();
-
+        Button selectDateBtn;
+        context = view.getContext();
         MainActivity.changeTitlePage(getResources().getString(R.string.text_order_title));
+        //DatesListAdapter.changeOrientation();
+        selectDateBtn = view.findViewById(R.id.order_btn_select_date);
+        selectedDate = view.findViewById(R.id.order_show_selected_date);
+        listView = view.findViewById(R.id.order_appointment_list);
+        progressBar = view.findViewById(R.id.order_progressBar);
 
-        selectDateBtn = (Button) view.findViewById(R.id.order_btn_select_date);
-        selectedDate = (TextView) view.findViewById(R.id.order_show_selected_date);
-        listView = (ListView) view.findViewById(R.id.order_appointment_list);
-        progressBar = (ProgressBar) view.findViewById(R.id.order_progressBar);
-        int orientation = view.getContext().getResources().getConfiguration().orientation;
+        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
+            public void onSwipeLeft() {
+                Log.d(TAG, "onSwipeRight: swipeRight!");
+                if(dateSelected) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(calendar_year,calendar_month,calendar_day);
+                    cal.add( Calendar.DATE, 1 );
+                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
+                    calendar_month = cal.get(Calendar.MONTH);
+                    calendar_year = cal.get(Calendar.YEAR);
+                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+                    selectedDate.setText(fullDate);
+                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
+                }
+            }
+            public void onSwipeRight() {
+                Log.d(TAG, "onSwipeRight: swipeRight!");
+                if(dateSelected) {
+                    Calendar cal = Calendar.getInstance();
+                    cal.set(calendar_year,calendar_month,calendar_day);
+                    cal.add( Calendar.DATE, -1 );
+                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
+                    calendar_month = cal.get(Calendar.MONTH);
+                    calendar_year = cal.get(Calendar.YEAR);
+                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+                    selectedDate.setText(fullDate);
+                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
+                }
+            }
+        });
 
         if (savedInstanceState != null) {
-
-            if (orientation == Configuration.ORIENTATION_PORTRAIT) {
-
-            } else {
-
-            }
-
             Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
             calendar_year = savedInstanceState.getInt(saveYear,0);
             calendar_month = savedInstanceState.getInt(saveMonth,0);
@@ -110,20 +129,15 @@ public class OrderView extends Fragment {
             if (calendar_day != 0 && calendar_month != 0 && calendar_year != 0) {
                 Log.d(TAG, "onCreateView: in " + calendar_day + "/" + (calendar_month) + "/" + calendar_year);
 
-                selectedDate.setText(calendar_day + "/" + (calendar_month) + "/" + calendar_year);
+                String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+                selectedDate.setText(fullDate);
                 GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
             } else {
-                calendar_year = calendar.get(Calendar.YEAR);
-                calendar_month = calendar.get(Calendar.MONTH) + 1;
-                calendar_day = calendar.get(Calendar.DAY_OF_MONTH);
+                setDate(calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.MONTH) + 1,calendar.get(Calendar.YEAR));
             }
         } else {
-            calendar_year = calendar.get(Calendar.YEAR);
-            calendar_month = calendar.get(Calendar.MONTH) + 1;
-            calendar_day = calendar.get(Calendar.DAY_OF_MONTH);
+            setDate(calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.MONTH) + 1,calendar.get(Calendar.YEAR));
         }
-
-        context = view.getContext();
 
         selectDateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -132,7 +146,7 @@ public class OrderView extends Fragment {
                         context,
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener, calendar_year, calendar_month - 1, calendar_day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
                 dialog.getDatePicker().setSpinnersShown(true);
                 Log.d(TAG, "onClick: click select button");
@@ -145,13 +159,15 @@ public class OrderView extends Fragment {
                 calendar_year = year;
                 calendar_day = dayOfMonth;
                 calendar_month = month + 1;
-                selectedDate.setText(calendar_day + "/" + (calendar_month) + "/" + calendar_year);
+                String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+                selectedDate.setText(fullDate);
                 dateSelected = true;
+                swipeRefreshLayout.setVisibility(View.VISIBLE);
                 GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
             }
         };
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.order_swipe_refresh);
+        swipeRefreshLayout = view.findViewById(R.id.order_swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -163,6 +179,7 @@ public class OrderView extends Fragment {
         });
         return view;
     }
+
 
     @Override
     public void onViewCreated(@NonNull final View view, @Nullable Bundle savedInstanceState) {
@@ -181,5 +198,9 @@ public class OrderView extends Fragment {
         }
     }
 
-
+    private void setDate(int i_day, int i_month, int i_year) {
+        calendar_year = i_year;
+        calendar_month = i_month;
+        calendar_day = i_day;
+    }
 }

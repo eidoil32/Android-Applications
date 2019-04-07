@@ -1,11 +1,13 @@
 package com.idohayun.mybusiness;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.constraint.Guideline;
 import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
@@ -37,22 +39,21 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class DatesListAdapter extends ArrayAdapter {
     private static final String TAG = "DatesListAdapter";
     private final int layoutResource;
     private final LayoutInflater layoutInflater;
     private List<DateArray> dateArrayList;
-    private static List<appointment> list;
-    private static List<String> typeList;
     private static String fullDate, fullTime;
     private static int type;
     private Map<String, String> appointmentDetails = new HashMap<>();
-    private static Context context;
+    private final Context context;
     private static boolean is_addName = false, is_addPhone = false, is_chooseType = false;
-    private static Button btnCancel, btnOK;
-    private static TextView username, phoneNumber, dialog_date, dialog_time;
-    private static Spinner treatmentTypes;
+    private Button btnCancel, btnOK;
+    private TextView username, phoneNumber, dialog_date, dialog_time;
+    private Spinner treatmentTypes;
     private int colorBad = Color.RED, colorGood = Color.GRAY;
     private ColorStateList colorStateListBAD = ColorStateList.valueOf(colorBad),
             colorStateListGOOD = ColorStateList.valueOf(colorGood);
@@ -63,8 +64,9 @@ public class DatesListAdapter extends ArrayAdapter {
     private static Map<String,String> map = new HashMap<>();
     private final ListView listView;
     private final ProgressBar progressBar;
+    private static ViewHolder viewHolder = null;
 
-    public DatesListAdapter(Context context, int resource, List<DateArray> dateArrayList, ListView listView, ProgressBar progressBar) {
+    DatesListAdapter(Context context, int resource, List<DateArray> dateArrayList, ListView listView, ProgressBar progressBar) {
         super(context, resource);
         this.layoutResource = resource;
         this.layoutInflater = LayoutInflater.from(context);
@@ -79,9 +81,9 @@ public class DatesListAdapter extends ArrayAdapter {
         return dateArrayList.size();
     }
 
+    @NonNull
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder;
+    public View getView(final int position, View convertView, @NonNull ViewGroup parent) {
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(layoutResource, parent, false);
@@ -136,7 +138,7 @@ public class DatesListAdapter extends ArrayAdapter {
             viewHolder.option.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    orderButton(position,viewHolder,v);
+                    orderButton(position,viewHolder,viewHolder.getView());
                 }
             });
         }
@@ -156,20 +158,17 @@ public class DatesListAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(viewHolder.dialogConfirmDelete.getWindow().getAttributes());
-        int orientation = v.getContext().getResources().getConfiguration().orientation;
-        int dialogWindowWidth = displayWidth;
-        final int dialogWindowHeight = displayHeight;
-        layoutParams.width = dialogWindowWidth;
-        layoutParams.height = dialogWindowHeight/2;
-        Guideline guideline = (Guideline) viewHolder.dialogConfirmDelete.findViewById(R.id.guide_center_line);
+        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogConfirmDelete.getWindow()).getAttributes());
+        layoutParams.width = displayWidth;
+        layoutParams.height = displayHeight/2;
+        Guideline guideline = viewHolder.dialogConfirmDelete.findViewById(R.id.guide_center_line);
         guideline.setGuidelineBegin((displayWidth - (int)(20*displayMetrics.density))/2);
-        dialog_date = (TextView) viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_date);
-        dialog_time = (TextView) viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_time);
+        dialog_date = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_date);
+        dialog_time = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_time);
         dialog_date.setText(fullDate);
         dialog_time.setText(fullTime);
-        btnCancel = (Button) viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_cancel);
-        btnOK = (Button) viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_ok);
+        btnCancel = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_cancel);
+        btnOK = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_ok);
 
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -233,10 +232,9 @@ public class DatesListAdapter extends ArrayAdapter {
         viewHolder.dialogConfirmDelete.getWindow().setAttributes(layoutParams);
     }
 
-
-
     private void orderButton(int position, final ViewHolder viewHolder, View v) {
         Log.d(TAG, "onClick: selecting on order button, position = " + position);
+        viewHolder.dialogConfirmDelete.setContentView(R.layout.dialog_make_new_appointment);
         currentDate = dateArrayList.get(position);
         String min = currentDate.getMin() < 10 ? currentDate.getMin() + "0" : Integer.toString(currentDate.getMin());
         fullDate = currentDate.getDay() + "/" + currentDate.getMonth() + "/" + currentDate.getYear();
@@ -246,19 +244,17 @@ public class DatesListAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(viewHolder.dialogNewAppointment.getWindow().getAttributes());
+        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogNewAppointment.getWindow()).getAttributes());
         int orientation = v.getContext().getResources().getConfiguration().orientation;
-        int dialogWindowWidth = displayWidth;
-        final int dialogWindowHeight = displayHeight;
         if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutParams.width = dialogWindowWidth;
-            layoutParams.height = dialogWindowHeight - (int) (50 * displayMetrics.density);
-            Guideline guideline = (Guideline) viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
+            layoutParams.width = displayWidth;
+            layoutParams.height = displayHeight - (int) (50 * displayMetrics.density);
+            Guideline guideline = viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
             guideline.setGuidelineBegin((displayWidth - (int) (20 * displayMetrics.density)) / 2);
         } else { // is landscape mode
-            layoutParams.width = dialogWindowWidth - (int) (50 * displayMetrics.density);
-            layoutParams.height = dialogWindowHeight - (int) (50 * displayMetrics.density) / 2;
-            Guideline guideline = (Guideline) viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
+            layoutParams.width = displayWidth - (int) (50 * displayMetrics.density);
+            layoutParams.height = displayHeight - (int) (50 * displayMetrics.density) / 2;
+            Guideline guideline = viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
             guideline.setGuidelineBegin((displayWidth / 2) - (int) (20 * displayMetrics.density));
         }
 
@@ -268,18 +264,17 @@ public class DatesListAdapter extends ArrayAdapter {
         appointmentDetails.put("Year", Integer.toString(currentDate.getYear()));
         appointmentDetails.put("Hour", Integer.toString(currentDate.getHour()));
         appointmentDetails.put("Min", Integer.toString(currentDate.getMin()));
-        appointmentDetails.put("UserID", Integer.toString(user.getId()));
 
-        dialog_date = (TextView) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_date);
-        dialog_time = (TextView) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_time);
+        dialog_date = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_date);
+        dialog_time = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_time);
         dialog_date.setText(fullDate);
         dialog_time.setText(fullTime);
-        treatmentTypes = (Spinner) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_type_list);
+        treatmentTypes = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_type_list);
         treatmentTypes.setDropDownWidth((int) (displayWidth * 0.5f));
-        btnCancel = (Button) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_cancel);
-        btnOK = (Button) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_ok);
-        username = (TextView) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_name);
-        phoneNumber = (TextView) viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_phone);
+        btnCancel = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_cancel);
+        btnOK = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_ok);
+        username = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_name);
+        phoneNumber = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_phone);
 
         GetTypesOfTreatments getTypesOfTreatments = new GetTypesOfTreatments();
         getTypesOfTreatments.getListOfTypes(context, treatmentTypes);
@@ -297,7 +292,8 @@ public class DatesListAdapter extends ArrayAdapter {
             appointmentDetails.put("UserID", Integer.toString(user.getId()));
             username.setText(user.getName());
             username.setEnabled(false);
-            phoneNumber.setText(Integer.toString(user.getPhone()));
+            String userPhone = Integer.toString(user.getPhone());
+            phoneNumber.setText(userPhone);
             phoneNumber.setEnabled(false);
 
             is_addName = true;
@@ -330,9 +326,21 @@ public class DatesListAdapter extends ArrayAdapter {
                         ViewCompat.setBackgroundTintList(username, colorStateListBAD);
                         Log.d(TAG, "onClick: name empty");
                     }
-                    if (!phoneNumber.getText().toString().isEmpty()) {
-                        is_addPhone = true;
-                        appointmentDetails.put("Phone", phoneNumber.getText().toString());
+                    int int_phoneNumber;
+                    try {
+                        int_phoneNumber = Integer.parseInt(phoneNumber.getText().toString());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        int_phoneNumber = 0;
+                    }
+                    if (int_phoneNumber != 0) {
+                        if(Integer.toString(int_phoneNumber).length() != 9 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
+                            is_addPhone = true;
+                            appointmentDetails.put("Phone", phoneNumber.getText().toString());
+                        } else {
+                            ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
+                            Log.d(TAG, "onClick: phone invalid");
+                        }
                     } else {
                         ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
                         Log.d(TAG, "onClick: phone empty");
@@ -346,6 +354,9 @@ public class DatesListAdapter extends ArrayAdapter {
                 }
                 if (is_chooseType && is_addPhone && is_addName) {
                     RequestQueue queue = Volley.newRequestQueue(getContext());
+                    if(!user.isExist()) {
+                        user.setGuestUser(viewHolder.getView(),Integer.parseInt(phoneNumber.getText().toString()),username.getText().toString(),appointmentDetails);
+                    }
                     ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
                     ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
                     ViewCompat.setBackgroundTintList(treatmentTypes, colorStateListGOOD);
@@ -364,6 +375,7 @@ public class DatesListAdapter extends ArrayAdapter {
                                             GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
                                             viewHolder.dialogNewAppointment.cancel();
                                         } else {
+                                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
                                             Log.d(TAG, "onResponse: Failed!! " + response.getString("data"));
                                         }
                                     } catch (JSONException e) {
@@ -374,7 +386,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d(TAG, "onResponse: Failed!!");
-                            Toast.makeText(context, context.getString(R.string.new_window_failed), Toast.LENGTH_SHORT).show();
+                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
 
                         }
                     });
@@ -393,13 +405,12 @@ public class DatesListAdapter extends ArrayAdapter {
         final View view;
         final ImageView deleteButton;
 
-
         ViewHolder(View v) {
-            this.textDate = (TextView) v.findViewById(R.id.order_adapter_date);
-            this.textTime = (TextView) v.findViewById(R.id.order_adapter_time);
-            this.textStatus = (TextView) v.findViewById(R.id.order_adapter_status);
-            this.option = (Button) v.findViewById(R.id.order_adapter_btn_option);
-            this.deleteButton = (ImageView) v.findViewById(R.id.order_adatper_delete);
+            this.textDate = v.findViewById(R.id.order_adapter_date);
+            this.textTime = v.findViewById(R.id.order_adapter_time);
+            this.textStatus = v.findViewById(R.id.order_adapter_status);
+            this.option = v.findViewById(R.id.order_adapter_btn_option);
+            this.deleteButton = v.findViewById(R.id.order_adatper_delete);
             dialogNewAppointment = new Dialog(v.getContext());
             dialogConfirmDelete = new Dialog(v.getContext());
             this.dialogConfirmDelete.setContentView(R.layout.dialog_delete_appointment);
@@ -409,5 +420,4 @@ public class DatesListAdapter extends ArrayAdapter {
 
         public View getView() { return view; }
     }
-
 }

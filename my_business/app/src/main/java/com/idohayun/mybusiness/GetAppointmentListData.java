@@ -1,6 +1,7 @@
 package com.idohayun.mybusiness;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
@@ -36,7 +37,8 @@ public class GetAppointmentListData {
     private static boolean available;
     private static StringBuilder sb = new StringBuilder();
 
-    public static void getData(final Context context, int selected_day, int selected_month, int selected_year, final ListView listView, final ProgressBar progressBar) {
+    public static void getData(final Context context, int selected_day, int selected_month, int selected_year,
+                               final ListView listView, final ProgressBar progressBar) {
         RequestQueue queue = Volley.newRequestQueue(context);
         progressBar.setVisibility(View.VISIBLE);
         Map<String, String> map = new HashMap<>();
