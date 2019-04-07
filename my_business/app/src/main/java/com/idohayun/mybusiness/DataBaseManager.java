@@ -21,6 +21,10 @@ public class DataBaseManager extends SQLiteOpenHelper {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
+    public void closeDB() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.close();
+    }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -39,11 +43,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_NAME,null,contentValues);
         //check if data insert correctly
-        if(result == -1) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(result == -1);
     }
 
     public boolean updateData(baseUSER user) {
@@ -54,8 +54,7 @@ public class DataBaseManager extends SQLiteOpenHelper {
         contentValues.put(COL4,user.getPhone());
 
         long result = db.update(TABLE_NAME,contentValues,"ID="+user.getId(),null);
-        if(result == -1 ) return false;
-        else return true;
+        return !(result == -1);
     }
 
     @Override

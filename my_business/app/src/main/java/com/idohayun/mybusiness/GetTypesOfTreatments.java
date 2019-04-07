@@ -1,6 +1,7 @@
 package com.idohayun.mybusiness;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Spinner;
@@ -19,10 +20,9 @@ import java.util.Locale;
 
 class GetTypesOfTreatments  {
     private static final String TAG = "GetTypesOfTreatments";
-    private static Context context;
-    private static Spinner spinner;
+    private Context context;
+    private Spinner spinner;
     private static StringBuilder sb = new StringBuilder();
-    private static List<appointment> typeList;
 
     public void getListOfTypes(Context context, Spinner spinner) {
         this.context = context;
@@ -71,9 +71,11 @@ class GetTypesOfTreatments  {
 
     private void loadIntoSpinner(String JSON_Data) throws JSONException {
         JSONArray jsonArray = new JSONArray(JSON_Data);
+        List<appointment> typeList;
         String description, lang;
         int price;
         String deviceLocale = Locale.getDefault().getLanguage();
+
         typeList = new ArrayList<>();
         typeList.add(new appointment(context.getString(R.string.text_please_choose_type),null,0));
         for (int i = 0; i < jsonArray.length(); i++) {
