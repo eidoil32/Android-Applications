@@ -18,12 +18,13 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class baseUSER {
     private static final String TAG = "baseUSER";
     private String name, password;
     private int phone, id;
-    private boolean exist;
+    private boolean exist, isGuest;
     private View view;
     private static StringBuilder sb = new StringBuilder();
     private DataBaseManager dbHelper;
@@ -53,9 +54,55 @@ public class baseUSER {
             exist = true;
         } else {
             Log.d(TAG, "getUserDetails: user doesn't exist!");
-            this.id = -1;
+            this.id = -2;
             this.exist = false;
+            this.isGuest = true;
         }
+    }
+
+    public void setGuestUser(View view, int phone, String name, Map<String,String> map) {
+        this.password = " ";
+        this.phone = phone;
+        Random r = new Random();
+        this.name = "Guest_" + r.nextInt(10000);
+        updateIDFromServer(map);
+        this.exist = true;
+        this.isGuest = true;
+    }
+
+    private void updateIDFromServer(final Map<String,String> i_map) {
+        final baseUSER currentUser = this;
+        currentUser.setId(-2);
+        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+        Map<String,String> map = new HashMap<>();
+        map.put("LastID"," ");
+        final JSONObject jsonObject = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, // the request method
+                ServerURLSManager.User_manager_get_last_id, jsonObject,
+                new Response.Listener<JSONObject>() { // the response listener
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if(response.getString("status").equals("true")) {
+                                currentUser.setId(Integer.parseInt(response.getString("data")));
+                                currentUser.saveDataToPhone();
+                                i_map.put("UserID", Integer.toString(currentUser.getId()));
+                            } else {
+                                currentUser.setId(-2);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { // the error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: error " + error.toString());
+                    }
+                });
+        queue.add(request);
     }
 
     public boolean updateUserData(int i_phone, String i_password) {
@@ -227,7 +274,7 @@ public class baseUSER {
         return !foundSomethingWrong;
     }
 
-    private boolean firstTwoDigitsNotExist(String phoneString) {
+    public static boolean firstTwoDigitsNotExist(String phoneString) {
         String firstTwoDigits = Character.toString(phoneString.charAt(0)) + Character.toString(phoneString.charAt(1));
         int twoDigit = Integer.parseInt(firstTwoDigits);
 

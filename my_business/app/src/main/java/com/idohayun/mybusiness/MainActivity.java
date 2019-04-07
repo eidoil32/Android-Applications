@@ -1,8 +1,7 @@
 package com.idohayun.mybusiness;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -22,36 +21,26 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
-    private ImageView menuButton;
     private static FragmentManager fragmentManager;
     private static TextView pageTitle;
     private ToolsView toolsView = new ToolsView();
     private FrameLayout frameLayout;
     private OrderView orderView;
     private GalleryView galleryView = new GalleryView();
-    private NavigationView navigationView;
     private HomePage homePage;
     private int counter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.d(TAG, "onCreate: called no " + counter++);
         setContentView(R.layout.activity_main);
 
         fragmentManager = getSupportFragmentManager();
-//        fab = (FloatingActionButton) findViewById(R.id.fab);
-//
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
-        final DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
+        final DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -59,7 +48,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
         pageTitle = findViewById(R.id.main_page_title);
         pageTitle.setVisibility(View.INVISIBLE);
-        menuButton = findViewById(R.id.menu_button);
+        ImageView menuButton = findViewById(R.id.menu_button);
         menuButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,7 +66,7 @@ public class MainActivity extends AppCompatActivity
             fragmentManager.beginTransaction().add(R.id.fragment,homePage).commit();
         }
 
-        frameLayout = (FrameLayout) findViewById(R.id.fragment);
+        frameLayout = findViewById(R.id.fragment);
         orderView = new OrderView();
         homePage = new HomePage();
         navigationView.setNavigationItemSelectedListener(this);
@@ -86,7 +75,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -117,8 +106,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -128,14 +115,9 @@ public class MainActivity extends AppCompatActivity
         pageTitle.setText(i_title);
     }
 
-
-    public static int getUserID() {
-        return 0;
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         Fragment foundFragment;
 
@@ -159,7 +141,7 @@ public class MainActivity extends AppCompatActivity
             frameLayout.removeAllViews();
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

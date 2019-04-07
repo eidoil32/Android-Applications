@@ -50,8 +50,9 @@ public class SpinnerAdapter extends ArrayAdapter<appointment> {
                 price = (TextView) view.findViewById(R.id.spinner_adapter_price);
 
         description.setText(list.get(position).getDescription());
-        if(list.get(position).getPrice() != 0)
-            price.setText(Integer.toString(list.get(position).getPrice()));
+        int int_price = list.get(position).getPrice();
+        if(int_price != 0)
+            price.setText(Integer.toString(int_price));
 
         return view;
     }
