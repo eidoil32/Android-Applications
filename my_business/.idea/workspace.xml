@@ -252,8 +252,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/mybusiness/OrderView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="168">
-              <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+            <state>
+              <caret line="88" column="64" selection-start-line="88" selection-start-column="64" selection-end-line="88" selection-end-column="64" />
               <folding>
                 <element signature="e#2301#2302#0" expanded="true" />
                 <element signature="e#2334#2335#0" expanded="true" />
@@ -948,8 +948,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/mybusiness/OrderView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="90" column="46" selection-start-line="90" selection-start-column="46" selection-end-line="90" selection-end-column="46" />
+        <state>
+          <caret line="88" column="64" selection-start-line="88" selection-start-column="64" selection-end-line="88" selection-end-column="64" />
           <folding>
             <element signature="e#2301#2302#0" expanded="true" />
             <element signature="e#2334#2335#0" expanded="true" />

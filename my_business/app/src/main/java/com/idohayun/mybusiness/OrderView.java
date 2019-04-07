@@ -88,37 +88,6 @@ public class OrderView extends Fragment {
         listView = view.findViewById(R.id.order_appointment_list);
         progressBar = view.findViewById(R.id.order_progressBar);
 
-        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
-            public void onSwipeLeft() {
-                Log.d(TAG, "onSwipeRight: swipeRight!");
-                if(dateSelected) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(calendar_year,calendar_month,calendar_day);
-                    cal.add( Calendar.DATE, 1 );
-                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-                    calendar_month = cal.get(Calendar.MONTH);
-                    calendar_year = cal.get(Calendar.YEAR);
-                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-                    selectedDate.setText(fullDate);
-                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-                }
-            }
-            public void onSwipeRight() {
-                Log.d(TAG, "onSwipeRight: swipeRight!");
-                if(dateSelected) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(calendar_year,calendar_month,calendar_day);
-                    cal.add( Calendar.DATE, -1 );
-                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-                    calendar_month = cal.get(Calendar.MONTH);
-                    calendar_year = cal.get(Calendar.YEAR);
-                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-                    selectedDate.setText(fullDate);
-                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-                }
-            }
-        });
-
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
             calendar_year = savedInstanceState.getInt(saveYear,0);
