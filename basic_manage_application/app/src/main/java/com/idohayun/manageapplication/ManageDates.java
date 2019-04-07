@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,8 +26,9 @@ public class ManageDates extends Fragment {
     private int mday, mmonth, myear;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private ListView listView;
-    private String databaseURL = "http://example.com/file";
+    private String databaseURL = ServerURLManager.Date_database_download;
     private boolean firstTime = true;
+    private static SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
@@ -43,7 +45,7 @@ public class ManageDates extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab1_mng_dates, container, false);
+        final View view = inflater.inflate(R.layout.tab1_mng_dates, container, false);
 
         if(savedInstanceState != null) {
             mday = savedInstanceState.getInt("savedDay");
@@ -54,7 +56,7 @@ public class ManageDates extends Fragment {
             String date =   mday + "/" + mmonth + "/" + myear;
             details.setText(date);
             Log.d(TAG, "onCreateView: Rotate Screen, Date: " + mday + "-" + mmonth + "-" + myear);
-            getInformationToListview getInformationToListview = new getInformationToListview(databaseURL,listView,mday,mmonth,myear,getContext());
+            getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
             getInformationToListview.getJSON();
         }
 
@@ -74,11 +76,22 @@ public class ManageDates extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.available_dates_list);
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_date_list);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listView.setAdapter(null);
+                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
+                getInformationToListview.getJSON();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         btnChooseDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        getContext(),
+                        view.getContext(),
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener, myear, mmonth-1, mday);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
@@ -95,7 +108,7 @@ public class ManageDates extends Fragment {
                 myear = year;
 
                 details.setText(date);
-                getInformationToListview getInformationToListview = new getInformationToListview(databaseURL,listView,mday,mmonth,myear,getContext());
+                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
                 getInformationToListview.getJSON();
             }
         };

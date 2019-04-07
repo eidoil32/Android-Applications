@@ -45,7 +45,7 @@ public class FeedAdapter extends ArrayAdapter {
     private RequestQueue queue;
     private JsonObjectRequest request;
     private Map<String, String> map = new HashMap<String, String>();
-    private String updateUrl = "http://example.com/file", downloadURL = "http://example.com/file";
+    private String updateUrl = ServerURLManager.Date_database_update, downloadURL = ServerURLManager.Date_database_download;
 
     public FeedAdapter(Context context, int resource, List<DateListArray> application, ListView listView) {
         super(context, resource);
@@ -161,7 +161,7 @@ public class FeedAdapter extends ArrayAdapter {
                                     try {
                                         if(response.getString("status").equals("true")) {
                                             Toast.makeText(getContext(),getContext().getString(R.string.appointment_deleted),Toast.LENGTH_SHORT).show();
-                                            getInformationToListview getInformationToListview = new getInformationToListview(
+                                            getInformationToListView getInformationToListview = new getInformationToListView(
                                                     downloadURL,listView,
                                                     currentDate.getDay(),currentDate.getMonth(),currentDate.getYear(),getContext());
                                             getInformationToListview.getJSON();
@@ -276,7 +276,7 @@ public class FeedAdapter extends ArrayAdapter {
 
                 queue.add(request);
                 dialog.cancel();
-                getInformationToListview getInformationToListview = new getInformationToListview(
+                getInformationToListView getInformationToListview = new getInformationToListView(
                         downloadURL,listView,
                         catchDate.getDay(),catchDate.getMonth(),catchDate.getYear(),getContext());
                 getInformationToListview.getJSON();

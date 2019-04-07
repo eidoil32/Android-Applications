@@ -16,14 +16,14 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
-public class getInformationToListview {
+public class getInformationToListView {
     private static final String TAG = "getInformation";
     private String databaseURL;
     private ListView listView;
     private int mDay, mMonth, mYear;
     private Context context;
 
-    public getInformationToListview(String databaseURL, ListView listView, int day, int month, int year, Context context) {
+    public getInformationToListView(String databaseURL, ListView listView, int day, int month, int year, Context context) {
         this.databaseURL = databaseURL;
         this.listView = listView;
         this.mDay = day;
