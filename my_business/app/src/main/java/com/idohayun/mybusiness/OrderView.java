@@ -88,8 +88,6 @@ public class OrderView extends Fragment {
         listView = view.findViewById(R.id.order_appointment_list);
         progressBar = view.findViewById(R.id.order_progressBar);
 
-<<<<<<< HEAD
-=======
         listView.setOnTouchListener(new OnSwipeTouchListener(context) {
             public void onSwipeLeft() {
                 Log.d(TAG, "onSwipeRight: swipeRight!");
@@ -121,7 +119,6 @@ public class OrderView extends Fragment {
             }
         });
 
->>>>>>> 8168a5c27938ec3a699169a04ed55e78e72cd956
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
             calendar_year = savedInstanceState.getInt(saveYear,0);
