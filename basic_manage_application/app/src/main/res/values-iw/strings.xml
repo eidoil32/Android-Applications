@@ -30,4 +30,10 @@
     <string name="popup_delete_image_q">האם אתה בטוח שברצונך להסיר קובץ זה מהמערכת?</string>
     <string name="file_deleted_successfully">קובץ הוסר בהצלחה!</string>
     <string name="export_event_to_calendar">יצוא</string>
+    <string name="action_settings">הגדרות</string>
+    <string name="add_series_of_appointments">הוספת חולנות ליום שלם</string>
+    <string name="btn_single_appointment">הוספת פגישות</string>
+    <string name="btn_all_day_appointments">יום מלא</string>
+    <string name="single_appointment_description">במצב זה תוכל להוסיף חלון עם שעה ספציפית</string>
+    <string name="all_day_description">בחלון זה תוכל למלא יום שלם ב4 פגישות\n(16:30,18:00,19:30,21:00)</string>
 </resources>

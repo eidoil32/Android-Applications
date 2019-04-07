@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btn,galleryShow, mngCalendar,btnOKtoUpload;
     private ImageView imageView;
     private final int GALLERY = 1;
-    private String upload_URL = "http://example.com/file";
+    private String upload_URL = ServerURLManager.Images_upload_new;
     private RequestQueue rQueue;
     private ArrayList<HashMap<String, String>> arraylist;
 

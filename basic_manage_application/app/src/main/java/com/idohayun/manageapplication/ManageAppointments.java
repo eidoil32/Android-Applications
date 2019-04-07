@@ -36,16 +36,16 @@ import static java.lang.Boolean.TRUE;
 
 public class ManageAppointments extends Fragment {
     private static final String TAG = "ManageDates";
-    private Button buttonChooseDate, buttonAddNew;
     private DatePickerDialog.OnDateSetListener dateSetListener;
-    private TextView chosenDate;
-    private TextView textHour, textMin, textDuration;
-    private int mDay, mMonth, mYear, mHour, mMin, mDuration, id, currentDay, currentMonth, currentYear;
+    private TextView textHour, textMin, modeDescription, chosenDate;
+    private Button buttonAddNew;
+    private int mDay, mMonth, mYear, mHour, mMin, id, currentDay, currentMonth, currentYear;
     private boolean firstTime = true, hourOk = false, minOk = false, durationOk = false, dateOk = false, chooseDateBtnClicked = false;
     private int colorBad = Color.RED, colorGood = Color.GRAY;
     private ColorStateList colorStateListBAD = ColorStateList.valueOf(colorBad),
             colorStateListGOOD = ColorStateList.valueOf(colorGood);
-    private String urlAddNewWindow = "http://example.com/file";
+    private String urlAddNewWindow = ServerURLManager.Appointments_add_new_appointment;
+    private boolean isAllDayMode = false;
     private getInformationFromSQL getID = new getInformationFromSQL();
     private RequestQueue queue;
     private JsonObjectRequest request;
@@ -55,18 +55,39 @@ public class ManageAppointments extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.tab2_mng_appoint, container, false);
+        final View view = inflater.inflate(R.layout.tab2_mng_appoint, container, false);
 
-        id = getID.getLastID();
+        Button buttonChooseDate, buttonModeSingle, buttonModeAllDay;
 
+        buttonModeAllDay = view.findViewById(R.id.btn_all_day_appointments);
+        buttonModeSingle = view.findViewById(R.id.btn_add_single_appointment);
         buttonAddNew = view.findViewById(R.id.btn_ok_add_new_window);
         buttonChooseDate = view.findViewById(R.id.btn_choose_new_date);
-
         chosenDate = view.findViewById(R.id.text_date_choosen);
-
         textHour = view.findViewById(R.id.text_hour);
-        textDuration = view.findViewById(R.id.text_duration);
         textMin = view.findViewById(R.id.text_min);
+        modeDescription = view.findViewById(R.id.text_mode_description);
+
+        buttonModeSingle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                textMin.setVisibility(View.VISIBLE);
+                textHour.setVisibility(View.VISIBLE);
+                modeDescription.setText(view.getResources().getString(R.string.single_appointment_description));
+                buttonAddNew.setVisibility(View.VISIBLE);
+            }
+        });
+
+        buttonModeAllDay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isAllDayMode = true;
+                textMin.setVisibility(View.INVISIBLE);
+                textHour.setVisibility(View.INVISIBLE);
+                modeDescription.setText(view.getResources().getString(R.string.all_day_description));
+                buttonAddNew.setVisibility(View.VISIBLE);
+            }
+        });
 
         final Calendar calendar = Calendar.getInstance();
         currentYear = mYear = calendar.get(Calendar.YEAR);
@@ -83,7 +104,7 @@ public class ManageAppointments extends Fragment {
             @Override
             public void onClick(View v) {
                 DatePickerDialog dialog = new DatePickerDialog(
-                        getContext(),
+                        view.getContext(),
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener, mYear, mMonth - 1, mDay);
                 dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
@@ -113,47 +134,86 @@ public class ManageAppointments extends Fragment {
                     if(mDay >= currentDay && mMonth >= currentMonth && mYear >= currentYear)
                         dateOk = true;
                 }
-                if (!textHour.getText().toString().isEmpty()) {
-                    mHour = Integer.parseInt(textHour.getText().toString());
-                    if (mHour > 24 || mHour < 0) hourOk = false;
-                    else hourOk = true;
-                } else {
-                    hourOk = false;
-                }
+                if(!isAllDayMode) {
+                    if (!textHour.getText().toString().isEmpty()) {
+                        mHour = Integer.parseInt(textHour.getText().toString());
+                        if (mHour > 24 || mHour < 0) hourOk = false;
+                        else hourOk = true;
+                    } else {
+                        hourOk = false;
+                    }
 
-                if (!textMin.getText().toString().isEmpty()) {
-                    mMin = Integer.parseInt(textMin.getText().toString());
-                    if (mMin > 60 || mMin < 0) minOk = false;
-                    else minOk = true;
-                } else {
-                    minOk = false;
-                }
+                    if (!textMin.getText().toString().isEmpty()) {
+                        mMin = Integer.parseInt(textMin.getText().toString());
+                        if (mMin > 60 || mMin < 0) minOk = false;
+                        else minOk = true;
+                    } else {
+                        minOk = false;
+                    }
+                    if (durationOk && minOk && hourOk && dateOk) {
+                        ViewCompat.setBackgroundTintList(textMin, colorStateListGOOD);
+                        ViewCompat.setBackgroundTintList(textHour, colorStateListGOOD);
 
-                if (!textDuration.getText().toString().isEmpty()) {
-                    mDuration = Integer.parseInt(textDuration.getText().toString());
-                    if (mDuration > 90 || mDuration <= 0) durationOk = false;
-                    else durationOk = true;
-                } else {
-                    durationOk = false;
-                }
+                        Log.d(TAG, "onClick: id: " + id);
+                        DateListArray dateListArray = new DateListArray(
+                                "", "", mDay, mMonth, mYear, mHour, mMin, 0, id, TRUE);
+                        queue = Volley.newRequestQueue(view.getContext());
+                        map.put("TypeOfJSON", "New");
+                        map.put("PersonID", Integer.toString(dateListArray.getPersonID()));
+                        map.put("Day", Integer.toString(dateListArray.getDay()));
+                        map.put("Month", Integer.toString(dateListArray.getMonth()));
+                        map.put("Year", Integer.toString(dateListArray.getYear()));
+                        map.put("Hour", Integer.toString(dateListArray.getHour()));
+                        map.put("Min", Integer.toString(dateListArray.getMin()));
+                        map.put("FullName", dateListArray.getName());
+                        map.put("Type", dateListArray.getType());
+                        map.put("Available", "TRUE");
+                        map.put("Phone", Integer.toString(dateListArray.getPhone()));
+                        Log.d(TAG, "onClick: " + dateListArray.toString());
+                        final JSONObject jsonObject = new JSONObject(map);
+                        request = new JsonObjectRequest(
+                                Request.Method.POST, // the request method
+                                urlAddNewWindow, jsonObject,
+                                new Response.Listener<JSONObject>() { // the response listener
+                                    @Override
+                                    public void onResponse(JSONObject response) {
+                                        try {
+                                            if (response.getString("status").equals("true")) {
+                                                Log.d(TAG, "onResponse: SUCCESS!!");
+                                                Toast.makeText(getContext(), getContext().getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
+                                            }
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                },
+                                new Response.ErrorListener() { // the error listener
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+                                        Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
 
-                if (durationOk && minOk && hourOk && dateOk) {
-                    ViewCompat.setBackgroundTintList(textMin, colorStateListGOOD);
-                    ViewCompat.setBackgroundTintList(textHour, colorStateListGOOD);
-                    ViewCompat.setBackgroundTintList(textDuration, colorStateListGOOD);
-
-                    id = getID.getLastID() + 1;
-                    Log.d(TAG, "onClick: id: " + id);
+                        queue.add(request);
+                    } else {
+                        if (!minOk) ViewCompat.setBackgroundTintList(textMin, colorStateListBAD);
+                        else ViewCompat.setBackgroundTintList(textMin, colorStateListGOOD);
+                        if (!hourOk) ViewCompat.setBackgroundTintList(textHour, colorStateListBAD);
+                        else ViewCompat.setBackgroundTintList(textHour, colorStateListGOOD);
+                        if (!dateOk)
+                            chosenDate.setTextColor(colorStateListBAD);
+                        else chosenDate.setTextColor(colorStateListGOOD);
+                    }
+                } else { //is All day mode
+                    Log.d(TAG, "onClick: all day mode");
                     DateListArray dateListArray = new DateListArray(
-                            "", "", mDay, mMonth, mYear, mHour, mMin, 0, id, TRUE);
-                    queue = Volley.newRequestQueue(getContext());
-                    map.put("TypeOfJSON", "New");
+                            "", "", mDay, mMonth, mYear, 0, 0, 0, id, TRUE);
+                    queue = Volley.newRequestQueue(view.getContext());
+                    map.put("TypeOfJSON", "NewAllDay");
                     map.put("PersonID", Integer.toString(dateListArray.getPersonID()));
                     map.put("Day", Integer.toString(dateListArray.getDay()));
                     map.put("Month", Integer.toString(dateListArray.getMonth()));
                     map.put("Year", Integer.toString(dateListArray.getYear()));
-                    map.put("Hour", Integer.toString(dateListArray.getHour()));
-                    map.put("Min", Integer.toString(dateListArray.getMin()));
                     map.put("FullName", dateListArray.getName());
                     map.put("Type", dateListArray.getType());
                     map.put("Available", "TRUE");
@@ -169,7 +229,9 @@ public class ManageAppointments extends Fragment {
                                     try {
                                         if (response.getString("status").equals("true")) {
                                             Log.d(TAG, "onResponse: SUCCESS!!");
-                                            Toast.makeText(getContext(),getContext().getString(R.string.new_window_added),Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), getContext().getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Log.d(TAG, "onResponse: " + response.getString("message") + " query was: " + response.getString("data"));
                                         }
                                     } catch (JSONException e) {
                                         e.printStackTrace();
@@ -184,23 +246,9 @@ public class ManageAppointments extends Fragment {
                             });
 
                     queue.add(request);
-                } else {
-                    if (!minOk) ViewCompat.setBackgroundTintList(textMin, colorStateListBAD);
-                    else ViewCompat.setBackgroundTintList(textMin, colorStateListGOOD);
-                    if (!hourOk) ViewCompat.setBackgroundTintList(textHour, colorStateListBAD);
-                    else ViewCompat.setBackgroundTintList(textHour, colorStateListGOOD);
-                    if (!durationOk)
-                        ViewCompat.setBackgroundTintList(textDuration, colorStateListBAD);
-                    else ViewCompat.setBackgroundTintList(textDuration, colorStateListGOOD);
-                    if(!dateOk)
-                        chosenDate.setTextColor(colorStateListBAD);
-                    else chosenDate.setTextColor(colorStateListGOOD);;
                 }
-
-
             }
         });
-
 
         return view;
     }
