@@ -108,6 +108,15 @@ public class FeedAdapter extends ArrayAdapter {
             }
         });
 
+        convertView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                DeleteRowPopup(currentDate);
+                notifyDataSetChanged();
+                return false;
+            }
+        });
+
         if (!currentDate.isAvailable()) {
             viewHolder.optionDel.setVisibility(View.VISIBLE);
             viewHolder.textName.setVisibility(View.VISIBLE);
@@ -135,50 +144,8 @@ public class FeedAdapter extends ArrayAdapter {
             viewHolder.optionDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    queue = Volley.newRequestQueue(getContext());
-                    Log.d(TAG, "onClick: DEL button clicked!");
-                    currentDate.resetDate();
-                    map.put("TypeOfJSON","Delete");
-                    map.put("PersonID", Integer.toString(currentDate.getPersonID()));
-                    map.put("Day", Integer.toString(currentDate.getDay()));
-                    map.put("Month", Integer.toString(currentDate.getMonth()));
-                    map.put("Year", Integer.toString(currentDate.getYear()));
-                    map.put("Hour", Integer.toString(currentDate.getHour()));
-                    map.put("Min", Integer.toString(currentDate.getMin()));
-                    map.put("FullName", currentDate.getName());
-                    map.put("Type", currentDate.getType());
-                    map.put("Available", "TRUE");
-                    map.put("Phone", Integer.toString(currentDate.getPhone()));
-                    Log.d(TAG, "onClick: " + map.toString());
-                    final JSONObject jsonObject = new JSONObject(map);
-
-                    request = new JsonObjectRequest(
-                            Request.Method.POST, // the request method
-                            updateUrl, jsonObject,
-                            new Response.Listener<JSONObject>() { // the response listener
-                                @Override
-                                public void onResponse(JSONObject response){
-                                    try {
-                                        if(response.getString("status").equals("true")) {
-                                            Toast.makeText(getContext(),getContext().getString(R.string.appointment_deleted),Toast.LENGTH_SHORT).show();
-                                            getInformationToListView getInformationToListview = new getInformationToListView(
-                                                    downloadURL,listView,
-                                                    currentDate.getDay(),currentDate.getMonth(),currentDate.getYear(),getContext());
-                                            getInformationToListview.getJSON();
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            },
-                            new Response.ErrorListener() { // the error listener
-                                @Override
-                                public void onErrorResponse(VolleyError error) {
-                                    Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                    queue.add(request);
+                    FreeAppointmentPopup(currentDate);
+                    notifyDataSetChanged();
                 }
             });
         } else { //is available
@@ -195,6 +162,197 @@ public class FeedAdapter extends ArrayAdapter {
         }
 
         return convertView;
+    }
+
+    private void FreeAppointmentPopup(final DateListArray currentDate) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup_free_row);
+
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        float multiple_Width = 0.7f, multiple_Height = 0.3f;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d(TAG, "Portrait");
+            multiple_Width = 0.8f;
+            multiple_Height = 0.3f;
+        }
+        else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d(TAG, "Landscape");
+            multiple_Width = 0.8f;
+            multiple_Height = 0.6f;
+        }
+        int dialogWindowWidth = (int)(displayWidth * multiple_Width);
+        int dialogWindowHeight = (int)(displayHeight * multiple_Height);
+        layoutParams.width = dialogWindowWidth;
+        layoutParams.height = dialogWindowHeight;
+
+        Button btnYes = (Button)dialog.findViewById(R.id.button_yes);
+        Button btnNo = (Button)dialog.findViewById(R.id.button_no);
+
+        btnNo.setEnabled(true);
+        btnYes.setEnabled(true);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue = Volley.newRequestQueue(getContext());
+                Log.d(TAG, "onClick: DEL button clicked!");
+                currentDate.resetDate();
+                map.put("TypeOfJSON","Delete");
+                map.put("PersonID", Integer.toString(currentDate.getPersonID()));
+                map.put("Day", Integer.toString(currentDate.getDay()));
+                map.put("Month", Integer.toString(currentDate.getMonth()));
+                map.put("Year", Integer.toString(currentDate.getYear()));
+                map.put("Hour", Integer.toString(currentDate.getHour()));
+                map.put("Min", Integer.toString(currentDate.getMin()));
+                map.put("FullName", currentDate.getName());
+                map.put("Type", currentDate.getType());
+                map.put("Available", "TRUE");
+                map.put("Phone", Integer.toString(currentDate.getPhone()));
+                Log.d(TAG, "onClick: " + map.toString());
+                final JSONObject jsonObject = new JSONObject(map);
+
+                request = new JsonObjectRequest(
+                        Request.Method.POST, // the request method
+                        updateUrl, jsonObject,
+                        new Response.Listener<JSONObject>() { // the response listener
+                            @Override
+                            public void onResponse(JSONObject response){
+                                try {
+                                    if(response.getString("status").equals("true")) {
+                                        Toast.makeText(getContext(),getContext().getString(R.string.appointment_deleted),Toast.LENGTH_SHORT).show();
+                                        getInformationToListView getInformationToListview = new getInformationToListView(
+                                                downloadURL,listView,
+                                                currentDate.getDay(),currentDate.getMonth(),currentDate.getYear(),getContext());
+                                        getInformationToListview.getJSON();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { // the error listener
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                queue.add(request);
+                dialog.cancel();
+                getInformationToListView getInformationToListview = new getInformationToListView(
+                        downloadURL,listView,
+                        currentDate.getDay(),currentDate.getMonth(),currentDate.getYear(),getContext());
+                getInformationToListview.getJSON();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(layoutParams);
+    }
+
+    private void DeleteRowPopup(final DateListArray catchDate) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup_delete_row);
+
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        float multiple_Width = 0.7f, multiple_Height = 0.3f;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d(TAG, "Portrait");
+            multiple_Width = 0.8f;
+            multiple_Height = 0.3f;
+        }
+        else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d(TAG, "Landscape");
+            multiple_Width = 0.8f;
+            multiple_Height = 0.6f;
+        }
+        int dialogWindowWidth = (int)(displayWidth * multiple_Width);
+        int dialogWindowHeight = (int)(displayHeight * multiple_Height);
+        layoutParams.width = dialogWindowWidth;
+        layoutParams.height = dialogWindowHeight;
+
+        Button btnYes = (Button)dialog.findViewById(R.id.button_yes);
+        Button btnNo = (Button)dialog.findViewById(R.id.button_no);
+
+        btnNo.setEnabled(true);
+        btnYes.setEnabled(true);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue = Volley.newRequestQueue(getContext());
+                Log.d(TAG, "onClick: Catch button clicked!");
+                Map<String,String> tempMap = new HashMap<String, String>();
+                tempMap.put("TypeOfJSON","DeleteForEver");
+                tempMap.put("PersonID", Integer.toString(catchDate.getPersonID()));
+                tempMap.put("Day", Integer.toString(catchDate.getDay()));
+                tempMap.put("Month", Integer.toString(catchDate.getMonth()));
+                tempMap.put("Year", Integer.toString(catchDate.getYear()));
+                tempMap.put("Hour", Integer.toString(catchDate.getHour()));
+                tempMap.put("Min", Integer.toString(catchDate.getMin()));
+                tempMap.put("Available","FALSE");
+                final JSONObject jsonObject = new JSONObject(tempMap);
+                request = new JsonObjectRequest(
+                        Request.Method.POST, // the request method
+                        updateUrl, jsonObject,
+                        new Response.Listener<JSONObject>() { // the response listener
+                            @Override
+                            public void onResponse(JSONObject response){
+                                try {
+                                    if(response.getString("status").equals("true")) {
+                                        Toast.makeText(getContext(),getContext().getString(R.string.appointment_catch),Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Log.d(TAG, "onResponse: error from sql");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { // the error listener
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                queue.add(request);
+                dialog.cancel();
+                getInformationToListView getInformationToListview = new getInformationToListView(
+                        downloadURL,listView,
+                        catchDate.getDay(),catchDate.getMonth(),catchDate.getYear(),getContext());
+                getInformationToListview.getJSON();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(layoutParams);
     }
 
     private void CatchPopupMenu(final DateListArray catchDate) {

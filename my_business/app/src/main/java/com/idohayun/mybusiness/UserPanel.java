@@ -14,16 +14,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 public class UserPanel extends Fragment {
-    private String userName, password, changedPassword;
-    private int phone, id, changedPhone;
-    private Button btnOK, btnLogout;
-    private TextView input_username, input_password, input_phone, title;
+    private String changedPassword, changedName;
+    private int changedPhone;
+    private TextView input_password, input_phone;
     private baseUSER baseUSER = new baseUSER();
     private static final String TAG = "UserPanel";
-    private boolean phoneFlag = false, passwordFlag = false;
+    private boolean allDataIsOK = false;
 
     @Nullable
     @Override
@@ -47,20 +49,20 @@ public class UserPanel extends Fragment {
         centerGuideLine.setGuidelineBegin((displayWidth - (int)(20*displayMetrics.density))/2);
 
         baseUSER.getUserDetails(view);
-        userName = baseUSER.getName();
-        phone = baseUSER.getPhone();
-        password = baseUSER.getPassword();
-        id = baseUSER.getId();
+        String userName = baseUSER.getName();
+        int phone = baseUSER.getPhone();
+        int id = baseUSER.getId();
+        final TextView text_error = (TextView) view.findViewById(R.id.text_error);
+        Log.d(TAG, "onViewCreated: user id " + id);
+        Button btnOK = view.findViewById(R.id.btn_save_data);
+        Button btnLogout = view.findViewById(R.id.btn_logout);
 
-        btnOK = view.findViewById(R.id.btn_save_data);
-        btnLogout = view.findViewById(R.id.btn_logout);
-
-        title = (TextView) view.findViewById(R.id.text_welcome);
+        TextView title = (TextView) view.findViewById(R.id.text_welcome);
         String string = getString(R.string.tools_welcome_text, baseUSER.getName());
         title.setText(string);
 
         input_password = view.findViewById(R.id.user_panel_password);
-        input_username = view.findViewById(R.id.user_panel_user_name);
+        final TextView input_username = view.findViewById(R.id.user_panel_user_name);
         input_phone = view.findViewById(R.id.user_panel_phone);
 
         input_phone.setHint(Integer.toString(phone));
@@ -73,22 +75,48 @@ public class UserPanel extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "onClick: OK! saved data...");
-                String l_password = input_password.getText().toString(), l_phone = input_phone.getText().toString();
+                String l_password = input_password.getText().toString(), l_phone = input_phone.getText().toString(),
+                        l_username = input_username.getText().toString();
+                String errorBuilder = " ";
+
                 if (!l_password.isEmpty()) {
                     changedPassword = l_password;
                 } else {
                     changedPassword = baseUSER.getPassword();
                 }
+
+                if(!l_username.isEmpty()) {
+                    changedName = l_username;
+                    if(!l_password.isEmpty()) {
+                        Log.d(TAG, "onClick: everything is fine");
+                        allDataIsOK = true;
+                    } else {
+                        Log.d(TAG, "onClick: error! if you want to change name you have to set password.");
+                        errorBuilder += "If you want to change name you must set password.";
+                    }
+                } else {
+                    errorBuilder += "If you want to change password/phone number\nyou must set user name.";
+
+                }
+
                 if (!l_phone.isEmpty()) {
                     changedPhone = Integer.parseInt(l_phone);
                 } else {
                     changedPhone = baseUSER.getPhone();
                 }
 
-                if (baseUSER.updateUserData(changedPhone, changedPassword)) {
+                if (allDataIsOK && baseUSER.updateUserData(changedName, changedPhone, changedPassword)) {
                     Log.d(TAG, "onClick: update successfully!");
                 } else {
                     Log.d(TAG, "onClick: update failed!");
+                }
+
+                if(errorBuilder.isEmpty()) {
+                    text_error.setVisibility(View.INVISIBLE);
+                } else {
+                    text_error.setText(errorBuilder);
+                    text_error.setTextColor(getResources().getColor(R.color.toast_error,null));
+                    text_error.setVisibility(View.VISIBLE);
                 }
             }
         });

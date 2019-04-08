@@ -103,34 +103,36 @@
     <session id="-1936487185">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.0" value="1" />
-          <entry key="project.opened" value="1" />
+          <entry key="project.open.time.9" value="1" />
+          <entry key="project.opened" value="2" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="java" value="26" />
-          <entry key="xml" value="12" />
+          <entry key="java" value="40" />
+          <entry key="xml" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="JAVA" value="26" />
-          <entry key="XML" value="12" />
+          <entry key="JAVA" value="40" />
+          <entry key="XML" value="21" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="1274" />
-          <entry key="txt" value="172" />
-          <entry key="xml" value="160" />
+          <entry key="java" value="3133" />
+          <entry key="txt" value="375" />
+          <entry key="xml" value="220" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="1274" />
-          <entry key="PLAIN_TEXT" value="172" />
-          <entry key="XML" value="160" />
+          <entry key="JAVA" value="3133" />
+          <entry key="PLAIN_TEXT" value="375" />
+          <entry key="XML" value="220" />
         </counts>
       </usages-collector>
     </session>
@@ -139,69 +141,99 @@
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab1_mng_dates.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
+          <provider editor-type-id="text-editor">
+            <state relative-caret-position="1598">
               <caret line="94" column="54" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="54" />
             </state>
           </provider>
-          <provider editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageDates.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="77" selection-start-line="77" selection-end-line="77" />
-            </state>
-          </provider>
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageDates.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="389">
+              <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointmentTypes.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="192">
+              <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1353#1615#0" expanded="true" />
+                <element signature="e#1614#1615#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ServerURLManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="2" column="29" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="29" />
+            <state relative-caret-position="170">
+              <caret line="10" column="54" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="54" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_manage_calendar.xml">
-          <provider editor-type-id="text-editor">
-            <state relative-caret-position="646">
-              <caret line="38" column="34" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="34" />
-            </state>
-          </provider>
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appoint.xml">
-          <provider editor-type-id="text-editor" />
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/tab2_mng_appoint.xml">
-          <provider editor-type-id="text-editor" />
-          <provider selected="true" editor-type-id="android-designer2" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointments.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageCalendar.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-683">
-              <caret line="155" selection-start-line="155" selection-end-line="155" />
+            <state relative-caret-position="289">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
               <folding>
-                <element signature="e#3040#3376#0" expanded="true" />
-                <element signature="e#3280#3350#0" expanded="true" />
-                <element signature="e#3375#3376#0" expanded="true" />
-                <element signature="e#3424#3679#0" expanded="true" />
-                <element signature="e#3594#3653#0" expanded="true" />
-                <element signature="e#3678#3679#0" expanded="true" />
-                <element signature="e#5446#13023#0" expanded="true" />
-                <element signature="e#11849#11898#0" expanded="true" />
-                <element signature="e#13022#13023#0" expanded="true" />
+                <element signature="e#1083#1115#0" expanded="true" />
+                <element signature="e#1265#1316#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appointment_types.xml">
+          <provider editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="376">
+              <caret line="209" column="18" selection-start-line="209" selection-start-column="18" selection-end-line="209" selection-end-column="18" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#4482#4724#0" expanded="true" />
+                <element signature="e#4723#4724#0" expanded="true" />
+                <element signature="e#5944#6117#0" expanded="true" />
+                <element signature="e#6116#6117#0" expanded="true" />
+                <element signature="e#10083#10135#0" expanded="true" />
+                <element signature="e#13717#13733#0" expanded="true" />
+                <element signature="e#14932#14982#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/TypeListAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="215">
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1140#1141#0" expanded="true" />
+                <element signature="e#1179#1180#0" expanded="true" />
+                <element signature="e#1940#1984#0" expanded="true" />
+                <element signature="e#2048#2093#0" expanded="true" />
+                <element signature="e#2166#2332#0" expanded="true" />
+                <element signature="e#2331#2332#0" expanded="true" />
+                <element signature="e#2432#2645#0" expanded="true" />
+                <element signature="e#2644#2645#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -211,27 +243,15 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationFromSQL.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
-              <caret line="34" selection-start-line="34" selection-end-line="34" />
+              <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="37" column="94" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="94" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="494">
-              <caret line="37" column="77" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="77" />
-            </state>
-          </provider>
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_list_appointment_type.xml">
+          <provider editor-type-id="text-editor" />
+          <provider selected="true" editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
@@ -240,9 +260,9 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="layoutResourceFile_vertical" />
+        <option value="Class" />
         <option value="AnnotationType" />
         <option value="layoutResourceFile" />
-        <option value="Class" />
       </list>
     </option>
   </component>
@@ -263,15 +283,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/SectionsPageAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_manage_calendar.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/ManageDatesTab1.java" />
-        <option value="$PROJECT_DIR$/app/build/generated/source/apt/debug/androidx/annotation/NonNull.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/DateListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/DateListArray.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/PopCatchMenu.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/ManageCalendar.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/ManageDates.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/uploadtogallery/MainActivity.java" />
@@ -298,21 +309,30 @@
         <option value="$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/ManageDates.java" />
         <option value="$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/SampleGridViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab1_mng_dates.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationFromSQL.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationToListview.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationToListView.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ImagesURLS.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ServerURLManager.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/SampleGridViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/tab1_mng_dates.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/tab2_mng_appoint.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appoint.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointments.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/OnSwipeTouchListener.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_delete_row.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/popup_free_row.xml" />
+        <option value="$PROJECT_DIR$/app/build/generated/source/apt/debug/androidx/annotation/NonNull.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/AppointmentTypes.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/TypeListAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageCalendar.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ServerURLManager.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appointment_types.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointmentTypes.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_list_appointment_type.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageDates.java" />
       </list>
     </option>
@@ -364,26 +384,13 @@
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
               <item name="tab1_mng_dates" type="c431d0b8:AndroidResGroupNode" />
             </path>
-            <path>
-              <item name="basic_manage_application" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="tab2_mng_appoint" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="basic_manage_application" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="ProjectPane" />
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -396,21 +403,24 @@
     <property name="android.sdk.path" value="C:/SDK" />
     <property name="device.picker.selection" value="f9549011" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/main/res/drawable" />
-    <property name="last_opened_file_path" value="D:/Program Files/Git/git-cmd.exe" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../my_business" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
       <recent name="androidx.annotation" />
+      <recent name="com.idohayun.manageapplication" />
       <recent name="com.idohayun.uploadtogallery" />
     </key>
     <key name="android.template.packageName">
       <recent name="com.idohayun.uploadtogallery" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Ido PC\Android-Applications\basic_manage_application\app\src\main\res\drawable-v24" />
       <recent name="D:\AndroidProjects\UploadToGallery\app\src\main\res\drawable" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ido PC\Android-Applications\basic_manage_application\app\src\main\res\layout" />
       <recent name="D:\AndroidProjects\UploadToGallery\app\src\main\res\drawable" />
       <recent name="D:\AndroidProjects\UploadToGallery\app\src\main\res\layout" />
       <recent name="D:\AndroidProjects\UploadToGallery\app\src\main\res\layout-iw" />
@@ -521,11 +531,11 @@
       <window_info id="Designer" order="6" />
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Find" order="0" weight="0.32907802" />
-      <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49798658" visible="true" weight="0.32907802" />
-      <window_info anchor="bottom" id="Logcat" order="2" sideWeight="0.49932885" weight="0.32907802" />
-      <window_info anchor="bottom" id="TODO" order="3" />
-      <window_info anchor="bottom" id="Debug" order="4" />
-      <window_info anchor="bottom" id="Terminal" order="5" />
+      <window_info anchor="bottom" id="Terminal" order="1" weight="0.32907802" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49798658" weight="0.32907802" />
+      <window_info anchor="bottom" id="Logcat" order="3" sideWeight="0.49932885" weight="0.32907802" />
+      <window_info anchor="bottom" id="TODO" order="4" />
+      <window_info anchor="bottom" id="Debug" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.5013423" side_tool="true" weight="0.32907802" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Build" order="8" sideWeight="0.4986577" weight="0.32907802" />
@@ -543,42 +553,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/loading_indicator.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_big_image_gallery.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_gallery_show.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_available.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
-          <caret line="103" column="44" selection-start-line="103" selection-start-column="44" selection-end-line="103" selection-end-column="44" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="66" selection-start-line="18" selection-start-column="66" selection-end-line="18" selection-end-column="66" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/BigImageGallery.java" />
-    <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/DateListArray.java" />
-    <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/FeedEntry.java" />
-    <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/GalleryShow.java" />
-    <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/getInformationFromSQL.java" />
     <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/getInformationToListview.java" />
     <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/ImageAdapter.java" />
     <entry file="file://$PROJECT_DIR$/../app/src/main/java/com/idohayun/manageapplication/ImagesURLS.java" />
@@ -607,41 +581,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/DateListArray.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1207">
-          <caret line="107" column="26" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-17">
-          <caret line="47" column="123" selection-start-line="47" selection-start-column="123" selection-end-line="47" selection-end-column="123" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedEntry.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="12" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/GalleryShow.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="60" column="40" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationToListview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="27" column="33" lean-forward="true" selection-start-line="27" selection-start-column="33" selection-end-line="27" selection-end-column="33" />
         </state>
       </provider>
     </entry>
@@ -669,13 +612,6 @@
             <element signature="e#3771#3984#0" expanded="true" />
             <element signature="e#3983#3984#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageCalendar.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
     </entry>
@@ -725,69 +661,6 @@
       </provider>
       <provider selected="true" editor-type-id="android-designer2" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_manage_calendar.xml">
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="646">
-          <caret line="38" column="34" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="34" />
-        </state>
-      </provider>
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/tab2_mng_appoint.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="37" column="94" selection-start-line="37" selection-start-column="92" selection-end-line="37" selection-end-column="94" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="494">
-          <caret line="37" column="77" selection-start-line="37" selection-start-column="77" selection-end-line="37" selection-end-column="77" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationFromSQL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="34" selection-start-line="34" selection-end-line="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointments.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-683">
-          <caret line="155" selection-start-line="155" selection-end-line="155" />
-          <folding>
-            <element signature="e#3040#3376#0" expanded="true" />
-            <element signature="e#3280#3350#0" expanded="true" />
-            <element signature="e#3375#3376#0" expanded="true" />
-            <element signature="e#3424#3679#0" expanded="true" />
-            <element signature="e#3594#3653#0" expanded="true" />
-            <element signature="e#3678#3679#0" expanded="true" />
-            <element signature="e#5446#13023#0" expanded="true" />
-            <element signature="e#11849#11898#0" expanded="true" />
-            <element signature="e#13022#13023#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appoint.xml">
-      <provider editor-type-id="text-editor" />
-      <provider selected="true" editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab1_mng_dates.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="94" column="54" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="54" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../my_business/app/src/main/java/com/idohayun/mybusiness/OnSwipeTouchListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
@@ -800,17 +673,204 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageDates.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appoint.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/tab2_mng_appoint.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointments.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
+        <state relative-caret-position="2091">
+          <caret line="155" selection-start-line="155" selection-end-line="155" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/DateListArray.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="107" column="26" selection-start-line="107" selection-start-column="15" selection-end-line="107" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/popup_catch_menu.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_catch_menu.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="39" column="61" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-iw/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="39" column="61" selection-start-line="39" selection-start-column="61" selection-end-line="39" selection-end-column="61" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_delete_row.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/popup_free_row.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_manage_calendar.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="38" column="34" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="34" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedEntry.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="12" selection-start-line="12" selection-end-line="12" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/generated/source/apt/debug/androidx/annotation/NonNull.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="18" selection-start-line="2" selection-start-column="18" selection-end-line="2" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/AppointmentTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="9" column="39" selection-start-line="9" selection-start-column="39" selection-end-line="9" selection-end-column="39" />
+          <folding>
+            <element signature="e#388#389#0" expanded="true" />
+            <element signature="e#419#420#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#567#568#0" expanded="true" />
+            <element signature="e#609#610#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#681#682#0" expanded="true" />
+            <element signature="e#715#716#0" expanded="true" />
+            <element signature="e#769#770#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+            <element signature="e#841#842#0" expanded="true" />
+            <element signature="e#866#867#0" expanded="true" />
+            <element signature="e#899#900#0" expanded="true" />
+            <element signature="e#927#928#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationToListView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-493">
+          <caret line="37" column="24" selection-start-line="37" selection-start-column="24" selection-end-line="37" selection-end-column="24" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ServerURLManager.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="29" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="29" />
+        <state relative-caret-position="170">
+          <caret line="10" column="54" selection-start-line="10" selection-start-column="28" selection-end-line="10" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/getInformationFromSQL.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="22" column="5" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/FeedAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="376">
+          <caret line="209" column="18" selection-start-line="209" selection-start-column="18" selection-end-line="209" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4482#4724#0" expanded="true" />
+            <element signature="e#4723#4724#0" expanded="true" />
+            <element signature="e#5944#6117#0" expanded="true" />
+            <element signature="e#6116#6117#0" expanded="true" />
+            <element signature="e#10083#10135#0" expanded="true" />
+            <element signature="e#13717#13733#0" expanded="true" />
+            <element signature="e#14932#14982#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/TypeListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="215">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1140#1141#0" expanded="true" />
+            <element signature="e#1179#1180#0" expanded="true" />
+            <element signature="e#1940#1984#0" expanded="true" />
+            <element signature="e#2048#2093#0" expanded="true" />
+            <element signature="e#2166#2332#0" expanded="true" />
+            <element signature="e#2331#2332#0" expanded="true" />
+            <element signature="e#2432#2645#0" expanded="true" />
+            <element signature="e#2644#2645#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageAppointmentTypes.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="42" column="46" selection-start-line="42" selection-start-column="46" selection-end-line="42" selection-end-column="46" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1353#1615#0" expanded="true" />
+            <element signature="e#1614#1615#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/adapter_list_appointment_type.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab2_mng_appointment_types.xml">
+      <provider editor-type-id="text-editor" />
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tab1_mng_dates.xml">
+      <provider editor-type-id="text-editor">
+        <state relative-caret-position="1598">
+          <caret line="94" column="54" selection-start-line="94" selection-start-column="36" selection-end-line="94" selection-end-column="54" />
+        </state>
+      </provider>
+      <provider selected="true" editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageCalendar.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+          <folding>
+            <element signature="e#1083#1115#0" expanded="true" />
+            <element signature="e#1265#1316#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/idohayun/manageapplication/ManageDates.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="389">
+          <caret line="40" column="5" selection-start-line="40" selection-start-column="5" selection-end-line="40" selection-end-column="5" />
         </state>
       </provider>
     </entry>

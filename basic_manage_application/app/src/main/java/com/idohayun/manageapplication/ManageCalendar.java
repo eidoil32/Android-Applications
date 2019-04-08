@@ -30,6 +30,7 @@ public class ManageCalendar extends AppCompatActivity {
         SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
         adapter.addFragment(new ManageDates(),getString(R.string.manage_dates));
         adapter.addFragment(new ManageAppointments(),getString(R.string.manage_appoint));
+        adapter.addFragment(new ManageAppointmentTypes(),getString(R.string.string_manage_appointment_types));
         viewPager.setAdapter(adapter);
     }
 }

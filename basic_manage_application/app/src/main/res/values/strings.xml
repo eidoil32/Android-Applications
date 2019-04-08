@@ -36,4 +36,9 @@
     <string name="btn_all_day_appointments">Fill Day</string>
     <string name="single_appointment_description">In this mode you can add single date for the appointment list</string>
     <string name="all_day_description">In this mode you can fill all day with 4 appointments\n(16:30,18:00,19:30,21:00)</string>
+    <string name="str_delete_row_confirm">Do you want to delete this appointment window forever?</string>
+    <string name="str_free_row_confirm">Do you want to cancel this appointment?\nIf someone has already caught this window, we recommend you to notify him before the cancellation.</string>
+    <string name="string_manage_appointment_types">Appointment Types</string>
+    <string name="text_lang_prefix">Lang:</string>
+    <string name="text_price_prefix">Price:</string>
 </resources>

@@ -167,7 +167,7 @@
             app:layout_constraintStart_toStartOf="@+id/guideline9"
             app:layout_constraintTop_toTopOf="@+id/guideline13" />
 
-        <TextView
+        <EditText
             android:id="@+id/user_panel_user_name"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -175,13 +175,13 @@
             android:layout_marginEnd="8dp"
             android:gravity="center|start"
             android:paddingStart="4dp"
-            android:text="TextView"
             android:textColor="@color/colorText_Hint_simple"
             android:textSize="14sp"
             app:layout_constraintBottom_toTopOf="@+id/guideline13"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/guideline9"
-            app:layout_constraintTop_toTopOf="@+id/guideline11" />
+            app:layout_constraintTop_toTopOf="@+id/guideline11"
+            tools:text="user name" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline9"
@@ -196,6 +196,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             app:layout_constraintGuide_begin="204dp" />
+
+        <TextView
+            android:id="@+id/text_error"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline16"
+            tools:text="error_text" />
 
     </android.support.constraint.ConstraintLayout>
 </FrameLayout>

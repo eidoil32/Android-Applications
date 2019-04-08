@@ -40,8 +40,6 @@ public class ManageDates extends Fragment {
         super.onSaveInstanceState(outState);
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

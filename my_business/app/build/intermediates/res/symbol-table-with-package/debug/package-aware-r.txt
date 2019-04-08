@@ -1364,6 +1364,7 @@ id textSpacerNoTitle
 id textStart
 id textView3
 id textView4
+id text_error
 id text_error_type
 id text_input_password_toggle
 id text_password

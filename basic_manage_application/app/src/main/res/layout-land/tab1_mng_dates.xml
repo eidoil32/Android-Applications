@@ -12,7 +12,7 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/opening_mng_dates"
+            android:id="@+id/opening_mng_appointment_types"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -38,7 +38,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintStart_toEndOf="@+id/btn_choose_date"
-            app:layout_constraintTop_toBottomOf="@+id/opening_mng_dates"
+            app:layout_constraintTop_toBottomOf="@+id/opening_mng_appointment_types"
             tools:text="here going to be a lot of @android:string/paste_as_plain_text" />
 
 

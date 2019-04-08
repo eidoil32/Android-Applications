@@ -84,12 +84,12 @@
         "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\744dcb18f7ee6a1f04fbc36e6d79939b\\res\\color\\mtrl_tabs_colored_ripple_color.xml"
     },
     {
-        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
-        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\5f1d026db87ffb501c84fa78c8734039\\res\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
-    },
-    {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_abc_btn_check_to_on_mtrl_015.png.flat",
         "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\5f1d026db87ffb501c84fa78c8734039\\res\\drawable-xxxhdpi-v4\\abc_btn_check_to_on_mtrl_015.png"
+    },
+    {
+        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_cab_background_top_mtrl_alpha.9.png.flat",
+        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\5f1d026db87ffb501c84fa78c8734039\\res\\drawable-hdpi-v4\\abc_cab_background_top_mtrl_alpha.9.png"
     },
     {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_cascading_menu_item_layout.xml.flat",
@@ -1188,12 +1188,12 @@
         "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\5f1d026db87ffb501c84fa78c8734039\\res\\color\\abc_hint_foreground_material_dark.xml"
     },
     {
-        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",
-        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\3bbd8ee7dbd775bdadcbc03d45dc8ee8\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\layout_dialog_delete_appointment.xml.flat",
         "source": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\src\\main\\res\\layout\\dialog_delete_appointment.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\layout_notification_template_part_chronometer.xml.flat",
+        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\support-compat-28.0.0.aar\\3bbd8ee7dbd775bdadcbc03d45dc8ee8\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\layout_abc_action_mode_bar.xml.flat",
@@ -1716,12 +1716,12 @@
         "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\appcompat-v7-28.0.0.aar\\5f1d026db87ffb501c84fa78c8734039\\res\\anim\\abc_slide_in_top.xml"
     },
     {
-        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
-        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\744dcb18f7ee6a1f04fbc36e6d79939b\\res\\drawable-xxxhdpi-v4\\design_ic_visibility_off.png"
-    },
-    {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable_button_no_background.xml.flat",
         "source": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\src\\main\\res\\drawable\\button_no_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxxhdpi-v4_design_ic_visibility_off.png.flat",
+        "source": "C:\\Users\\Ido PC\\.gradle\\caches\\transforms-1\\files-1.1\\design-28.0.0.aar\\744dcb18f7ee6a1f04fbc36e6d79939b\\res\\drawable-xxxhdpi-v4\\design_ic_visibility_off.png"
     },
     {
         "merged": "C:\\Users\\Ido PC\\Android-Applications\\my_business\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi-v4_abc_btn_switch_to_on_mtrl_00001.9.png.flat",

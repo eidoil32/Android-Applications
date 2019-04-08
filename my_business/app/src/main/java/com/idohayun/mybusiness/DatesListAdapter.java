@@ -334,7 +334,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         int_phoneNumber = 0;
                     }
                     if (int_phoneNumber != 0) {
-                        if(Integer.toString(int_phoneNumber).length() != 9 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
+                        if(Integer.toString(int_phoneNumber).length() != 10 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
                             is_addPhone = true;
                             appointmentDetails.put("Phone", phoneNumber.getText().toString());
                         } else {
