@@ -6,18 +6,44 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/gallery_appbar"
+        style="@style/AppTheme.Design_Lighter"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/appbar_padding_top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:title="@string/app_name">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gallery_appbar">
 
         <Button
-            style="@style/button_with_background"
-            android:background="@drawable/button_shape"
             android:id="@+id/btn"
+            style="@style/button_with_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/button_shape"
             android:gravity="center"
             android:text="@string/choose_photo"
             android:theme="@style/PrimaryButton"
@@ -41,14 +67,14 @@
             app:layout_constraintTop_toBottomOf="@+id/btn" />
 
         <Button
-            style="@style/button_with_background"
-            android:background="@drawable/button_shape"
             android:id="@+id/showGallery"
+            style="@style/button_with_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/button_shape"
             android:gravity="center"
             android:text="@string/gallery"
             android:theme="@style/PrimaryButton"
@@ -57,14 +83,14 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            style="@style/button_with_background"
-            android:background="@drawable/button_shape"
             android:id="@+id/btn_mng_calendar"
+            style="@style/button_with_background"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/button_shape"
             android:text="@string/manage_calendar"
             android:theme="@style/PrimaryButton"
             app:layout_constraintEnd_toStartOf="@+id/showGallery"
@@ -79,13 +105,13 @@
             app:layout_constraintGuide_begin="357dp" />
 
         <Button
-            style="@style/button_with_background"
-            android:background="@drawable/button_shape"
             android:id="@+id/btn_ok_toUpload"
+            style="@style/button_with_background"
             android:layout_width="119dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
+            android:background="@drawable/button_shape"
             android:text="@string/btn_ok_to_upload"
             android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="parent"

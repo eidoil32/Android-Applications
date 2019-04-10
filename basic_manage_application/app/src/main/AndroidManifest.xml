@@ -20,7 +20,8 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name="com.idohayun.manageapplication.BigImageGallery" />
 
-        <activity android:name="com.idohayun.manageapplication.GalleryShow" />
+        <activity android:name="com.idohayun.manageapplication.GalleryShow"
+            android:theme="@style/Material_Design"/>
         <activity android:name="com.idohayun.manageapplication.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

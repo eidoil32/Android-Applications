@@ -28,8 +28,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,10 +61,9 @@ public class FeedAdapter extends ArrayAdapter {
         return application.size();
     }
 
-    @NotNull
     @SuppressLint("SetTextI18n")
     @Override
-    public View getView(int position, View convertView, @NotNull ViewGroup parent) {
+    public View getView(int position, View convertView,ViewGroup parent) {
         final ViewHolder viewHolder;
 
         if (convertView == null) {

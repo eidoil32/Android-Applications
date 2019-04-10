@@ -1,6 +1,5 @@
 package com.idohayun.manageapplication;
 
-import org.jetbrains.annotations.NotNull;
 
 public class FeedEntry {
     private String imageURL;
@@ -13,7 +12,6 @@ public class FeedEntry {
         this.imageURL = imageURL;
     }
 
-    @NotNull
     @Override
     public String toString() {
         return

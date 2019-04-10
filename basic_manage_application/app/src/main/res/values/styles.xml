@@ -33,6 +33,26 @@
         <item name="android:fontFamily">@font/heebo_light</item>
     </style>
 
+    <style name="Material_Design" parent="Theme.AppCompat.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:background">@color/background_color</item>
+    </style>
+
+    <style name="AppTheme.Design_Dark">
+        <item name="android:textColor">@color/text_white_color</item>
+        <item name="android:textSize" >14sp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+        <item name="android:background">@color/title_background_dark_color</item>
+    </style>
+
+    <style name="AppTheme.Design_Lighter" >
+        <item name="android:textColor">@color/text_basic_color</item>
+        <item name="android:textSize" >14sp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+        <item name="android:background">@color/title_background_light_color</item>
+    </style>
+
     <style name="Text_popup">
         <item name="android:textColor">@color/text_basic_color</item>
         <item name="android:textSize" >14sp</item>

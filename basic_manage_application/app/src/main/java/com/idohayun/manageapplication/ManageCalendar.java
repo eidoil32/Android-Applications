@@ -5,6 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.Window;
+
+import java.util.Objects;
 
 public class ManageCalendar extends AppCompatActivity {
 
@@ -15,6 +18,8 @@ public class ManageCalendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         ViewPager viewPager;
         setContentView(R.layout.activity_manage_calendar);
+
+        getWindow().setStatusBarColor(getColor(R.color.status_bar_color));
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
         viewPager = findViewById(R.id.container);
