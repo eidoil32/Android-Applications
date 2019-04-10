@@ -16,7 +16,7 @@ public class BigImageGallery extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle != null) url = bundle.getString("IMAGEURL");
 
-        WebView webView = (WebView) findViewById(R.id.webview);
+        WebView webView = findViewById(R.id.webview);
         webView.getSettings().setBuiltInZoomControls(true);
         webView.setInitialScale(100);
         webView.loadUrl(url);

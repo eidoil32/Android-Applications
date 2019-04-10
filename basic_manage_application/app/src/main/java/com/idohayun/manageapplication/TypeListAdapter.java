@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -26,6 +27,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -43,9 +45,9 @@ public class TypeListAdapter extends ArrayAdapter {
     private List<Treatment> listOfTypes;
     private RequestQueue queue;
     private JsonObjectRequest request;
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
 
-    public TypeListAdapter(Context context, int resource, ListView listView, List<Treatment> listOfTypes) {
+    TypeListAdapter(Context context, int resource, ListView listView, List<Treatment> listOfTypes) {
         super(context, resource);
         this.context = context;
         this.layoutResource = resource;
@@ -59,8 +61,10 @@ public class TypeListAdapter extends ArrayAdapter {
         return listOfTypes.size();
     }
 
+    @NotNull
+    @SuppressLint("SetTextI18n")
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, @NotNull ViewGroup parent) {
         final ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -105,7 +109,7 @@ public class TypeListAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
         int orientation = getContext().getResources().getConfiguration().orientation;
         float multiple_Width = 0, multiple_Height = 0;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -132,15 +136,15 @@ public class TypeListAdapter extends ArrayAdapter {
         layoutParams.width = dialogWindowWidth;
         layoutParams.height = dialogWindowHeight;
 
-        Button btnOK = (Button)dialog.findViewById(R.id.btn_save_treatment);
-        Button btnCancel = (Button) dialog.findViewById(R.id.btn_cancel);
+        Button btnOK = dialog.findViewById(R.id.btn_save_treatment);
+        Button btnCancel = dialog.findViewById(R.id.btn_cancel);
 
         btnOK.setEnabled(true);
         btnCancel.setEnabled(true);
 
-        final EditText hebrewDescription = (EditText) dialog.findViewById(R.id.edit_text_lang_hebrew);
-        final EditText englishDescription = (EditText) dialog.findViewById(R.id.edit_text_lang_english);
-        final EditText price = (EditText) dialog.findViewById(R.id.edit_price);
+        final EditText hebrewDescription = dialog.findViewById(R.id.edit_text_lang_hebrew);
+        final EditText englishDescription = dialog.findViewById(R.id.edit_text_lang_english);
+        final EditText price = dialog.findViewById(R.id.edit_price);
 
         TextView title = dialog.findViewById(R.id.text_title_popup_treatment);
         title.setText(getContext().getString(R.string.title_edit_treatment_type));
@@ -211,7 +215,7 @@ public class TypeListAdapter extends ArrayAdapter {
         dialog.getWindow().setAttributes(layoutParams);
     }
 
-    public static String checkHebrewDescription(String hebrewString) {
+    static String checkHebrewDescription(String hebrewString) {
         StringBuilder stringBuilder = new StringBuilder(hebrewString);
 
         if(hebrewString.contains("'")) {
@@ -327,11 +331,11 @@ public class TypeListAdapter extends ArrayAdapter {
 
 
         ViewHolder(View v) {
-            this.textPrice = (TextView) v.findViewById(R.id.text_price);
-            this.textDescription_english = (TextView) v.findViewById(R.id.text_description_english);
-            this.textDescription_hebrew = (TextView) v.findViewById(R.id.text_description_hebrew);
-            this.optionDel = (ImageView) v.findViewById(R.id.image_btn_delete);
-            this.optionEdit = (ImageView) v.findViewById(R.id.image_btn_edit);
+            this.textPrice = v.findViewById(R.id.text_price);
+            this.textDescription_english = v.findViewById(R.id.text_description_english);
+            this.textDescription_hebrew = v.findViewById(R.id.text_description_hebrew);
+            this.optionDel = v.findViewById(R.id.image_btn_delete);
+            this.optionEdit = v.findViewById(R.id.image_btn_edit);
         }
     }
 }

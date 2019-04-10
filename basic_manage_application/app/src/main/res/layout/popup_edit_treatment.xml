@@ -16,12 +16,14 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:textAlignment="center"
+            style="@style/Text_simple"
             app:layout_constraintEnd_toStartOf="@+id/guideline_right"
             app:layout_constraintStart_toStartOf="@+id/guideline_left"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Title" />
 
         <EditText
+            style="@style/Text_popup"
             android:id="@+id/edit_text_lang_english"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -36,6 +38,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_title_popup_treatment" />
 
         <EditText
+            style="@style/Text_popup"
             android:id="@+id/edit_text_lang_hebrew"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -50,6 +53,7 @@
             app:layout_constraintTop_toBottomOf="@+id/edit_text_lang_english" />
 
         <EditText
+            style="@style/Text_popup"
             android:id="@+id/edit_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

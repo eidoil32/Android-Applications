@@ -31,6 +31,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static java.lang.Boolean.TRUE;
 
@@ -46,10 +47,9 @@ public class ManageAppointments extends Fragment {
             colorStateListGOOD = ColorStateList.valueOf(colorGood);
     private String urlAddNewWindow = ServerURLManager.Appointments_add_new_appointment;
     private boolean isAllDayMode = false;
-    private getInformationFromSQL getID = new getInformationFromSQL();
     private RequestQueue queue;
     private JsonObjectRequest request;
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
 
 
     @Nullable
@@ -107,7 +107,7 @@ public class ManageAppointments extends Fragment {
                         view.getContext(),
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
                         dateSetListener, mYear, mMonth - 1, mDay);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
             }
         });
@@ -125,8 +125,6 @@ public class ManageAppointments extends Fragment {
             }
         };
 
-        final String date = mDay + "/" + (mMonth) + "/" + mYear;
-
         buttonAddNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -137,16 +135,14 @@ public class ManageAppointments extends Fragment {
                 if(!isAllDayMode) {
                     if (!textHour.getText().toString().isEmpty()) {
                         mHour = Integer.parseInt(textHour.getText().toString());
-                        if (mHour > 24 || mHour < 0) hourOk = false;
-                        else hourOk = true;
+                        hourOk = (mHour <= 24 && mHour >= 0);
                     } else {
                         hourOk = false;
                     }
 
                     if (!textMin.getText().toString().isEmpty()) {
                         mMin = Integer.parseInt(textMin.getText().toString());
-                        if (mMin > 60 || mMin < 0) minOk = false;
-                        else minOk = true;
+                        minOk = (mMin <= 60 && mMin >= 0);
                     } else {
                         minOk = false;
                     }
@@ -180,7 +176,7 @@ public class ManageAppointments extends Fragment {
                                         try {
                                             if (response.getString("status").equals("true")) {
                                                 Log.d(TAG, "onResponse: SUCCESS!!");
-                                                Toast.makeText(getContext(), getContext().getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(getContext(), Objects.requireNonNull(getContext()).getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
                                             }
                                         } catch (JSONException e) {
                                             e.printStackTrace();
@@ -229,7 +225,7 @@ public class ManageAppointments extends Fragment {
                                     try {
                                         if (response.getString("status").equals("true")) {
                                             Log.d(TAG, "onResponse: SUCCESS!!");
-                                            Toast.makeText(getContext(), getContext().getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), Objects.requireNonNull(getContext()).getString(R.string.new_window_added), Toast.LENGTH_SHORT).show();
                                         } else {
                                             Log.d(TAG, "onResponse: " + response.getString("message") + " query was: " + response.getString("data"));
                                         }

@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -23,7 +24,7 @@ public class getInformationToListView {
     private int mDay, mMonth, mYear;
     private Context context;
 
-    public getInformationToListView(String databaseURL, ListView listView, int day, int month, int year, Context context) {
+    getInformationToListView(String databaseURL, ListView listView, int day, int month, int year, Context context) {
         this.databaseURL = databaseURL;
         this.listView = listView;
         this.mDay = day;
@@ -33,6 +34,7 @@ public class getInformationToListView {
     }
 
     public void getJSON() {
+        @SuppressLint("StaticFieldLeak")
         class GetJSON extends AsyncTask<Void, Void, String> {
             @Override
             protected void onPreExecute() {
@@ -59,7 +61,8 @@ public class getInformationToListView {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;
                     while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
+                        sb.append(json);
+                        sb.append("\n");
                     }
                     return sb.toString().trim();
 
@@ -105,8 +108,6 @@ public class getInformationToListView {
     }
 
     private boolean checkDate(DateListArray date, int day, int month, int year) {
-        if (date.getYear() == year && date.getMonth() == month && date.getDay() == day)
-            return true;
-        return false;
+        return (date.getYear() == year && date.getMonth() == month && date.getDay() == day);
     }
 }

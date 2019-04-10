@@ -19,6 +19,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:text="@string/string_manage_appointment_types"
+            style="@style/Text_simple"
             app:layout_constraintBottom_toTopOf="@+id/swipe_to_refresh"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,6 +32,8 @@
             app:layout_constraintGuide_begin="716dp" />
 
         <Button
+            style="@style/button_with_background"
+            android:background="@drawable/button_shape"
             android:id="@+id/btn_add_new"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

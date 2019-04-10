@@ -10,17 +10,17 @@ public class ManageCalendar extends AppCompatActivity {
 
     private static final String TAG = "ManageCalendar";
     private SectionsPageAdapter mSectionsPageAdapter;
-    private ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ViewPager viewPager;
         setContentView(R.layout.activity_manage_calendar);
 
         mSectionsPageAdapter = new SectionsPageAdapter(getSupportFragmentManager());
-        viewPager = (ViewPager) findViewById(R.id.container);
+        viewPager = findViewById(R.id.container);
         setupViewPager(viewPager);
 
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        TabLayout tabLayout = findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
 

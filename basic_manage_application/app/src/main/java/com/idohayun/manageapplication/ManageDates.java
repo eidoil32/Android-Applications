@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -18,25 +19,26 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.Calendar;
+import java.util.Objects;
 
 public class ManageDates extends Fragment {
     private static final String TAG = "ManageDates";
-    private Button btnChooseDate;
     private TextView details;
-    private int mday, mmonth, myear;
+    private int m_day, m_month, m_year;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private ListView listView;
     private String databaseURL = ServerURLManager.Date_database_download;
     private boolean firstTime = true;
+    @SuppressLint("StaticFieldLeak")
     private static SwipeRefreshLayout swipeRefreshLayout;
 
 
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
-        outState.putInt("savedDay",mday);
-        outState.putInt("savedMonth",mmonth);
-        outState.putInt("savedYear",myear);
-        Log.d(TAG, "onSaveInstanceState: Date: " + mday + "-" + mmonth + "-" + myear);
+        outState.putInt("savedDay", m_day);
+        outState.putInt("savedMonth", m_month);
+        outState.putInt("savedYear", m_year);
+        Log.d(TAG, "onSaveInstanceState: Date: " + m_day + "-" + m_month + "-" + m_year);
         super.onSaveInstanceState(outState);
     }
 
@@ -46,40 +48,40 @@ public class ManageDates extends Fragment {
         final View view = inflater.inflate(R.layout.tab1_mng_dates, container, false);
 
         if(savedInstanceState != null) {
-            mday = savedInstanceState.getInt("savedDay");
-            mmonth = savedInstanceState.getInt("savedMonth");
-            myear = savedInstanceState.getInt("savedYear");
-            listView = (ListView) view.findViewById(R.id.available_dates_list);
-            details = (TextView) view.findViewById(R.id.text_details);
-            String date =   mday + "/" + mmonth + "/" + myear;
+            m_day = savedInstanceState.getInt("savedDay");
+            m_month = savedInstanceState.getInt("savedMonth");
+            m_year = savedInstanceState.getInt("savedYear");
+            listView = view.findViewById(R.id.available_dates_list);
+            details = view.findViewById(R.id.text_details);
+            String date =   m_day + "/" + m_month + "/" + m_year;
             details.setText(date);
-            Log.d(TAG, "onCreateView: Rotate Screen, Date: " + mday + "-" + mmonth + "-" + myear);
-            getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
+            Log.d(TAG, "onCreateView: Rotate Screen, Date: " + m_day + "-" + m_month + "-" + m_year);
+            getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView, m_day, m_month, m_year,getContext());
             getInformationToListview.getJSON();
         }
 
         final Calendar calendar = Calendar.getInstance();
-        myear = calendar.get(Calendar.YEAR);
+        m_year = calendar.get(Calendar.YEAR);
         if(firstTime) {
-            mmonth = calendar.get(Calendar.MONTH) + 1;
+            m_month = calendar.get(Calendar.MONTH) + 1;
             firstTime = false;
         } else {
-            mmonth = calendar.get(Calendar.MONTH);
+            m_month = calendar.get(Calendar.MONTH);
         }
 
-        mday = calendar.get(Calendar.DAY_OF_MONTH);
+        m_day = calendar.get(Calendar.DAY_OF_MONTH);
 
-        btnChooseDate = (Button) view.findViewById(R.id.btn_choose_date);
-        details = (TextView) view.findViewById(R.id.text_details);
+        Button btnChooseDate = view.findViewById(R.id.btn_choose_date);
+        details = view.findViewById(R.id.text_details);
 
-        listView = (ListView) view.findViewById(R.id.available_dates_list);
+        listView = view.findViewById(R.id.available_dates_list);
 
-        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_date_list);
+        swipeRefreshLayout = view.findViewById(R.id.swipe_date_list);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 listView.setAdapter(null);
-                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
+                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView, m_day, m_month, m_year,getContext());
                 getInformationToListview.getJSON();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -91,8 +93,8 @@ public class ManageDates extends Fragment {
                 DatePickerDialog dialog = new DatePickerDialog(
                         view.getContext(),
                         android.R.style.Theme_DeviceDefault_Light_Dialog_MinWidth,
-                        dateSetListener, myear, mmonth-1, mday);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+                        dateSetListener, m_year, m_month -1, m_day);
+                Objects.requireNonNull(dialog.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.WHITE));
                 dialog.show();
             }
         });
@@ -101,12 +103,12 @@ public class ManageDates extends Fragment {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String date =   dayOfMonth + "/" + (month +1) + "/" + year;
-                mday = dayOfMonth;
-                mmonth = month + 1;
-                myear = year;
+                m_day = dayOfMonth;
+                m_month = month + 1;
+                m_year = year;
 
                 details.setText(date);
-                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView,mday,mmonth,myear,getContext());
+                getInformationToListView getInformationToListview = new getInformationToListView(databaseURL,listView, m_day, m_month, m_year,getContext());
                 getInformationToListview.getJSON();
             }
         };

@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -46,9 +47,11 @@ import java.util.Objects;
 
 public class ManageTreatmentsTypes extends Fragment {
     private static final String TAG = "ManageTreatmentsTypes";
+    @SuppressLint("StaticFieldLeak")
     private static ListView listView;
     private SwipeRefreshLayout swipeRefreshLayout;
     private GetInformation getInformation = new GetInformation();
+    @SuppressLint("StaticFieldLeak")
     private static Context context;
     private RequestQueue queue;
     private JsonObjectRequest request;
@@ -138,7 +141,7 @@ public class ManageTreatmentsTypes extends Fragment {
         price.setHint(getResources().getString(R.string.hint_price));
 
         TextView title = dialog.findViewById(R.id.text_title_popup_treatment);
-        title.setText(getContext().getString(R.string.title_new_treatment_type));
+        title.setText(Objects.requireNonNull(getContext()).getString(R.string.title_new_treatment_type));
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override

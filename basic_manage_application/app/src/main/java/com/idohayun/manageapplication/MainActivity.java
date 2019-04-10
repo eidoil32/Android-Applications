@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -40,17 +41,19 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button btn,galleryShow, mngCalendar,btnOKtoUpload;
+    private static final String TAG = "MainActivity";
+    private Button btnOKtoUpload;
     private ImageView imageView;
     private final int GALLERY = 1;
     private String upload_URL = ServerURLManager.Images_upload_new;
     private RequestQueue rQueue;
-    private ArrayList<HashMap<String, String>> arraylist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Button btn, galleryShow, mngCalendar;
 
         requestMultiplePermissions();
 
@@ -132,7 +135,6 @@ public class MainActivity extends AppCompatActivity {
 
                             if (jsonObject.getString("status").equals("true")) {
 
-                                arraylist = new ArrayList<HashMap<String, String>>();
                                 JSONArray dataArray = jsonObject.getJSONArray("data");
 
                                 String url = "";
@@ -159,9 +161,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
                 // here can add more params
-                return params;
+                return new HashMap<>();
             }
 
             @Override
@@ -199,11 +200,13 @@ public class MainActivity extends AppCompatActivity {
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
+                            Log.d(TAG, "onPermissionsChecked: all permissions granted successfully");
                             //show to user if permissions granted successfully
                         }
 
                         // check for permanent denial of any permission
                         if (report.isAnyPermissionPermanentlyDenied()) {
+                            Log.d(TAG, "onPermissionsChecked: all permissions denied!");
                             // show alert dialog navigating to Settings
 
                         }

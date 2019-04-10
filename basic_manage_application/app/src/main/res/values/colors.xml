@@ -7,4 +7,5 @@
     <color name="button_background_color_pressed">#769fcd</color>
     <color name="button_text_color">#f7fbfc</color>
     <color name="button_border_color">#4f6b8c</color>
+    <color name="text_basic_color">#222222</color>
 </resources>

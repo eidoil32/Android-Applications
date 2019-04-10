@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -28,12 +29,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class FeedAdapter extends ArrayAdapter {
     private static final String TAG = "FeedAdapter";
@@ -44,10 +47,10 @@ public class FeedAdapter extends ArrayAdapter {
     private List<DateListArray> application;
     private RequestQueue queue;
     private JsonObjectRequest request;
-    private Map<String, String> map = new HashMap<String, String>();
+    private Map<String, String> map = new HashMap<>();
     private String updateUrl = ServerURLManager.Date_database_update, downloadURL = ServerURLManager.Date_database_download;
 
-    public FeedAdapter(Context context, int resource, List<DateListArray> application, ListView listView) {
+    FeedAdapter(Context context, int resource, List<DateListArray> application, ListView listView) {
         super(context, resource);
         this.layoutResource = resource;
         this.layoutInflater = LayoutInflater.from(context);
@@ -55,21 +58,15 @@ public class FeedAdapter extends ArrayAdapter {
         this.listView = listView;
     }
 
-
-    public FeedAdapter(Context context, int resource, List<DateListArray> application) {
-        super(context, resource);
-        this.layoutResource = resource;
-        this.layoutInflater = LayoutInflater.from(context);
-        this.application = application;
-    }
-
     @Override
     public int getCount() {
         return application.size();
     }
 
+    @NotNull
+    @SuppressLint("SetTextI18n")
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, View convertView, @NotNull ViewGroup parent) {
         final ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -121,6 +118,7 @@ public class FeedAdapter extends ArrayAdapter {
             viewHolder.optionDel.setVisibility(View.VISIBLE);
             viewHolder.textName.setVisibility(View.VISIBLE);
             viewHolder.textType.setVisibility(View.VISIBLE);
+            viewHolder.exportEvent.setVisibility(View.VISIBLE);
             if(currentDate.getPhone() != 0 )
             {
                 viewHolder.textPhone.setVisibility(View.VISIBLE);
@@ -151,6 +149,7 @@ public class FeedAdapter extends ArrayAdapter {
         } else { //is available
             viewHolder.optionCatch.setVisibility(View.VISIBLE);
             viewHolder.optionCatch.setText(getContext().getString(R.string.btn_date_catch));
+            viewHolder.exportEvent.setVisibility(View.INVISIBLE);
 
             viewHolder.optionCatch.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -174,7 +173,7 @@ public class FeedAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
         int orientation = getContext().getResources().getConfiguration().orientation;
         float multiple_Width = 0.7f, multiple_Height = 0.3f;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -192,8 +191,8 @@ public class FeedAdapter extends ArrayAdapter {
         layoutParams.width = dialogWindowWidth;
         layoutParams.height = dialogWindowHeight;
 
-        Button btnYes = (Button)dialog.findViewById(R.id.button_yes);
-        Button btnNo = (Button)dialog.findViewById(R.id.button_no);
+        Button btnYes = dialog.findViewById(R.id.button_yes);
+        Button btnNo = dialog.findViewById(R.id.button_no);
 
         btnNo.setEnabled(true);
         btnYes.setEnabled(true);
@@ -273,7 +272,7 @@ public class FeedAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
         int orientation = getContext().getResources().getConfiguration().orientation;
         float multiple_Width = 0.7f, multiple_Height = 0.3f;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -291,8 +290,8 @@ public class FeedAdapter extends ArrayAdapter {
         layoutParams.width = dialogWindowWidth;
         layoutParams.height = dialogWindowHeight;
 
-        Button btnYes = (Button)dialog.findViewById(R.id.button_yes);
-        Button btnNo = (Button)dialog.findViewById(R.id.button_no);
+        Button btnYes = dialog.findViewById(R.id.button_yes);
+        Button btnNo = dialog.findViewById(R.id.button_no);
 
         btnNo.setEnabled(true);
         btnYes.setEnabled(true);
@@ -308,7 +307,7 @@ public class FeedAdapter extends ArrayAdapter {
             public void onClick(View v) {
                 queue = Volley.newRequestQueue(getContext());
                 Log.d(TAG, "onClick: Catch button clicked!");
-                Map<String,String> tempMap = new HashMap<String, String>();
+                Map<String,String> tempMap = new HashMap<>();
                 tempMap.put("TypeOfJSON","DeleteForEver");
                 tempMap.put("PersonID", Integer.toString(catchDate.getPersonID()));
                 tempMap.put("Day", Integer.toString(catchDate.getDay()));
@@ -357,7 +356,7 @@ public class FeedAdapter extends ArrayAdapter {
 
     private void CatchPopupMenu(final DateListArray catchDate) {
         final Dialog dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.popup_catch_menu);
+        dialog.setContentView(R.layout.popup_delete_row);
 
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -365,17 +364,17 @@ public class FeedAdapter extends ArrayAdapter {
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(dialog.getWindow().getAttributes());
+        layoutParams.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
         int orientation = getContext().getResources().getConfiguration().orientation;
         float multiple_Width = 0.7f, multiple_Height = 0.3f;
         if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             Log.d(TAG, "Portrait");
-            multiple_Width = 0.7f;
+            multiple_Width = 0.8f;
             multiple_Height = 0.3f;
         }
         else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             Log.d(TAG, "Landscape");
-            multiple_Width = 0.7f;
+            multiple_Width = 0.8f;
             multiple_Height = 0.6f;
         }
         int dialogWindowWidth = (int)(displayWidth * multiple_Width);
@@ -383,8 +382,11 @@ public class FeedAdapter extends ArrayAdapter {
         layoutParams.width = dialogWindowWidth;
         layoutParams.height = dialogWindowHeight;
 
-        Button btnYes = (Button)dialog.findViewById(R.id.button_yes);
-        Button btnNo = (Button)dialog.findViewById(R.id.button_no);
+        TextView description = dialog.findViewById(R.id.text_catch_date);
+        description.setText(getContext().getString(R.string.popup_menu_catch_block_date));
+
+        Button btnYes = dialog.findViewById(R.id.button_yes);
+        Button btnNo = dialog.findViewById(R.id.button_no);
 
         btnNo.setEnabled(true);
         btnYes.setEnabled(true);
@@ -400,7 +402,7 @@ public class FeedAdapter extends ArrayAdapter {
             public void onClick(View v) {
                 queue = Volley.newRequestQueue(getContext());
                 Log.d(TAG, "onClick: Catch button clicked!");
-                Map<String,String> tempMap = new HashMap<String, String>();
+                Map<String,String> tempMap = new HashMap<>();
                 tempMap.put("TypeOfJSON","Catch");
                 tempMap.put("PersonID", Integer.toString(catchDate.getPersonID()));
                 tempMap.put("Day", Integer.toString(catchDate.getDay()));
@@ -451,14 +453,14 @@ public class FeedAdapter extends ArrayAdapter {
 
 
         ViewHolder(View v) {
-            this.textDate = (TextView) v.findViewById(R.id.text_date);
-            this.textName = (TextView) v.findViewById(R.id.text_name);
-            this.textTime = (TextView) v.findViewById(R.id.text_time);
-            this.textType = (TextView) v.findViewById(R.id.text_type);
-            this.textPhone = (TextView) v.findViewById(R.id.text_phone);
-            this.optionDel = (Button) v.findViewById(R.id.btn_op1);
-            this.optionCatch = (Button) v.findViewById(R.id.btn_catch);
-            this.exportEvent = (Button) v.findViewById(R.id.export_to_calendar);
+            this.textDate = v.findViewById(R.id.text_date);
+            this.textName = v.findViewById(R.id.text_name);
+            this.textTime = v.findViewById(R.id.text_time);
+            this.textType = v.findViewById(R.id.text_type);
+            this.textPhone = v.findViewById(R.id.text_phone);
+            this.optionDel = v.findViewById(R.id.btn_op1);
+            this.optionCatch = v.findViewById(R.id.btn_catch);
+            this.exportEvent = v.findViewById(R.id.export_to_calendar);
 
         }
     }

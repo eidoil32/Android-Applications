@@ -1,5 +1,6 @@
 package com.idohayun.manageapplication;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class GalleryShow extends AppCompatActivity {
 
@@ -38,15 +40,16 @@ public class GalleryShow extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowHomeEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         setContentView(R.layout.activity_gallery_show);
-        list = (GridView) findViewById(R.id.gridView_images);
+        list = findViewById(R.id.gridView_images);
         getJSON();
     }
 
     private void getJSON() {
+        @SuppressLint("StaticFieldLeak")
         class GetJSON extends AsyncTask<Void, Void, String> {
             @Override
             protected void onPreExecute() {
@@ -73,7 +76,8 @@ public class GalleryShow extends AppCompatActivity {
                     BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                     String json;
                     while ((json = bufferedReader.readLine()) != null) {
-                        sb.append(json + "\n");
+                        sb.append(json);
+                        sb.append("\n");
                     }
 
                     return sb.toString().trim();

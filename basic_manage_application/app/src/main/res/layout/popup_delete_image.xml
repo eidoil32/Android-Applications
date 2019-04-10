@@ -16,6 +16,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:gravity="center"
+            style="@style/Text_popup"
             android:text="@string/popup_delete_image_q"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

@@ -15,6 +15,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:gravity="start"
+        style="@style/Text_popup"
         android:text="@string/text_lang_hebrew"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toStartOf="@+id/guideline15"
@@ -22,6 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        style="@style/Text_popup"
         android:id="@+id/text_lang_english"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -37,6 +39,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline17" />
 
     <TextView
+        style="@style/Text_popup"
         android:id="@+id/text_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -66,6 +69,7 @@
         app:layout_constraintGuide_begin="120dp" />
 
     <TextView
+        style="@style/Text_popup"
         android:id="@+id/text_description_hebrew"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -81,6 +85,7 @@
         tools:text="Description_hebrew" />
 
     <TextView
+        style="@style/Text_popup"
         android:id="@+id/text_description_english"
         android:layout_width="0dp"
         android:layout_height="0dp"

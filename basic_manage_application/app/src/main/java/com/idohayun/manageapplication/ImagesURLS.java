@@ -6,7 +6,7 @@ public class ImagesURLS {
     private String URL = ServerURLManager.Images_get_all;
     private ArrayList<FeedEntry> images;
 
-    public ImagesURLS() { images = new ArrayList<>();}
+    ImagesURLS() { images = new ArrayList<>();}
 
     public ArrayList<FeedEntry> getArray() {
         return images;

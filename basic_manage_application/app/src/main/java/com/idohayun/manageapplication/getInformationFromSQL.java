@@ -50,7 +50,8 @@ public class getInformationFromSQL {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(con.getInputStream()));
                 String json;
                 while ((json = bufferedReader.readLine()) != null) {
-                    sb.append(json + "\n");
+                    sb.append(json);
+                    sb.append("\n");
                 }
                 return sb.toString().trim();
             } catch (Exception e) {
