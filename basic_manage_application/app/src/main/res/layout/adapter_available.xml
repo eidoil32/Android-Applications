@@ -49,6 +49,8 @@
         tools:text="Time: 15:00" />
 
     <Button
+        style="@style/button_with_background"
+        android:background="@drawable/button_shape"
         android:id="@+id/btn_op1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,6 +65,8 @@
         tools:text="DEL" />
 
     <Button
+        style="@style/button_with_background"
+        android:background="@drawable/button_shape"
         android:id="@+id/btn_catch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -94,6 +98,8 @@
         app:layout_constraintGuide_begin="87dp" />
 
     <Button
+        style="@style/button_with_background"
+        android:background="@drawable/button_shape"
         android:id="@+id/export_to_calendar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

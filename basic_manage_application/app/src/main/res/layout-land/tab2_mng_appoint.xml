@@ -117,6 +117,7 @@
         android:layout_marginBottom="8dp"
         android:text="@string/btn_add_new_window"
         android:theme="@style/PrimaryButton"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline8"
@@ -174,6 +175,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_add_single_appointment"
-        tools:text="mode description" />
+        tools:text="mode description_Hebrew" />
 
 </android.support.constraint.ConstraintLayout>
