@@ -123,7 +123,6 @@ public class TypeListAdapter extends ArrayAdapter {
         int dialogWindowWidth = (int)(displayWidth * multiple_Width);
         int dialogWindowHeight = (int)(displayHeight * multiple_Height);
 
-
         Guideline leftGuide = dialog.findViewById(R.id.guideline_left),
                 rightGuide = dialog.findViewById(R.id.guideline_right),
                 bottomGuide = dialog.findViewById(R.id.bottom_guideline);

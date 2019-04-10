@@ -46,7 +46,6 @@ public class GalleryShow extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.gallery_toolbar);
         setSupportActionBar(toolbar);
-        toolbar.
 
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
