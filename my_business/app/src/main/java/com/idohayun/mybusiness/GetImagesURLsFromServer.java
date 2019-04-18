@@ -1,8 +1,10 @@
 package com.idohayun.mybusiness;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.GridView;
 
 import org.json.JSONArray;
@@ -23,11 +25,12 @@ public class GetImagesURLsFromServer {
     private Context context;
     private GridView gridView;
     private static int NUMOFIMAGES;
+    private View view;
 
 
 
-    public void CreateImageGridView(Context context, GridView gridView) {
-
+    public void CreateImageGridView(Context context, GridView gridView, View view) {
+        this.view = view;
         this.context = context;
         this.gridView = gridView;
 
@@ -93,6 +96,15 @@ public class GetImagesURLsFromServer {
                         obj.getInt("Width"),
                         obj.getInt("Height")));
                 Log.d(TAG, "loadIntoListView: " + imageURLList.get(i).toString());
+            }
+
+            baseUSER user = new baseUSER();
+            user.getUserDetails(view);
+
+            if(user.getId() == 1) {
+                imageURLList.add(new ImageURL("add_new",jsonArray.length()+1,50,50));
+            } else {
+                imageURLList.add(new ImageURL("empty",jsonArray.length()+1,50,50));
             }
 
             ImageAdapter imageGridAdapter = new ImageAdapter(context,imageURLList);

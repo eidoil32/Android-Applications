@@ -6,7 +6,7 @@
     density="xxhdpi"
     format="10"
     plugin-version="3.3.2"
-    timestamp="1554672024425"
+    timestamp="1555537226056"
     token="8841748679192521719"
     verifier="COLD_SWAP_REQUESTED" >
 
@@ -23,9 +23,46 @@
         name="verifier"
         duration="0" />
 
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+        type="SPLIT" />
+    <artifact
+        location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
+        type="SPLIT_MAIN" />
+
     <build
         build-mode="FULL"
-        timestamp="1554671996227"
+        timestamp="1555537116933"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\resources\instant-run\debug\resources-debug.apk"
@@ -58,10 +95,10 @@
             location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
             type="SPLIT" />
         <artifact
-            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
             type="SPLIT" />
         <artifact
             location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
@@ -69,7 +106,44 @@
     </build>
     <build
         build-mode="COLD"
-        timestamp="1554672024425"
-        verifier="COLD_SWAP_REQUESTED" />
+        timestamp="1555537226056"
+        verifier="COLD_SWAP_REQUESTED" >
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\dep\dependencies.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_1.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_0.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_4.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_3.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_5.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_6.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_8.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_7.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_9.apk"
+            type="SPLIT" />
+        <artifact
+            location="C:\Users\Ido PC\Android-Applications\my_business\app\build\intermediates\instant-run-apk\debug\app-debug.apk"
+            type="SPLIT_MAIN" />
+    </build>
 
 </instant-run>

@@ -9,8 +9,27 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Design_Lighter" >
+        <item name="android:textColor">@color/navbar_text_color</item>
+        <item name="android:textSize" >14sp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+        <item name="android:background">@color/navbar_background_color</item>
+    </style>
+
+    <style name="Text_simple">
+        <item name="android:textColor">@color/text_simple_black</item>
+        <item name="android:textSize" >24sp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
+    </style>
+
     <style name="MainActivityTheme" parent="AppTheme">
         <item name="android:background">@color/transparent</item>
+    </style>
+
+    <style name="Text_popup">
+        <item name="android:textColor">@color/text_basic_color</item>
+        <item name="android:textSize" >14sp</item>
+        <item name="android:fontFamily">@font/heebo_light</item>
     </style>
 
     <style name="CustomDrawer" parent="Theme.AppCompat.Light.DarkActionBar">

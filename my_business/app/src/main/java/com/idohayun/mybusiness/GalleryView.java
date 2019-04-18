@@ -46,7 +46,7 @@ public class GalleryView extends Fragment {
         view.setBackgroundColor(view.getResources().getColor(R.color.colorBackground,null));
         gridView = view.findViewById(R.id.gallery_grid_view);
         getImagesURLsFromServer = new GetImagesURLsFromServer();
-        getImagesURLsFromServer.CreateImageGridView(view.getContext(),gridView);
+        getImagesURLsFromServer.CreateImageGridView(view.getContext(),gridView,view);
         viewForSwipe = view;
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.gallery_swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -56,7 +56,7 @@ public class GalleryView extends Fragment {
                 CustomToast.showToast(view.getContext(),view.getResources().getString(R.string.refresh_gallery_msg),2);
                 gridView.setAdapter(null);
                 GetImagesURLsFromServer getImagesURLsFromServer = new GetImagesURLsFromServer();
-                getImagesURLsFromServer.CreateImageGridView(viewForSwipe.getContext(),gridView);
+                getImagesURLsFromServer.CreateImageGridView(viewForSwipe.getContext(),gridView, view);
                 swipeRefreshLayout.setRefreshing(false);
             }
         });

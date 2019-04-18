@@ -10,7 +10,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="nav_homepage_string">Home Page</string>
     <string name="nav_gallery_string">Gallery</string>
-    <string name="nav_tools_string">Tools</string>
+    <string name="nav_tools_string">My Account</string>
     <string name="nav_share_app">Share App</string>
     <string name="nav_order_new">Made an appointment</string>
     <string name="menu_communicate">Communicate</string>
@@ -28,7 +28,7 @@
     <string name="homepage_enjoy">And be ready to enjoy your new look!</string>
     <string name="btn_text_new_appointment">Order now</string>
     <string name="btn_text_gallery">Gallery</string>
-    <string name="btn_cancel">CANCEL</string>
+    <string name="btn_cancel">Cancel</string>
     <string name="btn_order">OK</string>
     <string name="dialog_new_apt_title">Make an appointment!</string>
     <string name="text_enter_name">Enter your name:</string>
@@ -87,5 +87,53 @@
     <string name="change_password_hint">Change password</string>
     <string name="dialog_delete_appointment_title">Deleting appointment</string>
     <string name="dialog_delete_appointment_confirm">Are you sure you want to delete the appointment?</string>
-    <string name="dialog_appointment_cancled_successfully">Appointment cancled successfully!</string>
+    <string name="dialog_appointment_cancled_successfully">Appointment canceled successfully!</string>
+    <string name="error_form_is_not_filled">If you want to change something in your account\nyou must fill something.</string>
+    <string name="error_user_is_guest_and_change_user_name">It\'s seems that you are not register,\nplease fill password and username to finish your register</string>
+    <string name="error_user_is_guest_and_filled_only_phone">It\'s seems you are still a guest,\nif you want to finish your register you must set password and username</string>
+    <string name="error_password_is_less_or_invalid">Password is less than 3 characters or invalid</string>
+    <string name="nav_manager_upload">Upload new picture</string>
+    <string name="nav_manage_panel">Manager Panel</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="manage_gallery_add_new_title">Add new picture to gallery</string>
+    <string name="btn_browse">BROWSE</string>
+    <string name="btn_back">BACK</string>
+    <string name="btn_no">NO</string>
+    <string name="btn_yes">YES</string>
+    <string name="file_deleted_successfully">Pictures deleted successfully</string>
+    <string name="popup_delete_image">Are you sure you want to delete this image from server?</string>
+    <string name="text_manage_panel_title">Manager Panel</string>
+    <string name="manage_calendar_add_new_window">New window</string>
+    <string name="manage_calendar_treatment_types">Treatment Types</string>
+    <string name="btn_single_appointment">Single window</string>
+    <string name="btn_all_day_appointments">Fill day</string>
+    <string name="btn_add_new_window">Add new</string>
+    <string name="text_choose_min">MIN</string>
+    <string name="text_choose_hour">HOUR</string>
+    <string name="btn_choose_date_for_new">Calendar</string>
+    <string name="please_choose_date">Please choose date</string>
+    <string name="btn_add_new_appointment">Add new window</string>
+    <string name="single_appointment_description">Add single window</string>
+    <string name="all_day_description">Fill all day</string>
+    <string name="string_manage_appointment_types">Manage Treatment Types</string>
+    <string name="btn_add">Add</string>
+    <string name="edit_text_hint_lang_english">ENGLISH</string>
+    <string name="edit_text_hint_lang_hebrew">HEBREW</string>
+    <string name="edit_text_price_hint">PRICE</string>
+    <string name="btn_ok">OK</string>
+    <string name="hebrew_description_hint">HEBREW DESCRIPTION</string>
+    <string name="english_description_hint">ENGLISH DESCRIPTION</string>
+    <string name="hint_price">PRICE</string>
+    <string name="title_new_treatment_type">Add new treatment type</string>
+    <string name="text_price_prefix">PRICE:</string>
+    <string name="title_edit_treatment_type">Edit treatment</string>
+    <string name="treatment_edited_successfully">Edited successfully</string>
+    <string name="warning_delete_treatment_types">Are you sure you want to delete this treatment type?</string>
+    <string name="treatment_deleted_successfully">Treatment type deleted successfully</string>
+    <string name="treatment_added_successfully">Treatment type added successfully</string>
+    <string name="text_lang_hebrew">Hebrew:</string>
+    <string name="text_lang_english">English:</string>
+    <string name="manager_calendar_choose_type">Choose type of new window</string>
 </resources>

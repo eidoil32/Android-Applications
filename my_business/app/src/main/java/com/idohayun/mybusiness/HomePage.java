@@ -1,14 +1,10 @@
 package com.idohayun.mybusiness;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,11 +13,6 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.Locale;
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class HomePage extends Fragment {
     private static TextView userState;
     private static final String TAG = "HomePage";
@@ -29,7 +20,6 @@ public class HomePage extends Fragment {
     public HomePage() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -26,9 +26,13 @@ public class MainActivity extends AppCompatActivity
     private ToolsView toolsView = new ToolsView();
     private FrameLayout frameLayout;
     private OrderView orderView;
+    private ManagerPanel manageCalendar;
     private GalleryView galleryView = new GalleryView();
     private HomePage homePage;
+    private NavigationView navigationView;
     private int counter = 0;
+    private baseUSER user = new baseUSER();
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +40,16 @@ public class MainActivity extends AppCompatActivity
 
         Log.d(TAG, "onCreate: called no " + counter++);
         setContentView(R.layout.activity_main);
+        view = View.inflate(this, R.layout.activity_main, null);
 
+        Log.d(TAG, "onCreate: " + user.getId());
+        navigationView  = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();
 
+        baseUSER.setNavigationView(navigationView);
+
         final DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, null, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -69,6 +78,7 @@ public class MainActivity extends AppCompatActivity
         frameLayout = findViewById(R.id.fragment);
         orderView = new OrderView();
         homePage = new HomePage();
+        manageCalendar = new ManagerPanel();
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.getMenu().getItem(0).setChecked(true);
     }
@@ -94,7 +104,6 @@ public class MainActivity extends AppCompatActivity
                 super.onBackPressed();
             }
         }
-
     }
 
     @Override
@@ -138,6 +147,9 @@ public class MainActivity extends AppCompatActivity
             }
         } else if (id == R.id.nav_manage) {
             fragmentManager.beginTransaction().replace(R.id.fragment, toolsView, "ToolsView").addToBackStack("ToolsView").commit();
+            frameLayout.removeAllViews();
+        } else if (id == R.id.nav_manage_calendar) {
+            fragmentManager.beginTransaction().replace(R.id.fragment, manageCalendar, "ManagerPanel").addToBackStack("ManagerPanel").commit();
             frameLayout.removeAllViews();
         }
 

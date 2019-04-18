@@ -1,6 +1,7 @@
 package com.idohayun.mybusiness;
 
 import android.database.Cursor;
+import android.support.design.widget.NavigationView;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class baseUSER {
     private View view;
     private static StringBuilder sb = new StringBuilder();
     private DataBaseManager dbHelper;
+    private static NavigationView navigationView;
 
     public void setView(View view) {
         this.view = view;
@@ -40,6 +42,10 @@ public class baseUSER {
 
     public String print() {
         return "Name: " + name + "Password: " + password + "Phone: " + phone + "UserID: " + id;
+    }
+
+    public static void setNavigationView(NavigationView i_navigationView) {
+        navigationView = i_navigationView;
     }
 
     public void getUserDetails(View view) {
@@ -62,6 +68,14 @@ public class baseUSER {
             this.isGuest = true;
         }
 
+        if(navigationView != null) {
+            if(id == 1) {
+                navigationView.getMenu().setGroupVisible(R.id.group_manager,true);
+            } else {
+                navigationView.getMenu().setGroupVisible(R.id.group_manager, false);
+            }
+        }
+
         Log.d(TAG, "getUserDetails: username: " + name + " guest? " + isGuest);
     }
 
@@ -74,7 +88,7 @@ public class baseUSER {
     }
 
     public void setGuestUser(View view, int phone, String name, Map<String, String> map) {
-        this.password = " ";
+        this.password = "no_password";
         this.phone = phone;
         Random r = new Random();
         this.name = "Guest_" + r.nextInt(10000);
@@ -341,6 +355,13 @@ public class baseUSER {
         }
         errorText.setText(buildErrorMessage);
         return !foundSomethingWrong;
+    }
+
+    public static boolean validPhone(String phone) {
+        if(phone.length() < 8 || phone.length() > 10) {
+            return firstTwoDigitsNotExist(phone);
+        }
+        return false;
     }
 
     public static boolean firstTwoDigitsNotExist(String phoneString) {
