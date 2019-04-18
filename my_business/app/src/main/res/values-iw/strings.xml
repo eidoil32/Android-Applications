@@ -134,4 +134,8 @@
     <string name="appointment_deleted_successfully">חלון נמחק בהצלחה</string>
     <string name="alert_text_window_delete_forever">האם אתה בטוח שברצונך למחוק חלון זה לצמיתות? ייתכן שמישהו כבר הזמין חלון זה ורצוי להודיע לו טרם הביטול.</string>
     <string name="window_time_already_passed">חלון זמן זה עבר כבר!</string>
+    <string name="popup_more_details_title">MORE DETAILS</string>
+    <string name="popup_more_details_name">Order name:</string>
+    <string name="popup_more_details_date">Date:</string>
+    <string name="popup_more_details_phone">Phone number:</string>
 </resources>

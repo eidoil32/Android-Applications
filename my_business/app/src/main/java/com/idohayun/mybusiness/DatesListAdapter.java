@@ -123,11 +123,22 @@ public class DatesListAdapter extends ArrayAdapter {
                     deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
                             0x2D, 0x2D)));
                     // set item width
-                    deleteItem.setWidth((int)(90*displayMetrics.density));
+                    deleteItem.setWidth((int)(40*displayMetrics.density));
                     // set a icon
                     deleteItem.setIcon(R.drawable.baseline_delete_white_18dp);
                     // add to menu
                     menu.addMenuItem(deleteItem);
+
+                    // create "delete" item
+                    SwipeMenuItem details = new SwipeMenuItem(context);
+                    // set item background
+                    details.setBackground(new ColorDrawable(Color.rgb(0x2E,0x6D, 0xA8)));
+                    // set item width
+                    details.setWidth((int)(40*displayMetrics.density));
+                    // set a icon
+                    details.setIcon(R.drawable.baseline_contact_support_black_18dp);
+                    // add to menu
+                    menu.addMenuItem(details);
                 }
             };
 
@@ -140,6 +151,9 @@ public class DatesListAdapter extends ArrayAdapter {
                 switch (index) {
                     case 0:
                         DeleteRowPopup(dateArrayList.get(i_position),i_position);
+                        break;
+                    case 1:
+                        moreDetails(i_position,viewHolder.getView());
                         break;
                 }
                 return false;
@@ -160,7 +174,7 @@ public class DatesListAdapter extends ArrayAdapter {
 
         if(currentDate.getHour() > currentHour) {
             if (!currentDate.isAvailable()) {
-                if (currentDate.getUserID() == user.getId()) {
+                if (currentDate.getUserID() == user.getId() || user.getId() == 1) {
                     viewHolder.option.setVisibility(View.VISIBLE);
                     viewHolder.option.setText(convertView.getResources().getString(R.string.order_adapter_btn_export));
                     viewHolder.deleteButton.setVisibility(View.VISIBLE);
@@ -207,6 +221,33 @@ public class DatesListAdapter extends ArrayAdapter {
         }
 
         return convertView;
+    }
+
+    private void moreDetails(int position, View v) {
+        currentDate = dateArrayList.get(position);
+        String min = currentDate.getMin() < 10 ? currentDate.getMin() + "0" : Integer.toString(currentDate.getMin());
+        fullDate = currentDate.getDay() + "/" + currentDate.getMonth() + "/" + currentDate.getYear();
+        fullTime = currentDate.getHour() + ":" + min;
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) v.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.popupMoreDetails.getWindow()).getAttributes());
+        layoutParams.width = displayWidth;
+        layoutParams.height = displayHeight/2;
+
+        TextView user_phone, user_name;
+
+        ImageView closeImage = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_close);
+        closeImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.popupMoreDetails.cancel();
+            }
+        });
+        viewHolder.popupMoreDetails.show();
+        viewHolder.popupMoreDetails.getWindow().setAttributes(layoutParams);
     }
 
     private void deleteButton(int position, final ViewHolder viewHolder, View v) {
@@ -561,7 +602,7 @@ public class DatesListAdapter extends ArrayAdapter {
     private class ViewHolder {
         final TextView textDate, textTime, textStatus;
         final Button option;
-        final Dialog dialogNewAppointment, dialogConfirmDelete;
+        final Dialog dialogNewAppointment, dialogConfirmDelete, popupMoreDetails;
         final View view;
         final ImageView deleteButton;
 
@@ -573,6 +614,8 @@ public class DatesListAdapter extends ArrayAdapter {
             this.deleteButton = v.findViewById(R.id.order_adatper_delete);
             dialogNewAppointment = new Dialog(v.getContext());
             dialogConfirmDelete = new Dialog(v.getContext());
+            popupMoreDetails = new Dialog(v.getContext());
+            this.popupMoreDetails.setContentView(R.layout.popup_more_details);
             this.dialogConfirmDelete.setContentView(R.layout.dialog_delete_appointment);
             this.dialogNewAppointment.setContentView(R.layout.dialog_make_new_appointment);
             this.view = v;
