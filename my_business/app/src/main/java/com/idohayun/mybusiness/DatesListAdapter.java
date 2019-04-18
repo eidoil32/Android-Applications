@@ -125,7 +125,7 @@ public class DatesListAdapter extends ArrayAdapter {
                     // set item width
                     deleteItem.setWidth((int)(90*displayMetrics.density));
                     // set a icon
-                    deleteItem.setIcon(R.drawable.baseline_delete_black_18dp);
+                    deleteItem.setIcon(R.drawable.baseline_delete_white_18dp);
                     // add to menu
                     menu.addMenuItem(deleteItem);
                 }
