@@ -94,28 +94,6 @@ public class OrderView extends Fragment {
         listView = view.findViewById(R.id.order_appointment_list);
         progressBar = view.findViewById(R.id.order_progressBar);
 
-        final DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        SwipeMenuCreator creator = new SwipeMenuCreator() {
-
-            @Override
-            public void create(SwipeMenu menu) {
-                // create "delete" item
-                SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-                // set item background
-                deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
-                        0x2D, 0x2D)));
-                // set item width
-                deleteItem.setWidth((int)(90*displayMetrics.density));
-                // set a icon
-                deleteItem.setIcon(R.drawable.baseline_delete_black_18dp);
-                // add to menu
-                menu.addMenuItem(deleteItem);
-            }
-        };
-
-        listView.setMenuCreator(creator);
-
 //        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
 //            public void onSwipeLeft() {
 //                Log.d(TAG, "onSwipeRight: swipeRight!");

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
 import android.support.constraint.Guideline;
 import android.support.v4.view.ViewCompat;
@@ -110,6 +111,29 @@ public class DatesListAdapter extends ArrayAdapter {
         viewHolder.textStatus.setVisibility(View.VISIBLE);
 
         if(user.getId() == 1) {
+            final DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+                @Override
+                public void create(SwipeMenu menu) {
+                    // create "delete" item
+                    SwipeMenuItem deleteItem = new SwipeMenuItem(context);
+                    // set item background
+                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
+                            0x2D, 0x2D)));
+                    // set item width
+                    deleteItem.setWidth((int)(90*displayMetrics.density));
+                    // set a icon
+                    deleteItem.setIcon(R.drawable.baseline_delete_black_18dp);
+                    // add to menu
+                    menu.addMenuItem(deleteItem);
+                }
+            };
+
+            listView.setMenuCreator(creator);
+
+
         listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(int i_position, SwipeMenu menu, int index) {
@@ -240,7 +264,6 @@ public class DatesListAdapter extends ArrayAdapter {
                                         CustomToast.showToast(context,viewHolder.getView().
                                                         getResources().getString(R.string.dialog_appointment_cancled_successfully),
                                                 1);
-                                        listView.setAdapter(null);
                                         GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
                                         viewHolder.dialogConfirmDelete.cancel();
                                     }
@@ -509,7 +532,6 @@ public class DatesListAdapter extends ArrayAdapter {
                                         if (response.getString("status").equals("true")) {
                                             Log.d(TAG, "onResponse: SUCCESS!!");
                                             CustomToast.showToast(context, context.getString(R.string.new_window_added), 1);
-                                            listView.setAdapter(null);
                                             GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
                                             viewHolder.dialogNewAppointment.cancel();
                                         } else {
