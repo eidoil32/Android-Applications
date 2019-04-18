@@ -136,10 +136,6 @@ public class ManageTreatmentsTypes extends Fragment {
         final EditText englishDescription = dialog.findViewById(R.id.edit_text_lang_english);
         final EditText price = dialog.findViewById(R.id.edit_price);
 
-        hebrewDescription.setHint(getResources().getString(R.string.hebrew_description_hint));
-        englishDescription.setHint(getResources().getString(R.string.english_description_hint));
-        price.setHint(getResources().getString(R.string.hint_price));
-
         TextView title = dialog.findViewById(R.id.text_title_popup_treatment);
         title.setText(Objects.requireNonNull(getContext()).getString(R.string.title_new_treatment_type));
 

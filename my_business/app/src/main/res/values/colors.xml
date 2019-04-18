@@ -23,4 +23,7 @@
     <color name="navbar_background_color">#FFFFFF</color>
     <color name="text_simple_black">#000000</color>
     <color name="text_basic_color">#222222</color>
+    <color name="background_window_is_over">#dcdcdc</color>
+    <color name="button_not_useable">#979797</color>
+    <color name="delete_row_background">#9c2d2d</color>
 </resources>

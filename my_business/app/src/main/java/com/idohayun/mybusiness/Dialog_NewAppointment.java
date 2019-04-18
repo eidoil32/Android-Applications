@@ -34,6 +34,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -43,7 +44,7 @@ import java.util.Map;
 
 public class Dialog_NewAppointment extends DialogFragment {
     private static final String TAG = "Dialog_NewAppointment";
-    private ListView listView;
+    private SwipeMenuListView listView;
     private static DateArray currentDate;
     private Context context;
     private ProgressBar progressBar;
@@ -61,7 +62,7 @@ public class Dialog_NewAppointment extends DialogFragment {
     public Dialog_NewAppointment() {
     }
 
-    Dialog_NewAppointment(Context context, View view, ListView listView, DateArray currentDate, ProgressBar progressBar) {
+    Dialog_NewAppointment(Context context, View view, SwipeMenuListView listView, DateArray currentDate, ProgressBar progressBar) {
         this.listView = listView;
         this.context = context;
         this.currentDate = currentDate;

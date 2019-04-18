@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,6 +32,7 @@ import java.util.Map;
 
 public class ToolsView extends Fragment {
     private TextView password, username, phone, errorText;
+    private TextInputLayout inputLayout_phone, inputLayout_username, inputLayout_password;
     private baseUSER baseUSER = new baseUSER();
     private Button btnLogin, btnRegister, btnOK;
     private String input_username = null, input_password = null, input_phone = null;
@@ -67,13 +69,16 @@ public class ToolsView extends Fragment {
             Log.d(TAG, "onViewCreated: user doesn't exist!");
         }
 
-        password = (TextView) view.findViewById(R.id.tools_user_password);
-        username = (TextView) view.findViewById(R.id.tools_user_name);
-        phone = (TextView) view.findViewById(R.id.tools_user_phonenumber);
-        errorText = (TextView) view.findViewById(R.id.text_error_type);
-        btnRegister = (Button) view.findViewById(R.id.btn_tools_register);
-        btnLogin = (Button) view.findViewById(R.id.btn_tools_login);
-        btnOK = (Button) view.findViewById(R.id.tools_btn_ok);
+        inputLayout_phone = view.findViewById(R.id.input_layout_phone);
+        inputLayout_username = view.findViewById(R.id.input_layout_user_name);
+        inputLayout_password = view.findViewById(R.id.input_layout_password);
+        password = view.findViewById(R.id.tools_user_password);
+        username = view.findViewById(R.id.tools_user_name);
+        phone = view.findViewById(R.id.tools_user_phone_number);
+        errorText = view.findViewById(R.id.text_error_type);
+        btnRegister = view.findViewById(R.id.btn_tools_register);
+        btnLogin = view.findViewById(R.id.btn_tools_login);
+        btnOK = view.findViewById(R.id.tools_btn_ok);
 
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
@@ -83,11 +88,11 @@ public class ToolsView extends Fragment {
                 errorText.setVisibility(View.GONE);
                 phone.setVisibility(View.VISIBLE);
                 password.setVisibility(View.VISIBLE);
+                inputLayout_phone.setVisibility(View.VISIBLE);
+                inputLayout_password.setVisibility(View.VISIBLE);
+                inputLayout_username.setVisibility(View.VISIBLE);
                 username.setVisibility(View.VISIBLE);
                 btnOK.setVisibility(View.VISIBLE);
-                view.findViewById(R.id.text_password2).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.text_phone_number2).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.text_user_name2).setVisibility(View.VISIBLE);
 
 
                 btnOK.setOnClickListener(new View.OnClickListener() {
@@ -132,13 +137,13 @@ public class ToolsView extends Fragment {
             public void onClick(View v) {
                 errorText.clearAnimation();
                 errorText.setVisibility(View.GONE);
-                view.findViewById(R.id.text_password2).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.text_phone_number2).setVisibility(View.VISIBLE);
-                view.findViewById(R.id.text_user_name2).setVisibility(View.INVISIBLE);
                 phone.setVisibility(View.VISIBLE);
                 password.setVisibility(View.VISIBLE);
                 username.setVisibility(View.INVISIBLE);
                 btnOK.setVisibility(View.VISIBLE);
+                inputLayout_phone.setVisibility(View.VISIBLE);
+                inputLayout_password.setVisibility(View.VISIBLE);
+                inputLayout_username.setVisibility(View.INVISIBLE);
 
                 btnOK.setOnClickListener(new View.OnClickListener() {
                     @Override

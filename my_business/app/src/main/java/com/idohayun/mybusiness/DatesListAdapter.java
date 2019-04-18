@@ -1,6 +1,5 @@
 package com.idohayun.mybusiness;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -32,14 +31,22 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 public class DatesListAdapter extends ArrayAdapter {
     private static final String TAG = "DatesListAdapter";
@@ -62,11 +69,11 @@ public class DatesListAdapter extends ArrayAdapter {
     private static DateArray currentDate;
     private static RequestQueue queue;
     private static Map<String,String> map = new HashMap<>();
-    private final ListView listView;
+    private final SwipeMenuListView listView;
     private final ProgressBar progressBar;
     private static ViewHolder viewHolder = null;
 
-    DatesListAdapter(Context context, int resource, List<DateArray> dateArrayList, ListView listView, ProgressBar progressBar) {
+    DatesListAdapter(Context context, int resource, List<DateArray> dateArrayList, SwipeMenuListView listView, ProgressBar progressBar) {
         super(context, resource);
         this.layoutResource = resource;
         this.layoutInflater = LayoutInflater.from(context);
@@ -102,45 +109,77 @@ public class DatesListAdapter extends ArrayAdapter {
         viewHolder.textTime.setText(fullTime);
         viewHolder.textStatus.setVisibility(View.VISIBLE);
 
-        if (!currentDate.isAvailable()) {
-            if (currentDate.getUserID() == user.getId()) {
+        if(user.getId() == 1) {
+        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(int i_position, SwipeMenu menu, int index) {
+                switch (index) {
+                    case 0:
+                        DeleteRowPopup(dateArrayList.get(i_position),i_position);
+                        break;
+                }
+                return false;
+            }
+        });
+
+        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
+//            viewHolder.getView().setOnLongClickListener(new View.OnLongClickListener() {
+//                @Override
+//                public boolean onLongClick(View v) {
+//                    DeleteRowPopup(currentDate,position);
+//                    return false;
+//                }
+//            });
+        }
+
+        int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+
+        if(currentDate.getHour() > currentHour) {
+            if (!currentDate.isAvailable()) {
+                if (currentDate.getUserID() == user.getId()) {
+                    viewHolder.option.setVisibility(View.VISIBLE);
+                    viewHolder.option.setText(convertView.getResources().getString(R.string.order_adapter_btn_export));
+                    viewHolder.deleteButton.setVisibility(View.VISIBLE);
+                    viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            deleteButton(position, viewHolder, v);
+                        }
+                    });
+                    viewHolder.option.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Log.d(TAG, "onClick: selecting on export button");
+                            currentDate = dateArrayList.get(position);
+                            Log.d(TAG, "onClick: type = " + currentDate.getType() + " position: " + position);
+                            if (currentDate.getType() == -1) {
+                                CustomToast.showToast(context, context.getString(R.string.error_export_to_calendar), 0);
+                            } else {
+                                CalendarEvent calendarEvent = new CalendarEvent();
+                                calendarEvent.exportEvent(context, currentDate.getType(), currentDate);
+                            }
+                        }
+                    });
+                    viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_your_order));
+                } else {
+                    viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_already_taken));
+                }
+            } else { //this window is available
                 viewHolder.option.setVisibility(View.VISIBLE);
-                viewHolder.option.setText(convertView.getResources().getString(R.string.order_adapter_btn_export));
-                viewHolder.deleteButton.setVisibility(View.VISIBLE);
-                viewHolder.deleteButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        deleteButton(position,viewHolder,v);
-                    }
-                });
+                viewHolder.option.setText(convertView.getResources().getString(R.string.order_adapter_btn_order_now));
+                viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_order_now));
                 viewHolder.option.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d(TAG, "onClick: selecting on export button");
-                        currentDate = dateArrayList.get(position);
-                        Log.d(TAG, "onClick: type = " + currentDate.getType() + " position: " + position);
-                        if(currentDate.getType() == -1) {
-                            CustomToast.showToast(context,context.getString(R.string.error_export_to_calendar),0);
-                        } else {
-                            CalendarEvent calendarEvent = new CalendarEvent();
-                            calendarEvent.exportEvent(context, currentDate.getType(), currentDate);
-                        }
+                        orderButton(position, viewHolder, viewHolder.getView());
                     }
                 });
-                viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_your_order));
-            } else {
-                viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_already_taken));
             }
-        } else { //this window is available
+        } else {
+            viewHolder.getView().setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.background_window_is_over,null));
+            viewHolder.textStatus.setText(convertView.getResources().getString(R.string.window_time_already_passed));
             viewHolder.option.setVisibility(View.VISIBLE);
-            viewHolder.option.setText(convertView.getResources().getString(R.string.order_adapter_btn_order_now));
-            viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_order_now));
-            viewHolder.option.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    orderButton(position,viewHolder,viewHolder.getView());
-                }
-            });
+            viewHolder.option.setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.button_not_useable,null));
         }
 
         return convertView;
@@ -230,6 +269,105 @@ public class DatesListAdapter extends ArrayAdapter {
 
         viewHolder.dialogConfirmDelete.show();
         viewHolder.dialogConfirmDelete.getWindow().setAttributes(layoutParams);
+    }
+
+    private void DeleteRowPopup(final DateArray catchDate,final int position) {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.popup_simple_yes_or_no);
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(Objects.requireNonNull(dialog.getWindow()).getAttributes());
+        int orientation = getContext().getResources().getConfiguration().orientation;
+        float multiple_Width = 0.7f, multiple_Height = 0.3f;
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
+            Log.d(TAG, "Portrait");
+            multiple_Width = 0.8f;
+            multiple_Height = 0.3f;
+        } else if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Log.d(TAG, "Landscape");
+            multiple_Width = 0.7f;
+            multiple_Height = 0.6f;
+        }
+
+        int dialogWindowWidth = (int) (displayWidth * multiple_Width);
+        int dialogWindowHeight = (int) (displayHeight * multiple_Height);
+
+        Guideline guideline_left, guideline_right, guideline_bottom;
+        guideline_left = dialog.findViewById(R.id.popup_guideline_left);
+        guideline_bottom = dialog.findViewById(R.id.popup_guideline_bottom);
+        guideline_right = dialog.findViewById(R.id.popup_guideline_right);
+
+        guideline_left.setGuidelineBegin(0);
+        guideline_right.setGuidelineBegin(dialogWindowWidth - (int) (30 * displayMetrics.density));
+        guideline_bottom.setGuidelineBegin(dialogWindowHeight - (int) (30 * displayMetrics.density));
+
+        TextView alertText = dialog.findViewById(R.id.popup_alert_text);
+        alertText.setText(dialog.getContext().getString(R.string.alert_text_window_delete_forever));
+
+        Button btnYes = dialog.findViewById(R.id.btn_popup_yes);
+        Button btnNo = dialog.findViewById(R.id.btn_popup_no);
+
+        btnNo.setEnabled(true);
+        btnYes.setEnabled(true);
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+            }
+        });
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                queue = Volley.newRequestQueue(getContext());
+                Log.d(TAG, "onClick: Delete for ever button clicked!");
+                Map<String,String> tempMap = new HashMap<>();
+                tempMap.put("TypeOfJSON","DeleteForEver");
+                tempMap.put("PersonID", Integer.toString(catchDate.getPersonID()));
+                tempMap.put("Day", Integer.toString(catchDate.getDay()));
+                tempMap.put("Month", Integer.toString(catchDate.getMonth()));
+                tempMap.put("Year", Integer.toString(catchDate.getYear()));
+                tempMap.put("Hour", Integer.toString(catchDate.getHour()));
+                tempMap.put("Min", Integer.toString(catchDate.getMin()));
+                tempMap.put("Available","FALSE");
+                final JSONObject jsonObject = new JSONObject(tempMap);
+                request = new JsonObjectRequest(
+                        Request.Method.POST, // the request method
+                        ServerURLSManager.Appointment_delete_appointment, jsonObject,
+                        new Response.Listener<JSONObject>() { // the response listener
+                            @Override
+                            public void onResponse(JSONObject response){
+                                try {
+                                    if(response.getString("status").equals("true")) {
+                                        CustomToast.showToast(getContext(),getContext().getString(R.string.appointment_deleted_successfully),1);
+                                    } else {
+                                        Log.d(TAG, "onResponse: error from sql");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { // the error listener
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                queue.add(request);
+                dialog.cancel();
+                dateArrayList.remove(position);
+                notifyDataSetChanged();
+            }
+        });
+
+        dialog.show();
+        dialog.getWindow().setAttributes(layoutParams);
     }
 
     private void orderButton(int position, final ViewHolder viewHolder, View v) {

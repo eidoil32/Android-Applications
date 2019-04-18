@@ -15,12 +15,16 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +42,7 @@ public class GetAppointmentListData {
     private static StringBuilder sb = new StringBuilder();
 
     public static void getData(final Context context, int selected_day, int selected_month, int selected_year,
-                               final ListView listView, final ProgressBar progressBar) {
+                               final SwipeMenuListView listView, final ProgressBar progressBar) {
         RequestQueue queue = Volley.newRequestQueue(context);
         progressBar.setVisibility(View.VISIBLE);
         Map<String, String> map = new HashMap<>();
@@ -82,6 +86,11 @@ public class GetAppointmentListData {
                                 Log.d(TAG, "onResponse: creating (" + i + ") dates dateArray= " +  dateArray.toString() + " type: " + func_type);
                             }
                             progressBar.setVisibility(View.INVISIBLE);
+                            Collections.sort(dateArrayList, new Comparator() {
+                                public int compare(Object synchronizedListOne, Object synchronizedListTwo) {
+                                    return ((DateArray) synchronizedListOne).getHour() - (((DateArray) synchronizedListTwo).getHour());
+                                }
+                            });
                             DatesListAdapter datesListAdapter = new DatesListAdapter(context, R.layout.order_list_adapter, dateArrayList,listView,progressBar);
                             listView.setAdapter(datesListAdapter);
                         } catch (JSONException e) {

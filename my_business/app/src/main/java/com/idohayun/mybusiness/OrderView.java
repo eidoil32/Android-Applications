@@ -2,6 +2,7 @@ package com.idohayun.mybusiness;
 
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,22 +13,27 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.baoyz.swipemenulistview.SwipeMenu;
+import com.baoyz.swipemenulistview.SwipeMenuCreator;
+import com.baoyz.swipemenulistview.SwipeMenuItem;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.Calendar;
 import java.util.Objects;
 
 public class OrderView extends Fragment {
     private static final String TAG = "OrderView";
-    private ListView listView;
+    private SwipeMenuListView listView;
     private TextView selectedDate;
     private Context context;
     private static int calendar_day, calendar_month, calendar_year;
@@ -88,36 +94,58 @@ public class OrderView extends Fragment {
         listView = view.findViewById(R.id.order_appointment_list);
         progressBar = view.findViewById(R.id.order_progressBar);
 
-        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
-            public void onSwipeLeft() {
-                Log.d(TAG, "onSwipeRight: swipeRight!");
-                if(dateSelected) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(calendar_year,calendar_month,calendar_day);
-                    cal.add( Calendar.DATE, 1 );
-                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-                    calendar_month = cal.get(Calendar.MONTH);
-                    calendar_year = cal.get(Calendar.YEAR);
-                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-                    selectedDate.setText(fullDate);
-                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-                }
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        SwipeMenuCreator creator = new SwipeMenuCreator() {
+
+            @Override
+            public void create(SwipeMenu menu) {
+                // create "delete" item
+                SwipeMenuItem deleteItem = new SwipeMenuItem(context);
+                // set item background
+                deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
+                        0x2D, 0x2D)));
+                // set item width
+                deleteItem.setWidth((int)(90*displayMetrics.density));
+                // set a icon
+                deleteItem.setIcon(R.drawable.baseline_delete_black_18dp);
+                // add to menu
+                menu.addMenuItem(deleteItem);
             }
-            public void onSwipeRight() {
-                Log.d(TAG, "onSwipeRight: swipeRight!");
-                if(dateSelected) {
-                    Calendar cal = Calendar.getInstance();
-                    cal.set(calendar_year,calendar_month,calendar_day);
-                    cal.add( Calendar.DATE, -1 );
-                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-                    calendar_month = cal.get(Calendar.MONTH);
-                    calendar_year = cal.get(Calendar.YEAR);
-                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-                    selectedDate.setText(fullDate);
-                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-                }
-            }
-        });
+        };
+
+        listView.setMenuCreator(creator);
+
+//        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
+//            public void onSwipeLeft() {
+//                Log.d(TAG, "onSwipeRight: swipeRight!");
+//                if(dateSelected) {
+//                    Calendar cal = Calendar.getInstance();
+//                    cal.set(calendar_year,calendar_month,calendar_day);
+//                    cal.add( Calendar.DATE, 1 );
+//                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
+//                    calendar_month = cal.get(Calendar.MONTH);
+//                    calendar_year = cal.get(Calendar.YEAR);
+//                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+//                    selectedDate.setText(fullDate);
+//                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
+//                }
+//            }
+//            public void onSwipeRight() {
+//                Log.d(TAG, "onSwipeRight: swipeRight!");
+//                if(dateSelected) {
+//                    Calendar cal = Calendar.getInstance();
+//                    cal.set(calendar_year,calendar_month,calendar_day);
+//                    cal.add( Calendar.DATE, -1 );
+//                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
+//                    calendar_month = cal.get(Calendar.MONTH);
+//                    calendar_year = cal.get(Calendar.YEAR);
+//                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
+//                    selectedDate.setText(fullDate);
+//                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
+//                }
+//            }
+//        });
 
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
@@ -172,7 +200,6 @@ public class OrderView extends Fragment {
             @Override
             public void onRefresh() {
                 Log.d(TAG, "onRefresh: here!");
-                listView.setAdapter(null);
                 GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
                 swipeRefreshLayout.setRefreshing(false);
             }

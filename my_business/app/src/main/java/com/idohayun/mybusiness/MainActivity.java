@@ -130,27 +130,33 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
         Fragment foundFragment;
 
-        if (id == R.id.nav_homepage) {
-            fragmentManager.beginTransaction().replace(R.id.fragment, homePage, "HomePage").addToBackStack("HomePage").commit();
-            frameLayout.removeAllViews();
-        } else if (id == R.id.nav_gallery) {
-            fragmentManager.beginTransaction().replace(R.id.fragment, galleryView, "GalleryView").addToBackStack("GalleryView").commit();
-            frameLayout.removeAllViews();
-        } else if (id == R.id.nav_order) {
-            foundFragment = fragmentManager.findFragmentByTag("OrderView");
-            if(foundFragment != null) {
-                fragmentManager.popBackStackImmediate("OrderView", 0);
-                Log.d(TAG, "onNavigationItemSelected: from stack");
-            } else {
-                fragmentManager.beginTransaction().replace(R.id.fragment, orderView, "OrderView").addToBackStack("OrderView").commit();
+        switch (id) {
+            case R.id.nav_homepage:
+                fragmentManager.beginTransaction().replace(R.id.fragment, homePage, "HomePage").addToBackStack("HomePage").commit();
                 frameLayout.removeAllViews();
-            }
-        } else if (id == R.id.nav_manage) {
-            fragmentManager.beginTransaction().replace(R.id.fragment, toolsView, "ToolsView").addToBackStack("ToolsView").commit();
-            frameLayout.removeAllViews();
-        } else if (id == R.id.nav_manage_calendar) {
-            fragmentManager.beginTransaction().replace(R.id.fragment, manageCalendar, "ManagerPanel").addToBackStack("ManagerPanel").commit();
-            frameLayout.removeAllViews();
+                break;
+            case R.id.nav_gallery:
+                fragmentManager.beginTransaction().replace(R.id.fragment, galleryView, "GalleryView").addToBackStack("GalleryView").commit();
+                frameLayout.removeAllViews();
+                break;
+            case R.id.nav_order:
+                foundFragment = fragmentManager.findFragmentByTag("OrderView");
+                if (foundFragment != null) {
+                    fragmentManager.popBackStackImmediate("OrderView", 0);
+                    Log.d(TAG, "onNavigationItemSelected: from stack");
+                } else {
+                    fragmentManager.beginTransaction().replace(R.id.fragment, orderView, "OrderView").addToBackStack("OrderView").commit();
+                    frameLayout.removeAllViews();
+                }
+                break;
+            case R.id.nav_manage:
+                fragmentManager.beginTransaction().replace(R.id.fragment, toolsView, "ToolsView").addToBackStack("ToolsView").commit();
+                frameLayout.removeAllViews();
+                break;
+            case R.id.nav_manage_calendar:
+                fragmentManager.beginTransaction().replace(R.id.fragment, manageCalendar, "ManagerPanel").addToBackStack("ManagerPanel").commit();
+                frameLayout.removeAllViews();
+                break;
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
