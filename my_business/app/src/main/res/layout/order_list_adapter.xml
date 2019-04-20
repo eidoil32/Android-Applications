@@ -62,7 +62,7 @@
         tools:text="TEXT: if already taken and stuff" />
 
     <ImageView
-        android:id="@+id/order_adatper_delete"
+        android:id="@+id/order_adapter_delete"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"

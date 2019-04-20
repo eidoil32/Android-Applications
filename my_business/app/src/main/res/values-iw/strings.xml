@@ -140,4 +140,7 @@
     <string name="popup_more_details_phone">Phone number:</string>
     <string name="popup_more_details_type_of_treatment">Type of treatment:</string>
     <string name="popup_more_details_time">TIME:</string>
+    <string name="order_adapter_personal_approved_prefix">Approved:</string>
+    <string name="string_no">No</string>
+    <string name="string_yes">Yes</string>
 </resources>

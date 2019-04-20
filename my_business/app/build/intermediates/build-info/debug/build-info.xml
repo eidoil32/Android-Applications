@@ -6,7 +6,7 @@
     density="xxhdpi"
     format="10"
     plugin-version="3.4.0"
-    timestamp="1555747572666"
+    timestamp="1555753045073"
     token="7993550707892703718"
     verifier="FULL_BUILD_REQUESTED" >
 
@@ -65,7 +65,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1555747572666"
+        timestamp="1555753045073"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="D:\Android-Applications\my_business\app\build\intermediates\split-apk\debug\slices\slice_4.apk"

@@ -1,18 +1,40 @@
 package com.idohayun.mybusiness;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.Guideline;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.baoyz.swipemenulistview.SwipeMenuListView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class UserPanel extends Fragment {
     private String changedPassword, changedName;
@@ -136,5 +158,67 @@ public class UserPanel extends Fragment {
                 }
             }
         });
+
+        showMyAppointments(view);
+    }
+
+    private void showMyAppointments(final View view) {
+        final ProgressBar progressBar = new ProgressBar(view.getContext());
+        final SwipeMenuListView listView = new SwipeMenuListView(view.getContext());
+        final SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(view.getContext());
+        RequestQueue queue = Volley.newRequestQueue(view.getContext());
+        Map<String,String> map = new HashMap<>();
+        map.put("UserID", Integer.toString(user.getId()));
+        Log.d(TAG, "onClick: " + map.toString());
+        final JSONObject jsonObject = new JSONObject(map);
+        JsonObjectRequest request = new JsonObjectRequest(
+                Request.Method.POST, // the request method
+                ServerURLSManager.Appointment_get_all_user_appointments, jsonObject,
+                new Response.Listener<JSONObject>() { // the response listener
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            if (response.getString("status").equals("true")) {
+                                StringBuilder sb = new StringBuilder();
+                                String s = response.getString("data");
+                                sb.append(s);
+                                JSONArray jsonArray = new JSONArray(s);
+                                List<DateArray> listOfAppointments = new ArrayList<>();
+                                Log.d(TAG, "onResponse: " + jsonArray.toString());
+                                int func_id, func_day, func_month, func_year, func_hour , func_min, func_approved, func_type;
+                                for (int i = 0 ; i < jsonArray.length(); i++) {
+                                    JSONObject obj = jsonArray.getJSONObject(i);
+                                    func_id = obj.getInt("PersonID");
+                                    func_day = obj.getInt("Day");
+                                    func_month = obj.getInt("Month");
+                                    func_year = obj.getInt("Year");
+                                    func_hour = obj.getInt("Hour");
+                                    func_min = obj.getInt("Min");
+                                    func_type = obj.getInt("Type");
+                                    func_approved = obj.getInt("PendingApproval");
+                                    listOfAppointments.add(new DateArray(func_day,func_month,func_year,func_hour,func_min,func_type,func_id,false,user.getId(),func_approved));
+                                }
+
+                                DatesListAdapterPersonal adapterPersonal = new DatesListAdapterPersonal
+                                        (view.getContext(),R.layout.order_list_adapter_personal,listOfAppointments,listView,progressBar);
+                                listView.setAdapter(adapterPersonal);
+                                swipeRefreshLayout.setVisibility(View.VISIBLE);
+                            } else {
+                                Log.d(TAG, "onResponse: error" + response.getString("data"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { // the error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, "onErrorResponse: " + error.toString());
+                        Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
     }
 }

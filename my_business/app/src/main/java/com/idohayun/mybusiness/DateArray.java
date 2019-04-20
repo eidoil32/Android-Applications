@@ -1,10 +1,18 @@
 package com.idohayun.mybusiness;
 
 public class DateArray {
-    private int day, month, year, hour, min, personID, userID, type;
+    private int day;
+    private int month;
+    private int year;
+    private int hour;
+    private int min;
+    private int personID;
+    private int userID;
+    private int type;
+    private int approved;
     private boolean available;
 
-    public DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID) {
+    DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID) {
         this.day = day;
         this.month = month;
         this.year = year;
@@ -16,12 +24,33 @@ public class DateArray {
         this.type = type;
     }
 
+    DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID, int approved) {
+        this.day = day;
+        this.month = month;
+        this.year = year;
+        this.hour = hour;
+        this.min = min;
+        this.personID = personID;
+        this.available = available;
+        this.userID = userID;
+        this.type = type;
+        this.approved = approved;
+    }
+
     public String toString() {
         return ("Day: " + day +
                 "Month: " + month +
                 "Year: " + year +
                 "Hour: " + hour +
                 "Min: " + min);
+    }
+
+    public int getApproved() {
+        return approved;
+    }
+
+    public void setApproved(int approved) {
+        this.approved = approved;
     }
 
     public int getType() {

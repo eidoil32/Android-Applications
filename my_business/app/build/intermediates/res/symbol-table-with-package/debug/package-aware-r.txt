@@ -1332,9 +1332,11 @@ id notification_main_column_container
 id opening_mng_appointment_types
 id order_adapter_btn_option
 id order_adapter_date
+id order_adapter_delete
+id order_adapter_personal_approved
+id order_adapter_personal_approved_prefix
 id order_adapter_status
 id order_adapter_time
-id order_adatper_delete
 id order_appointment_list
 id order_btn_select_date
 id order_progressBar
@@ -1576,6 +1578,7 @@ layout notification_template_media_custom
 layout notification_template_part_chronometer
 layout notification_template_part_time
 layout order_list_adapter
+layout order_list_adapter_personal
 layout popup_edit_treatment
 layout popup_more_details
 layout popup_simple_yes_or_no
@@ -1718,6 +1721,7 @@ string order_adapter_btn_export
 string order_adapter_btn_order
 string order_adapter_btn_order_now
 string order_adapter_order_now
+string order_adapter_personal_approved_prefix
 string order_adapter_your_order
 string order_btn_select_date
 string order_please_select_date
@@ -1743,6 +1747,8 @@ string search_menu_title
 string single_appointment_description
 string status_bar_notification_info_overflow
 string string_manage_appointment_types
+string string_no
+string string_yes
 string text_choose_hour
 string text_choose_min
 string text_choose_type

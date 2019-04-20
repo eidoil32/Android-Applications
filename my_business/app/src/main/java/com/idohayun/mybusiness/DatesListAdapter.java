@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -48,10 +47,8 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuCreator;
 import com.baoyz.swipemenulistview.SwipeMenuItem;
-import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 public class DatesListAdapter extends ArrayAdapter {
     private static final String TAG = "DatesListAdapter";
@@ -76,7 +73,7 @@ public class DatesListAdapter extends ArrayAdapter {
     private static Map<String,String> map = new HashMap<>();
     private final SwipeMenuListView listView;
     private final ProgressBar progressBar;
-    private static ViewHolder viewHolder = null;
+    private ViewHolder viewHolder = null;
 
     DatesListAdapter(Context context, int resource, List<DateArray> dateArrayList, SwipeMenuListView listView, ProgressBar progressBar) {
         super(context, resource);
@@ -739,7 +736,7 @@ public class DatesListAdapter extends ArrayAdapter {
             this.textTime = v.findViewById(R.id.order_adapter_time);
             this.textStatus = v.findViewById(R.id.order_adapter_status);
             this.option = v.findViewById(R.id.order_adapter_btn_option);
-            this.deleteButton = v.findViewById(R.id.order_adatper_delete);
+            this.deleteButton = v.findViewById(R.id.order_adapter_delete);
             dialogNewAppointment = new Dialog(v.getContext());
             dialogConfirmDelete = new Dialog(v.getContext());
             popupMoreDetails = new Dialog(v.getContext());
