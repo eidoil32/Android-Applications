@@ -139,7 +139,9 @@
     <string name="alert_text_window_delete_forever">Are you sure you want to delete this window forever? if someone already catch this window is recommend to let him know before deleting.</string>
     <string name="window_time_already_passed">This window time is already passed!</string>
     <string name="popup_more_details_title">MORE DETAILS</string>
-    <string name="popup_more_details_name">Order name:</string>
+    <string name="popup_more_details_name">Name of the customer:</string>
     <string name="popup_more_details_date">Date:</string>
     <string name="popup_more_details_phone">Phone number:</string>
+    <string name="popup_more_details_type_of_treatment">Type of treatment:</string>
+    <string name="popup_more_details_time">TIME:</string>
 </resources>

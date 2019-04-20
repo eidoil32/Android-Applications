@@ -3,10 +3,12 @@ package com.idohayun.mybusiness;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.Guideline;
 import android.support.v4.view.ViewCompat;
@@ -35,12 +37,14 @@ import com.android.volley.toolbox.Volley;
 import com.baoyz.swipemenulistview.SwipeMenu;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Objects;
 
@@ -172,7 +176,8 @@ public class DatesListAdapter extends ArrayAdapter {
 
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
 
-        if(currentDate.getHour() > currentHour) {
+        if(currentDate.getHour() > currentHour &&
+                dateIsLessThanToday(currentDate.getDay(),currentDate.getMonth(),currentDate.getYear())) {
             if (!currentDate.isAvailable()) {
                 if (currentDate.getUserID() == user.getId() || user.getId() == 1) {
                     viewHolder.option.setVisibility(View.VISIBLE);
@@ -223,6 +228,20 @@ public class DatesListAdapter extends ArrayAdapter {
         return convertView;
     }
 
+    private boolean dateIsLessThanToday(int day, int month, int year) {
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
+        if (year <= currentYear) {
+            if (month <= currentMonth) {
+                return day >= currentDay;
+            }
+        }
+
+        return true;
+    }
+
     private void moreDetails(int position, View v) {
         currentDate = dateArrayList.get(position);
         String min = currentDate.getMin() < 10 ? currentDate.getMin() + "0" : Integer.toString(currentDate.getMin());
@@ -237,7 +256,18 @@ public class DatesListAdapter extends ArrayAdapter {
         layoutParams.width = displayWidth;
         layoutParams.height = displayHeight/2;
 
-        TextView user_phone, user_name;
+        TextView user_phone = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_phone),
+                user_name = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_name),
+                type_of_treatment = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_treatment_type),
+                date = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_date);
+
+        getUserDetailsFromID(user_name, user_phone, currentDate.getUserID());
+        getTreatmentTypeFromID(type_of_treatment,currentDate.getType());
+
+        String showDate = fullDate + " " +
+                getContext().getString(R.string.popup_more_details_time) + " " +
+                fullTime;
+        date.setText(showDate);
 
         ImageView closeImage = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_close);
         closeImage.setOnClickListener(new View.OnClickListener() {
@@ -246,8 +276,106 @@ public class DatesListAdapter extends ArrayAdapter {
                 viewHolder.popupMoreDetails.cancel();
             }
         });
-        viewHolder.popupMoreDetails.show();
         viewHolder.popupMoreDetails.getWindow().setAttributes(layoutParams);
+    }
+
+    private void getTreatmentTypeFromID(final TextView type_of_treatment, int type) {
+        queue = Volley.newRequestQueue(getContext());
+        map.put("ID", Integer.toString(type));
+        Log.d(TAG, "getTreatmentTypeFromID: " + type);
+        Log.d(TAG, "onClick: " + map.toString());
+        final JSONObject jsonObject = new JSONObject(map);
+
+        request = new JsonObjectRequest(
+                Request.Method.POST, // the request method
+                ServerURLSManager.Appointment_get_description_from_id, jsonObject,
+                new Response.Listener<JSONObject>() { // the response listener
+                    @Override
+                    public void onResponse(JSONObject response){
+                        try {
+                            if(response.getString("status").equals("true")) {
+                                StringBuilder sb = new StringBuilder();
+                                String s = response.getString("data");
+                                sb.append(s);
+                                JSONArray jsonArray = new JSONArray(s);
+                                String deviceLocale = Locale.getDefault().getLanguage();
+                                Log.d(TAG, "onResponse: " + jsonArray.toString());
+                                if (jsonArray.length() > 0) {
+                                    if(deviceLocale.equals("iw")) {
+                                        JSONObject obj = jsonArray.getJSONObject(0);
+                                        type_of_treatment.setText(obj.getString("Description"));
+                                    } else {
+                                        JSONObject obj = jsonArray.getJSONObject(1);
+                                        type_of_treatment.setText(obj.getString("Description"));
+                                    }
+                                    viewHolder.popupMoreDetails.show();
+                                }
+                            } else {
+                                Log.d(TAG, "onResponse: error " + response.getString("data"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { // the error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
+    }
+
+    private void getUserDetailsFromID(final TextView user_name, final TextView user_phone, int personID) {
+        queue = Volley.newRequestQueue(getContext());
+        map.put("PersonID", Integer.toString(personID));
+        Log.d(TAG, "onClick: " + map.toString());
+        final JSONObject jsonObject = new JSONObject(map);
+
+        request = new JsonObjectRequest(
+                Request.Method.POST, // the request method
+                ServerURLSManager.User_manager_get_user_details_from_id, jsonObject,
+                new Response.Listener<JSONObject>() { // the response listener
+                    @Override
+                    public void onResponse(JSONObject response){
+                        try {
+                            if(response.getString("status").equals("true")) {
+                                StringBuilder sb = new StringBuilder();
+                                String s = response.getString("data");
+                                sb.append(s);
+                                JSONArray jsonArray = new JSONArray(s);
+                                if (jsonArray.length() > 0) {
+                                    JSONObject obj = jsonArray.getJSONObject(0);
+                                    user_name.setText(obj.getString("UserName"));
+                                    final String phone = obj.getString("Phone");
+                                    user_phone.setText(phone);
+                                    user_phone.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(Intent.ACTION_DIAL);
+                                            intent.setData(Uri.parse("tel:0" + phone));
+                                            v.getContext().startActivity(intent);
+                                        }
+                                    });
+                                }
+                            } else {
+                                Log.d(TAG, "onResponse: error" + response.getString("data"));
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener() { // the error listener
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        queue.add(request);
     }
 
     private void deleteButton(int position, final ViewHolder viewHolder, View v) {
