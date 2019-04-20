@@ -12,7 +12,7 @@
     <string name="nav_gallery_string">Gallery</string>
     <string name="nav_tools_string">My Account</string>
     <string name="nav_share_app">Share App</string>
-    <string name="nav_order_new">Made an appointment</string>
+    <string name="nav_order_new">Make an appointment</string>
     <string name="menu_communicate">Communicate</string>
     <string name="order_please_select_date">Please select date</string>
     <string name="order_btn_select_date">SELECT</string>
