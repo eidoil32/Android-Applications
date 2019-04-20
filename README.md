@@ -1,2 +1,3 @@
 # Android-Applications
-A simple application allow you to upload and manage a gallery for the business, add and manage appointments window.  
+New application for small businesses, In this application users can make an appointments and watch pictures from gallery.
+Business owner can add, delete and manage appointment windows and orders, also upload new pictures and manage type of treatments.
