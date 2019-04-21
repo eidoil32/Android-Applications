@@ -1,3 +1,7 @@
-# Android-Applications
-New application for small businesses, In this application users can make an appointments and watch pictures from gallery.
-Business owner can add, delete and manage appointment windows and orders, also upload new pictures and manage type of treatments.
+# Android Applications
+Show all the applications I have developed while learning.
+Also, sharing each step of the process.
+
+# List of application:
+1. <b>My Business:</b>
+  small application for personal business, users can make an appointments and watch pictures from the business.
