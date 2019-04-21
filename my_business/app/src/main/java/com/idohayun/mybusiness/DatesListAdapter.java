@@ -70,7 +70,7 @@ public class DatesListAdapter extends ArrayAdapter {
     private final baseUSER user = new baseUSER();
     private static DateArray currentDate;
     private static RequestQueue queue;
-    private static Map<String,String> map = new HashMap<>();
+    private static Map<String, String> map = new HashMap<>();
     private final SwipeMenuListView listView;
     private final ProgressBar progressBar;
     private ViewHolder viewHolder = null;
@@ -111,9 +111,9 @@ public class DatesListAdapter extends ArrayAdapter {
         viewHolder.textTime.setText(fullTime);
         viewHolder.textStatus.setVisibility(View.VISIBLE);
 
-        if(user.getId() == 1) {
+        if (user.getId() == 1) {
             final DisplayMetrics displayMetrics = new DisplayMetrics();
-            ((Activity)context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
             SwipeMenuCreator creator = new SwipeMenuCreator() {
 
                 @Override
@@ -124,7 +124,7 @@ public class DatesListAdapter extends ArrayAdapter {
                     deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
                             0x2D, 0x2D)));
                     // set item width
-                    deleteItem.setWidth((int)(40*displayMetrics.density));
+                    deleteItem.setWidth((int) (40 * displayMetrics.density));
                     // set a icon
                     deleteItem.setIcon(R.drawable.baseline_delete_white_18dp);
                     // add to menu
@@ -133,9 +133,9 @@ public class DatesListAdapter extends ArrayAdapter {
                     // create "delete" item
                     SwipeMenuItem details = new SwipeMenuItem(context);
                     // set item background
-                    details.setBackground(new ColorDrawable(Color.rgb(0x2E,0x6D, 0xA8)));
+                    details.setBackground(new ColorDrawable(Color.rgb(0x2E, 0x6D, 0xA8)));
                     // set item width
-                    details.setWidth((int)(40*displayMetrics.density));
+                    details.setWidth((int) (40 * displayMetrics.density));
                     // set a icon
                     details.setIcon(R.drawable.baseline_contact_support_black_18dp);
                     // add to menu
@@ -146,22 +146,22 @@ public class DatesListAdapter extends ArrayAdapter {
             listView.setMenuCreator(creator);
 
 
-        listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(int i_position, SwipeMenu menu, int index) {
-                switch (index) {
-                    case 0:
-                        DeleteRowPopup(dateArrayList.get(i_position),i_position);
-                        break;
-                    case 1:
-                        moreDetails(i_position,viewHolder.getView());
-                        break;
+            listView.setOnMenuItemClickListener(new SwipeMenuListView.OnMenuItemClickListener() {
+                @Override
+                public boolean onMenuItemClick(int i_position, SwipeMenu menu, int index) {
+                    switch (index) {
+                        case 0:
+                            DeleteRowPopup(dateArrayList.get(i_position), i_position);
+                            break;
+                        case 1:
+                            moreDetails(i_position, viewHolder.getView());
+                            break;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
 
-        listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
+            listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
 //            viewHolder.getView().setOnLongClickListener(new View.OnLongClickListener() {
 //                @Override
 //                public boolean onLongClick(View v) {
@@ -172,9 +172,14 @@ public class DatesListAdapter extends ArrayAdapter {
         }
 
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
+        int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
-        if(currentDate.getHour() > currentHour &&
-                dateIsLessThanToday(currentDate.getDay(),currentDate.getMonth(),currentDate.getYear())) {
+        boolean today = true;
+        if (currentDay == currentDate.getDay() && currentHour >= currentDate.getHour()) {
+            today = false;
+        }
+
+        if (dateIsLessThanToday(currentDate.getDay(), currentDate.getMonth(), currentDate.getYear()) && today) {
             if (!currentDate.isAvailable()) {
                 if (currentDate.getUserID() == user.getId() || user.getId() == 1) {
                     viewHolder.option.setVisibility(View.VISIBLE);
@@ -216,10 +221,10 @@ public class DatesListAdapter extends ArrayAdapter {
                 });
             }
         } else {
-            viewHolder.getView().setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.background_window_is_over,null));
+            viewHolder.getView().setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.background_window_is_over, null));
             viewHolder.textStatus.setText(convertView.getResources().getString(R.string.window_time_already_passed));
             viewHolder.option.setVisibility(View.VISIBLE);
-            viewHolder.option.setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.button_not_useable,null));
+            viewHolder.option.setBackgroundColor(viewHolder.getView().getResources().getColor(R.color.button_not_useable, null));
         }
 
         return convertView;
@@ -230,6 +235,7 @@ public class DatesListAdapter extends ArrayAdapter {
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
         int currentYear = Calendar.getInstance().get(Calendar.YEAR);
 
+        Log.d(TAG, "dateIsLessThanToday: " + currentDay + currentMonth + currentYear);
         if (year <= currentYear) {
             if (month <= currentMonth) {
                 return day >= currentDay;
@@ -251,7 +257,7 @@ public class DatesListAdapter extends ArrayAdapter {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.copyFrom(Objects.requireNonNull(viewHolder.popupMoreDetails.getWindow()).getAttributes());
         layoutParams.width = displayWidth;
-        layoutParams.height = displayHeight/2;
+        layoutParams.height = displayHeight / 2;
 
         TextView user_phone = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_phone),
                 user_name = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_name),
@@ -259,7 +265,7 @@ public class DatesListAdapter extends ArrayAdapter {
                 date = viewHolder.popupMoreDetails.findViewById(R.id.popup_more_details_date);
 
         getUserDetailsFromID(user_name, user_phone, currentDate.getUserID());
-        getTreatmentTypeFromID(type_of_treatment,currentDate.getType());
+        getTreatmentTypeFromID(type_of_treatment, currentDate.getType());
 
         String showDate = fullDate + " " +
                 getContext().getString(R.string.popup_more_details_time) + " " +
@@ -288,9 +294,9 @@ public class DatesListAdapter extends ArrayAdapter {
                 ServerURLSManager.Appointment_get_description_from_id, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
-                    public void onResponse(JSONObject response){
+                    public void onResponse(JSONObject response) {
                         try {
-                            if(response.getString("status").equals("true")) {
+                            if (response.getString("status").equals("true")) {
                                 StringBuilder sb = new StringBuilder();
                                 String s = response.getString("data");
                                 sb.append(s);
@@ -298,7 +304,7 @@ public class DatesListAdapter extends ArrayAdapter {
                                 String deviceLocale = Locale.getDefault().getLanguage();
                                 Log.d(TAG, "onResponse: " + jsonArray.toString());
                                 if (jsonArray.length() > 0) {
-                                    if(deviceLocale.equals("iw")) {
+                                    if (deviceLocale.equals("iw")) {
                                         JSONObject obj = jsonArray.getJSONObject(0);
                                         type_of_treatment.setText(obj.getString("Description"));
                                     } else {
@@ -318,7 +324,7 @@ public class DatesListAdapter extends ArrayAdapter {
                 new Response.ErrorListener() { // the error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -336,9 +342,9 @@ public class DatesListAdapter extends ArrayAdapter {
                 ServerURLSManager.User_manager_get_user_details_from_id, jsonObject,
                 new Response.Listener<JSONObject>() { // the response listener
                     @Override
-                    public void onResponse(JSONObject response){
+                    public void onResponse(JSONObject response) {
                         try {
-                            if(response.getString("status").equals("true")) {
+                            if (response.getString("status").equals("true")) {
                                 StringBuilder sb = new StringBuilder();
                                 String s = response.getString("data");
                                 sb.append(s);
@@ -368,7 +374,7 @@ public class DatesListAdapter extends ArrayAdapter {
                 new Response.ErrorListener() { // the error listener
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -389,9 +395,9 @@ public class DatesListAdapter extends ArrayAdapter {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogConfirmDelete.getWindow()).getAttributes());
         layoutParams.width = displayWidth;
-        layoutParams.height = displayHeight/2;
+        layoutParams.height = displayHeight / 2;
         Guideline guideline = viewHolder.dialogConfirmDelete.findViewById(R.id.guide_center_line);
-        guideline.setGuidelineBegin((displayWidth - (int)(20*displayMetrics.density))/2);
+        guideline.setGuidelineBegin((displayWidth - (int) (20 * displayMetrics.density)) / 2);
         dialog_date = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_date);
         dialog_time = viewHolder.dialogConfirmDelete.findViewById(R.id.dialog_new_apt_time);
         dialog_date.setText(fullDate);
@@ -405,7 +411,7 @@ public class DatesListAdapter extends ArrayAdapter {
                 queue = Volley.newRequestQueue(getContext());
                 Log.d(TAG, "onClick: DEL button clicked!");
                 currentDate.resetDate();
-                map.put("TypeOfJSON","Delete");
+                map.put("TypeOfJSON", "Delete");
                 map.put("PersonID", Integer.toString(currentDate.getPersonID()));
                 map.put("Day", Integer.toString(currentDate.getDay()));
                 map.put("Month", Integer.toString(currentDate.getMonth()));
@@ -424,10 +430,10 @@ public class DatesListAdapter extends ArrayAdapter {
                         ServerURLSManager.Appointment_delete_appointment, jsonObject,
                         new Response.Listener<JSONObject>() { // the response listener
                             @Override
-                            public void onResponse(JSONObject response){
+                            public void onResponse(JSONObject response) {
                                 try {
-                                    if(response.getString("status").equals("true")) {
-                                        CustomToast.showToast(context,viewHolder.getView().
+                                    if (response.getString("status").equals("true")) {
+                                        CustomToast.showToast(context, viewHolder.getView().
                                                         getResources().getString(R.string.dialog_appointment_cancled_successfully),
                                                 1);
                                         GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
@@ -441,7 +447,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         new Response.ErrorListener() { // the error listener
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -460,12 +466,12 @@ public class DatesListAdapter extends ArrayAdapter {
         viewHolder.dialogConfirmDelete.getWindow().setAttributes(layoutParams);
     }
 
-    private void DeleteRowPopup(final DateArray catchDate,final int position) {
+    private void DeleteRowPopup(final DateArray catchDate, final int position) {
         final Dialog dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.popup_simple_yes_or_no);
 
         DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity)getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        ((Activity) getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int displayWidth = displayMetrics.widthPixels;
         int displayHeight = displayMetrics.heightPixels;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -514,25 +520,25 @@ public class DatesListAdapter extends ArrayAdapter {
             public void onClick(View v) {
                 queue = Volley.newRequestQueue(getContext());
                 Log.d(TAG, "onClick: Delete for ever button clicked!");
-                Map<String,String> tempMap = new HashMap<>();
-                tempMap.put("TypeOfJSON","DeleteForEver");
+                Map<String, String> tempMap = new HashMap<>();
+                tempMap.put("TypeOfJSON", "DeleteForEver");
                 tempMap.put("PersonID", Integer.toString(catchDate.getPersonID()));
                 tempMap.put("Day", Integer.toString(catchDate.getDay()));
                 tempMap.put("Month", Integer.toString(catchDate.getMonth()));
                 tempMap.put("Year", Integer.toString(catchDate.getYear()));
                 tempMap.put("Hour", Integer.toString(catchDate.getHour()));
                 tempMap.put("Min", Integer.toString(catchDate.getMin()));
-                tempMap.put("Available","FALSE");
+                tempMap.put("Available", "FALSE");
                 final JSONObject jsonObject = new JSONObject(tempMap);
                 request = new JsonObjectRequest(
                         Request.Method.POST, // the request method
                         ServerURLSManager.Appointment_delete_appointment, jsonObject,
                         new Response.Listener<JSONObject>() { // the response listener
                             @Override
-                            public void onResponse(JSONObject response){
+                            public void onResponse(JSONObject response) {
                                 try {
-                                    if(response.getString("status").equals("true")) {
-                                        CustomToast.showToast(getContext(),getContext().getString(R.string.appointment_deleted_successfully),1);
+                                    if (response.getString("status").equals("true")) {
+                                        CustomToast.showToast(getContext(), getContext().getString(R.string.appointment_deleted_successfully), 1);
                                     } else {
                                         Log.d(TAG, "onResponse: error from sql");
                                     }
@@ -544,7 +550,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         new Response.ErrorListener() { // the error listener
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getContext(),"Oops! Got error from server!",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
                             }
                         });
 
@@ -573,7 +579,7 @@ public class DatesListAdapter extends ArrayAdapter {
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
         layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogNewAppointment.getWindow()).getAttributes());
         int orientation = v.getContext().getResources().getConfiguration().orientation;
-        if(orientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (orientation == Configuration.ORIENTATION_PORTRAIT) {
             layoutParams.width = displayWidth;
             layoutParams.height = displayHeight - (int) (50 * displayMetrics.density);
             Guideline guideline = viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
@@ -613,7 +619,7 @@ public class DatesListAdapter extends ArrayAdapter {
             }
         });
 
-        if(user.isExist()) {
+        if (user.isExist()) {
             appointmentDetails.put("Name", user.getName());
             appointmentDetails.put("Phone", Integer.toString(user.getPhone()));
             appointmentDetails.put("UserID", Integer.toString(user.getId()));
@@ -631,7 +637,7 @@ public class DatesListAdapter extends ArrayAdapter {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "onItemSelected: selecting id: " + position);
-                if(position > 0) {
+                if (position > 0) {
                     is_chooseType = true;
                     type = position - 1;
                 }
@@ -645,7 +651,7 @@ public class DatesListAdapter extends ArrayAdapter {
         btnOK.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!user.isExist()) {
+                if (!user.isExist()) {
                     if (!username.getText().toString().isEmpty()) {
                         is_addName = true;
                         appointmentDetails.put("Name", username.getText().toString());
@@ -661,7 +667,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         int_phoneNumber = 0;
                     }
                     if (int_phoneNumber != 0) {
-                        if(Integer.toString(int_phoneNumber).length() != 10 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
+                        if (Integer.toString(int_phoneNumber).length() != 10 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
                             is_addPhone = true;
                             appointmentDetails.put("Phone", phoneNumber.getText().toString());
                         } else {
@@ -681,8 +687,8 @@ public class DatesListAdapter extends ArrayAdapter {
                 }
                 if (is_chooseType && is_addPhone && is_addName) {
                     RequestQueue queue = Volley.newRequestQueue(getContext());
-                    if(!user.isExist()) {
-                        user.setGuestUser(viewHolder.getView(),Integer.parseInt(phoneNumber.getText().toString()),username.getText().toString(),appointmentDetails);
+                    if (!user.isExist()) {
+                        user.setGuestUser(viewHolder.getView(), Integer.parseInt(phoneNumber.getText().toString()), username.getText().toString(), appointmentDetails);
                     }
                     ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
                     ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
@@ -701,7 +707,7 @@ public class DatesListAdapter extends ArrayAdapter {
                                             GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
                                             viewHolder.dialogNewAppointment.cancel();
                                         } else {
-                                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
+                                            CustomToast.showToast(context, viewHolder.getView().getResources().getString(R.string.new_window_failed), 0);
                                             Log.d(TAG, "onResponse: Failed!! " + response.getString("data"));
                                         }
                                     } catch (JSONException e) {
@@ -712,7 +718,7 @@ public class DatesListAdapter extends ArrayAdapter {
                         @Override
                         public void onErrorResponse(VolleyError error) {
                             Log.d(TAG, "onResponse: Failed!!");
-                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
+                            CustomToast.showToast(context, viewHolder.getView().getResources().getString(R.string.new_window_failed), 0);
 
                         }
                     });
@@ -746,6 +752,8 @@ public class DatesListAdapter extends ArrayAdapter {
             this.view = v;
         }
 
-        public View getView() { return view; }
+        public View getView() {
+            return view;
+        }
     }
 }

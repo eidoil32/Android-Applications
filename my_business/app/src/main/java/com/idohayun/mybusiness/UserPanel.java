@@ -99,36 +99,41 @@ public class UserPanel extends Fragment {
 
                 if(l_password.isEmpty()) {
                     changedPassword = user.getPassword();
-                } else if (l_password.length() >= 3) {
+                } else if (l_password.length() >= 8) {
                     changedPassword = l_password;
                 } else {
                     passwordIsGood = false;
+                    errorBuilder += getString(R.string.error_password_is_less_or_invalid);
                 }
 
                 if(l_username.isEmpty()) {
-                    changedPassword = user.getPassword();
+                    changedName = user.getPassword();
                 } else if (l_username.length() >= 3) {
-                    changedPassword = l_username;
+                    changedName = l_username;
                 } else {
+                    errorBuilder += getString(R.string.error_username_is_less);
                     userIsGood = false;
                 }
 
                 if(l_phone.isEmpty()) {
-                    changedPassword = user.getPassword();
+                    changedPhone = user.getPhone();
                 } else if (baseUSER.validPhone(l_phone)) {
-                    changedPassword = l_phone;
+                    changedPhone = Integer.parseInt(l_phone);
                 } else {
-                    errorBuilder += getString(R.string.error_password_is_less_or_invalid);
-                    userIsGood = false;
+                    errorBuilder += getString(R.string.error_phone_is_invalid);
+                    phoneIsGood = false;
                 }
 
+                if (userIsGood && passwordIsGood && phoneIsGood) {
+                    allDataIsOK = true;
+                }
 
                 if (allDataIsOK && user.updateUserData(changedName, changedPhone, changedPassword)) {
                     Log.d(TAG, "onClick: update successfully!");
                     String string = getString(R.string.tools_welcome_text, user.getName());
                     title.setText(string);
                 } else {
-                    Log.d(TAG, "onClick: update failed!");
+                    CustomToast.showToast(getContext(),getString(R.string.update_user_data_unsuccessfully),0);
                 }
 
                 if (errorBuilder.isEmpty()) {
@@ -164,13 +169,14 @@ public class UserPanel extends Fragment {
 
     private void showMyAppointments(final View view) {
         final ProgressBar progressBar = new ProgressBar(view.getContext());
-        final SwipeMenuListView listView = new SwipeMenuListView(view.getContext());
-        final SwipeRefreshLayout swipeRefreshLayout = new SwipeRefreshLayout(view.getContext());
+        final SwipeMenuListView listView = view.findViewById(R.id.order_appointment_list);
+        final SwipeRefreshLayout swipeRefreshLayout;
         RequestQueue queue = Volley.newRequestQueue(view.getContext());
         Map<String,String> map = new HashMap<>();
         map.put("UserID", Integer.toString(user.getId()));
         Log.d(TAG, "onClick: " + map.toString());
         final JSONObject jsonObject = new JSONObject(map);
+        swipeRefreshLayout = view.findViewById(R.id.order_swipe_refresh);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
                 ServerURLSManager.Appointment_get_all_user_appointments, jsonObject,

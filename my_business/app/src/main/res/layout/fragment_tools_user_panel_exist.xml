@@ -213,7 +213,7 @@
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/order_swipe_refresh"
-            android:layout_width="411dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
             android:visibility="invisible"
@@ -224,9 +224,10 @@
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
                 android:id="@+id/order_appointment_list"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp"
+                android:visibility="visible" />
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.constraint.ConstraintLayout>

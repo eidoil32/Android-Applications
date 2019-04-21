@@ -214,9 +214,9 @@ public class baseUSER {
                     public void onResponse(JSONObject response) {
                         try {
                             if (response.getString("status").equals("true")) {
-                                CustomToast.showToast(view.getContext(), "update completed!", 1);
+                                CustomToast.showToast(view.getContext(), view.getResources().getString(R.string.update_user_data_successfully), 1);
                             } else {
-                                CustomToast.showToast(view.getContext(), "update failed!", 0);
+                                CustomToast.showToast(view.getContext(), view.getResources().getString(R.string.update_user_data_unsuccessfully), 0);
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
