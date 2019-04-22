@@ -13,6 +13,8 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 public class HomePage extends Fragment {
     private static TextView userState;
     private static final String TAG = "HomePage";
@@ -35,6 +37,14 @@ public class HomePage extends Fragment {
         appointmentButton = (ImageView) view.findViewById(R.id.btn_new_appointment);
         galleryButton = (ImageView) view.findViewById(R.id.btn_gallery);
         userState = (TextView) view.findViewById(R.id.homepage_user_details);
+
+
+        String deviceLocale = Locale.getDefault().getLanguage();
+        if(deviceLocale.equals("iw")) {
+            appointmentButton.setImageDrawable(getResources().getDrawable(R.drawable.button_appointment_he,null));
+            galleryButton.setImageDrawable(getResources().getDrawable(R.drawable.button_gallery_empty_he,null));
+        }
+
 
         baseUSER user = new baseUSER();
         user.getUserDetails(view);

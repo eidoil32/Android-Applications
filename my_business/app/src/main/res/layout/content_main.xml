@@ -28,14 +28,14 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:fontFamily="@font/heebo_light"
                 android:text="text"
                 android:textAlignment="center"
+                app:layout_constraintBottom_toTopOf="@+id/btn_new_appointment"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/guideline21"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
                 tools:text="Guest or User..." />
 
             <TextView
@@ -73,7 +73,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/btn_gallery"
                 app:layout_constraintEnd_toEndOf="@+id/textView3"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
-                app:srcCompat="@drawable/button_appointment_ltr" />
+                app:srcCompat="@drawable/button_appointment_en" />
 
             <ImageView
                 android:id="@+id/btn_gallery"
@@ -83,7 +83,7 @@
                 app:layout_constraintBottom_toTopOf="@+id/logo_image3"
                 app:layout_constraintEnd_toEndOf="@+id/btn_new_appointment"
                 app:layout_constraintStart_toStartOf="@+id/btn_new_appointment"
-                app:srcCompat="@drawable/button_gallery_empty_ltr" />
+                app:srcCompat="@drawable/button_gallery_empty_en" />
 
             <TextView
                 android:id="@+id/btn_appointment_text"
@@ -139,13 +139,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                app:layout_constraintGuide_begin="185dp" />
 
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
