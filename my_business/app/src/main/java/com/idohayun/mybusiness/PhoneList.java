@@ -78,4 +78,14 @@ public class PhoneList {
     public static List<String> getPhoneList() {
         return phoneList;
     }
+
+    public static boolean checkIF_PhoneIsAlreadyInDB(String s_phoneNumber) {
+        List<String> phoneList = PhoneList.getPhoneList();
+        for (int i = 0 ; i < phoneList.size(); i++) {
+            if(s_phoneNumber.equals(phoneList.get(i)))
+                return false;
+        }
+
+        return true;
+    }
 }

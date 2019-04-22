@@ -360,9 +360,14 @@ public class baseUSER {
     }
 
     public static boolean validPhone(String phone) {
-        if(phone.length() > 8 && phone.length() < 10) {
-            return !firstTwoDigitsNotExist(phone);
+        if(phone.length() >= 9 && phone.length() <= 10) {
+            if(phone.charAt(0) == '0') {
+                return !firstTwoDigitsNotExist(phone.substring(1));
+            } else {
+                return !firstTwoDigitsNotExist(phone);
+            }
         }
+
         return false;
     }
 

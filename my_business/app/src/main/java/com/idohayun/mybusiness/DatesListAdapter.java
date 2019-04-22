@@ -753,7 +753,7 @@ public class DatesListAdapter extends ArrayAdapter {
                     if (!s_phoneNumber.isEmpty()) {
                         int int_phone = Integer.parseInt(s_phoneNumber);
                         Log.d(TAG, "onClick: " + s_phoneNumber + " valid: " + !baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phone)) + " test: " + (s_phoneNumber.length() == 10 && int_phone > 0));
-                        if(checkIF_PhoneIsAlreadyInDB(Integer.toString(int_phone))) {
+                        if(PhoneList.checkIF_PhoneIsAlreadyInDB(Integer.toString(int_phone))) {
                             if ((s_phoneNumber.length() == 10 && int_phone > 0) && (!baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phone)))) {
                                 is_addPhone = true;
                                 appointmentDetails.put("Phone", phoneNumber.getText().toString());
@@ -819,16 +819,6 @@ public class DatesListAdapter extends ArrayAdapter {
         });
         viewHolder.dialogNewAppointment.show();
         viewHolder.dialogNewAppointment.getWindow().setAttributes(layoutParams);
-    }
-
-    private boolean checkIF_PhoneIsAlreadyInDB(String s_phoneNumber) {
-        List<String> phoneList = PhoneList.getPhoneList();
-        for (int i = 0 ; i < phoneList.size(); i++) {
-            if(s_phoneNumber.equals(phoneList.get(i)))
-                return false;
-        }
-
-        return true;
     }
 
     private class ViewHolder {

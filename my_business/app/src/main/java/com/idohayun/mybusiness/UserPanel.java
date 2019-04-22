@@ -116,7 +116,12 @@ public class UserPanel extends Fragment {
                 if(l_phone.isEmpty()) {
                     changedPhone = user.getPhone();
                 } else if (baseUSER.validPhone(l_phone)) {
-                    changedPhone = Integer.parseInt(l_phone);
+                    if(PhoneList.checkIF_PhoneIsAlreadyInDB(Integer.toString(Integer.parseInt(l_phone)))) {
+                        changedPhone = Integer.parseInt(l_phone);
+                    } else {
+                        errorBuilder += getString(R.string.error_phone_is_already_exist);
+                        phoneIsGood = false;
+                    }
                 } else {
                     errorBuilder += getString(R.string.error_phone_is_invalid);
                     phoneIsGood = false;
@@ -130,6 +135,7 @@ public class UserPanel extends Fragment {
                     Log.d(TAG, "onClick: update successfully!");
                     String string = getString(R.string.tools_welcome_text, user.getName());
                     title.setText(string);
+                    allDataIsOK = false;
                 } else {
                     CustomToast.showToast(getContext(),getString(R.string.update_user_data_unsuccessfully),0);
                 }
