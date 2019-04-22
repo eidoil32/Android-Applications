@@ -11,14 +11,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.constraint.Guideline;
-import android.support.v4.view.ViewCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -42,7 +40,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -151,17 +148,21 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
                     deleteItem.setIcon(R.drawable.baseline_delete_white_18dp);
                     menu.addMenuItem(deleteItem);
 
-                    SwipeMenuItem details = new SwipeMenuItem(context);
-                    details.setBackground(new ColorDrawable(Color.rgb(0x2E,0x6D, 0xA8)));
-                    details.setWidth(wide);
-                    details.setIcon(R.drawable.baseline_contact_support_black_18dp);
-                    menu.addMenuItem(details);
+                    if (!currentDate.isAvailable()) {
+                        SwipeMenuItem details = new SwipeMenuItem(context);
+                        details.setBackground(new ColorDrawable(Color.rgb(0x2E, 0x6D, 0xA8)));
+                        details.setWidth(wide);
+                        details.setIcon(R.drawable.baseline_contact_support_white);
+                        menu.addMenuItem(details);
 
-                    SwipeMenuItem approve = new SwipeMenuItem(context);
-                    approve.setBackground(new ColorDrawable(Color.rgb(0x71,0xBF, 0x3D)));
-                    approve.setWidth(wide);
-                    approve.setIcon(R.drawable.done);
-                    menu.addMenuItem(approve);
+                        if (currentDate.getApproved() == 0) {
+                            SwipeMenuItem approve = new SwipeMenuItem(context);
+                            approve.setBackground(new ColorDrawable(Color.rgb(0x71, 0xBF, 0x3D)));
+                            approve.setWidth(wide);
+                            approve.setIcon(R.drawable.done);
+                            menu.addMenuItem(approve);
+                        }
+                    }
                 }
             };
 
@@ -179,6 +180,7 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
                         moreDetails(i_position,viewHolder.getView());
                         break;
                     case 2:
+                        confirmAppointment(i_position,viewHolder.getView());
                         break;
                 }
                 return false;
@@ -190,6 +192,92 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
 
 
         return convertView;
+    }
+
+    private void confirmAppointment(final int position,final View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) view.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogConfirmAppointment.getWindow()).getAttributes());
+        int orientation = view.getContext().getResources().getConfiguration().orientation;
+        float multiple_Width = 0.8f, multiple_Height = 0.3f;
+        int dialogWindowWidth = (int) (displayWidth * multiple_Width);
+        int dialogWindowHeight = (int) (displayHeight * multiple_Height);
+
+        Guideline guideline_left, guideline_right, guideline_bottom;
+        guideline_left = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_left);
+        guideline_bottom = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_bottom);
+        guideline_right = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_right);
+
+        guideline_left.setGuidelineBegin(0);
+        guideline_right.setGuidelineBegin(dialogWindowWidth - (int) (30 * displayMetrics.density));
+        guideline_bottom.setGuidelineBegin(dialogWindowHeight - (int) (30 * displayMetrics.density));
+
+        layoutParams.width = dialogWindowWidth;
+        layoutParams.height = dialogWindowHeight;
+
+        TextView alertText = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_alert_text);
+        Button btnYes = viewHolder.dialogConfirmAppointment.findViewById(R.id.btn_popup_yes), btnNo = viewHolder.dialogConfirmAppointment.findViewById(R.id.btn_popup_no);
+
+        alertText.setText(view.getResources().getString(R.string.alert_confirm_appointment_text));
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.dialogConfirmAppointment.cancel();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDate = dateArrayList.get(position);
+                queue = Volley.newRequestQueue(v.getContext());
+                map.put("Day", Integer.toString(currentDate.getDay()));
+                map.put("Month", Integer.toString(currentDate.getMonth()));
+                map.put("Year", Integer.toString(currentDate.getYear()));
+                map.put("Hour", Integer.toString(currentDate.getHour()));
+                map.put("Min", Integer.toString(currentDate.getMin()));
+                Log.d(TAG, "onClick: " + map.toString());
+                final JSONObject jsonObject = new JSONObject(map);
+                request = new JsonObjectRequest(
+                        Request.Method.POST, // the request method
+                        ServerURLSManager.User_manager_approve_appointment, jsonObject,
+                        new Response.Listener<JSONObject>() { // the response listener
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getString("status").equals("true")) {
+                                        CustomToast.showToast(view.getContext(),
+                                                view.getResources().getString(R.string.appointment_confirm_successfully),1);
+                                        //GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
+                                        viewHolder.dialogConfirmAppointment.cancel();
+                                    } else {
+                                        CustomToast.showToast(view.getContext(),
+                                                view.getResources().getString(R.string.appointment_confirm_failed),0);
+                                        viewHolder.dialogConfirmAppointment.cancel();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { // the error listener
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
+                                viewHolder.dialogConfirmAppointment.cancel();
+                            }
+                        });
+
+                queue.add(request);
+            }
+        });
+
+        viewHolder.dialogConfirmAppointment.show();
+        viewHolder.dialogConfirmAppointment.getWindow().setAttributes(layoutParams);
     }
 
     private void moreDetails(int position, View v) {
@@ -328,7 +416,7 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
         queue.add(request);
     }
 
-    private void deleteButton(int position, final ViewHolder viewHolder, View v) {
+    private void deleteButton(final int position, final ViewHolder viewHolder, View v) {
         Log.d(TAG, "onClick: delete button!");
         Log.d(TAG, "onClick: selecting on order button, position = " + position);
         currentDate = dateArrayList.get(position);
@@ -383,7 +471,8 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
                                         CustomToast.showToast(context,viewHolder.getView().
                                                         getResources().getString(R.string.dialog_appointment_cancled_successfully),
                                                 1);
-                                        GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
+                                        dateArrayList.remove(position);
+                                        notifyDataSetChanged();
                                         viewHolder.dialogConfirmDelete.cancel();
                                     }
                                 } catch (JSONException e) {
@@ -512,175 +601,10 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
         dialog.getWindow().setAttributes(layoutParams);
     }
 
-    private void orderButton(int position, final ViewHolder viewHolder, View v) {
-        Log.d(TAG, "onClick: selecting on order button, position = " + position);
-        viewHolder.dialogConfirmDelete.setContentView(R.layout.dialog_make_new_appointment);
-        currentDate = dateArrayList.get(position);
-        String min = currentDate.getMin() < 10 ? currentDate.getMin() + "0" : Integer.toString(currentDate.getMin());
-        fullDate = currentDate.getDay() + "/" + currentDate.getMonth() + "/" + currentDate.getYear();
-        fullTime = currentDate.getHour() + ":" + min;
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((Activity) v.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int displayWidth = displayMetrics.widthPixels;
-        int displayHeight = displayMetrics.heightPixels;
-        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
-        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogNewAppointment.getWindow()).getAttributes());
-        int orientation = v.getContext().getResources().getConfiguration().orientation;
-        if(orientation == Configuration.ORIENTATION_PORTRAIT) {
-            layoutParams.width = displayWidth;
-            layoutParams.height = displayHeight - (int) (50 * displayMetrics.density);
-            Guideline guideline = viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
-            guideline.setGuidelineBegin((displayWidth - (int) (20 * displayMetrics.density)) / 2);
-        } else { // is landscape mode
-            layoutParams.width = displayWidth - (int) (50 * displayMetrics.density);
-            layoutParams.height = displayHeight - (int) (50 * displayMetrics.density) / 2;
-            Guideline guideline = viewHolder.dialogNewAppointment.findViewById(R.id.guide_center_line);
-            guideline.setGuidelineBegin((displayWidth / 2) - (int) (20 * displayMetrics.density));
-        }
-
-        appointmentDetails.put("PersonID", Integer.toString(currentDate.getPersonID()));
-        appointmentDetails.put("Day", Integer.toString(currentDate.getDay()));
-        appointmentDetails.put("Month", Integer.toString(currentDate.getMonth()));
-        appointmentDetails.put("Year", Integer.toString(currentDate.getYear()));
-        appointmentDetails.put("Hour", Integer.toString(currentDate.getHour()));
-        appointmentDetails.put("Min", Integer.toString(currentDate.getMin()));
-
-        dialog_date = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_date);
-        dialog_time = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_time);
-        dialog_date.setText(fullDate);
-        dialog_time.setText(fullTime);
-        treatmentTypes = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_type_list);
-        treatmentTypes.setDropDownWidth((int) (displayWidth * 0.5f));
-        btnCancel = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_cancel);
-        btnOK = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_ok);
-        username = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_name);
-        phoneNumber = viewHolder.dialogNewAppointment.findViewById(R.id.dialog_new_apt_edit_phone);
-
-        GetTypesOfTreatments getTypesOfTreatments = new GetTypesOfTreatments();
-        getTypesOfTreatments.getListOfTypes(context, treatmentTypes);
-
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewHolder.dialogNewAppointment.cancel();
-            }
-        });
-
-        if(user.isExist()) {
-            appointmentDetails.put("Name", user.getName());
-            appointmentDetails.put("Phone", Integer.toString(user.getPhone()));
-            appointmentDetails.put("UserID", Integer.toString(user.getId()));
-            username.setText(user.getName());
-            username.setEnabled(false);
-            String userPhone = Integer.toString(user.getPhone());
-            phoneNumber.setText(userPhone);
-            phoneNumber.setEnabled(false);
-
-            is_addName = true;
-            is_addPhone = true;
-        }
-
-        treatmentTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.d(TAG, "onItemSelected: selecting id: " + position);
-                if(position > 0) {
-                    is_chooseType = true;
-                    type = position - 1;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                is_chooseType = false;
-            }
-        });
-        btnOK.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!user.isExist()) {
-                    if (!username.getText().toString().isEmpty()) {
-                        is_addName = true;
-                        appointmentDetails.put("Name", username.getText().toString());
-                    } else {
-                        ViewCompat.setBackgroundTintList(username, colorStateListBAD);
-                        Log.d(TAG, "onClick: name empty");
-                    }
-                    int int_phoneNumber;
-                    try {
-                        int_phoneNumber = Integer.parseInt(phoneNumber.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        int_phoneNumber = 0;
-                    }
-                    if (int_phoneNumber != 0) {
-                        if(Integer.toString(int_phoneNumber).length() != 10 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
-                            is_addPhone = true;
-                            appointmentDetails.put("Phone", phoneNumber.getText().toString());
-                        } else {
-                            ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
-                            Log.d(TAG, "onClick: phone invalid");
-                        }
-                    } else {
-                        ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
-                        Log.d(TAG, "onClick: phone empty");
-                    }
-                }
-                if (is_chooseType) {
-                    appointmentDetails.put("Type", Integer.toString(type));
-                } else {
-                    ViewCompat.setBackgroundTintList(treatmentTypes, colorStateListBAD);
-                    Log.d(TAG, "onClick: type empty");
-                }
-                if (is_chooseType && is_addPhone && is_addName) {
-                    RequestQueue queue = Volley.newRequestQueue(getContext());
-                    if(!user.isExist()) {
-                        user.setGuestUser(viewHolder.getView(),Integer.parseInt(phoneNumber.getText().toString()),username.getText().toString(),appointmentDetails);
-                    }
-                    ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
-                    ViewCompat.setBackgroundTintList(phoneNumber, colorStateListGOOD);
-                    ViewCompat.setBackgroundTintList(treatmentTypes, colorStateListGOOD);
-                    final JSONObject jsonObject = new JSONObject(appointmentDetails);
-                    Log.d(TAG, "onClick: " + jsonObject.toString());
-                    request = new JsonObjectRequest(
-                            Request.Method.POST, ServerURLSManager.Appointment_new_appointment, jsonObject,
-                            new Response.Listener<JSONObject>() {
-                                @Override
-                                public void onResponse(JSONObject response) {
-                                    try {
-                                        if (response.getString("status").equals("true")) {
-                                            Log.d(TAG, "onResponse: SUCCESS!!");
-                                            CustomToast.showToast(context, context.getString(R.string.new_window_added), 1);
-                                            GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
-                                            viewHolder.dialogNewAppointment.cancel();
-                                        } else {
-                                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
-                                            Log.d(TAG, "onResponse: Failed!! " + response.getString("data"));
-                                        }
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }, new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.d(TAG, "onResponse: Failed!!");
-                            CustomToast.showToast(context,viewHolder.getView().getResources().getString(R.string.new_window_failed),0);
-
-                        }
-                    });
-                    queue.add(request);
-                }
-            }
-        });
-        viewHolder.dialogNewAppointment.show();
-        viewHolder.dialogNewAppointment.getWindow().setAttributes(layoutParams);
-    }
-
     private class ViewHolder {
         final TextView textDate, textTime, textApproved;
         final Button option;
-        final Dialog dialogNewAppointment, dialogConfirmDelete, popupMoreDetails;
+        final Dialog dialogNewAppointment, dialogConfirmDelete, popupMoreDetails, dialogConfirmAppointment;
         final View view;
         final ImageView deleteButton;
 
@@ -688,11 +612,13 @@ public class DatesListAdapterPersonal extends ArrayAdapter {
             this.textDate = v.findViewById(R.id.order_adapter_date);
             this.textTime = v.findViewById(R.id.order_adapter_time);
             this.textApproved = v.findViewById(R.id.order_adapter_personal_approved);
-            this.option = v.findViewById(R.id.order_adapter_btn_option);
+            this.option = v.findViewById(R.id.order_adapter_btn_export);
             this.deleteButton = v.findViewById(R.id.order_adapter_delete);
             dialogNewAppointment = new Dialog(v.getContext());
             dialogConfirmDelete = new Dialog(v.getContext());
             popupMoreDetails = new Dialog(v.getContext());
+            dialogConfirmAppointment = new Dialog(v.getContext());
+            this.dialogConfirmAppointment.setContentView(R.layout.popup_simple_yes_or_no);
             this.popupMoreDetails.setContentView(R.layout.popup_more_details);
             this.dialogConfirmDelete.setContentView(R.layout.dialog_delete_appointment);
             this.dialogNewAppointment.setContentView(R.layout.dialog_make_new_appointment);

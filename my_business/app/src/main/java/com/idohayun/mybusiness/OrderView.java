@@ -2,7 +2,6 @@ package com.idohayun.mybusiness;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +12,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,9 +21,6 @@ import android.widget.DatePicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.baoyz.swipemenulistview.SwipeMenu;
-import com.baoyz.swipemenulistview.SwipeMenuCreator;
-import com.baoyz.swipemenulistview.SwipeMenuItem;
 import com.baoyz.swipemenulistview.SwipeMenuListView;
 
 import java.util.Calendar;
@@ -91,39 +86,8 @@ public class OrderView extends Fragment {
         //DatesListAdapter.changeOrientation();
         selectDateBtn = view.findViewById(R.id.order_btn_select_date);
         selectedDate = view.findViewById(R.id.order_show_selected_date);
-        listView = view.findViewById(R.id.order_appointment_list);
+        listView = view.findViewById(R.id.manage_appointment_list);
         progressBar = view.findViewById(R.id.order_progressBar);
-
-//        listView.setOnTouchListener(new OnSwipeTouchListener(context) {
-//            public void onSwipeLeft() {
-//                Log.d(TAG, "onSwipeRight: swipeRight!");
-//                if(dateSelected) {
-//                    Calendar cal = Calendar.getInstance();
-//                    cal.set(calendar_year,calendar_month,calendar_day);
-//                    cal.add( Calendar.DATE, 1 );
-//                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-//                    calendar_month = cal.get(Calendar.MONTH);
-//                    calendar_year = cal.get(Calendar.YEAR);
-//                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-//                    selectedDate.setText(fullDate);
-//                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-//                }
-//            }
-//            public void onSwipeRight() {
-//                Log.d(TAG, "onSwipeRight: swipeRight!");
-//                if(dateSelected) {
-//                    Calendar cal = Calendar.getInstance();
-//                    cal.set(calendar_year,calendar_month,calendar_day);
-//                    cal.add( Calendar.DATE, -1 );
-//                    calendar_day = cal.get(Calendar.DAY_OF_MONTH);
-//                    calendar_month = cal.get(Calendar.MONTH);
-//                    calendar_year = cal.get(Calendar.YEAR);
-//                    String fullDate = (calendar_day + "/" + calendar_month + "/" + calendar_year);
-//                    selectedDate.setText(fullDate);
-//                    GetAppointmentListData.getData(context, calendar_day, calendar_month, calendar_year, listView, progressBar);
-//                }
-//            }
-//        });
 
         if (savedInstanceState != null) {
             Log.d(TAG, "onCreateView: " + savedInstanceState.describeContents());
@@ -173,7 +137,7 @@ public class OrderView extends Fragment {
             }
         };
 
-        swipeRefreshLayout = view.findViewById(R.id.order_swipe_refresh);
+        swipeRefreshLayout = view.findViewById(R.id.manage_appointment_listview_refresh);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

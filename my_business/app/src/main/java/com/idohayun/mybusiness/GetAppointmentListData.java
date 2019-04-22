@@ -35,7 +35,8 @@ import static java.lang.Boolean.TRUE;
 public class GetAppointmentListData {
     private static final String TAG = "GetAppointmentListData";
     private static List<DateArray> dateArrayList = new ArrayList<>();
-    private static int func_day, func_month, func_year, func_hour, func_min, func_personID, func_tempAvailable, func_userId, func_type;
+    private static int func_day, func_month, func_year, func_hour,
+            func_min, func_personID, func_tempAvailable, func_userId, func_type, func_pending_approve;
     private DatePickerDialog.OnDateSetListener dateSetListener;
     private static String convertTypeToInt_ifNull;
     private static boolean available;
@@ -75,13 +76,18 @@ public class GetAppointmentListData {
                                 func_tempAvailable = obj.getInt("Available");
                                 func_userId = obj.getInt("OrderPersonAppID");
                                 convertTypeToInt_ifNull = obj.getString("Type");
+                                try {
+                                    func_pending_approve = Integer.parseInt(obj.getString("PendingApproval"));
+                                } catch (Exception e) {
+                                    func_pending_approve = 0;
+                                }
                                 if(convertTypeToInt_ifNull == null || convertTypeToInt_ifNull.equals(" ") || convertTypeToInt_ifNull.equals("")) {
                                     func_type = -1;
                                 } else {
                                     func_type = Integer.parseInt(convertTypeToInt_ifNull);
                                 }
                                 available = (func_tempAvailable == 1 ? TRUE : FALSE);
-                                DateArray dateArray = new DateArray(func_day, func_month, func_year, func_hour, func_min, func_type, func_personID, available,func_userId);
+                                DateArray dateArray = new DateArray(func_day, func_month, func_year, func_hour, func_min, func_type, func_personID, available,func_userId,func_pending_approve);
                                 dateArrayList.add(dateArray);
                                 Log.d(TAG, "onResponse: creating (" + i + ") dates dateArray= " +  dateArray.toString() + " type: " + func_type);
                             }

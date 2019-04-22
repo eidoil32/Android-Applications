@@ -212,7 +212,7 @@
 
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/order_swipe_refresh"
+            android:id="@+id/manage_appointment_listview_refresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="8dp"
@@ -223,7 +223,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_error">
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
-                android:id="@+id/order_appointment_list"
+                android:id="@+id/manage_appointment_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="8dp"

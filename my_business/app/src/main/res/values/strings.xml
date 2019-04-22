@@ -149,4 +149,12 @@
     <string name="string_yes">Yes</string>
     <string name="update_user_data_successfully">Update completed successfully!</string>
     <string name="update_user_data_unsuccessfully">Update data failed!</string>
+    <string name="manager_panel_new_window">New window</string>
+    <string name="manager_panel_treatment_type">Manage treatment types</string>
+    <string name="manager_panel_approve_appointments">Manage appointments</string>
+    <string name="manage_appointments_title">Manage Appointments</string>
+    <string name="btn_confirm">Confirm</string>
+    <string name="alert_confirm_appointment_text">Are you sure you want to approve this appointment?</string>
+    <string name="appointment_confirm_successfully">Appointment confirm successfully!</string>
+    <string name="appointment_confirm_failed">Confirm appointment failed!</string>
 </resources>

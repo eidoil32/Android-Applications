@@ -12,17 +12,17 @@ public class DateArray {
     private int approved;
     private boolean available;
 
-    DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID) {
-        this.day = day;
-        this.month = month;
-        this.year = year;
-        this.hour = hour;
-        this.min = min;
-        this.personID = personID;
-        this.available = available;
-        this.userID = userID;
-        this.type = type;
-    }
+//    DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID) {
+//        this.day = day;
+//        this.month = month;
+//        this.year = year;
+//        this.hour = hour;
+//        this.min = min;
+//        this.personID = personID;
+//        this.available = available;
+//        this.userID = userID;
+//        this.type = type;
+//    }
 
     DateArray(int day, int month, int year, int hour, int min, int type, int personID, boolean available, int userID, int approved) {
         this.day = day;

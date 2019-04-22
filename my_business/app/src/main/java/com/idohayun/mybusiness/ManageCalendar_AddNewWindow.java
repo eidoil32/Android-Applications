@@ -158,7 +158,7 @@ public class ManageCalendar_AddNewWindow extends Fragment {
                         ViewCompat.setBackgroundTintList(textHour, colorStateListGOOD);
 
                         Log.d(TAG, "onClick: id: " + id);
-                        DateArray dateListArray = new DateArray(mDay, mMonth, mYear, mHour, mMin, 0, 0, TRUE, 0);
+                        DateArray dateListArray = new DateArray(mDay, mMonth, mYear, mHour, mMin, 0, 0, TRUE, 0,0);
                         queue = Volley.newRequestQueue(view.getContext());
                         map.put("TypeOfJSON", "New");
                         map.put("PersonID", Integer.toString(dateListArray.getPersonID()));
@@ -208,7 +208,7 @@ public class ManageCalendar_AddNewWindow extends Fragment {
                     }
                 } else { //is All day mode
                     Log.d(TAG, "onClick: all day mode");
-                    DateArray dateListArray = new DateArray(mDay, mMonth, mYear, mHour, mMin, 0, 0, TRUE, 0);
+                    DateArray dateListArray = new DateArray(mDay, mMonth, mYear, mHour, mMin, 0, 0, TRUE, 0,0);
                     queue = Volley.newRequestQueue(view.getContext());
                     map.put("TypeOfJSON", "NewAllDay");
                     map.put("PersonID", Integer.toString(dateListArray.getPersonID()));

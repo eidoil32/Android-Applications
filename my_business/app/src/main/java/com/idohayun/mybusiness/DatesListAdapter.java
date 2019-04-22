@@ -39,7 +39,6 @@ import com.baoyz.swipemenulistview.SwipeMenuListView;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -118,28 +117,28 @@ public class DatesListAdapter extends ArrayAdapter {
 
                 @Override
                 public void create(SwipeMenu menu) {
-                    // create "delete" item
+                    int wide = (int)(40*displayMetrics.density);
                     SwipeMenuItem deleteItem = new SwipeMenuItem(context);
-                    // set item background
-                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,
-                            0x2D, 0x2D)));
-                    // set item width
-                    deleteItem.setWidth((int) (40 * displayMetrics.density));
-                    // set a icon
+                    deleteItem.setBackground(new ColorDrawable(Color.rgb(0x9C,0x2D, 0x2D)));
+                    deleteItem.setWidth(wide);
                     deleteItem.setIcon(R.drawable.baseline_delete_white_18dp);
-                    // add to menu
                     menu.addMenuItem(deleteItem);
 
-                    // create "delete" item
-                    SwipeMenuItem details = new SwipeMenuItem(context);
-                    // set item background
-                    details.setBackground(new ColorDrawable(Color.rgb(0x2E, 0x6D, 0xA8)));
-                    // set item width
-                    details.setWidth((int) (40 * displayMetrics.density));
-                    // set a icon
-                    details.setIcon(R.drawable.baseline_contact_support_black_18dp);
-                    // add to menu
-                    menu.addMenuItem(details);
+                    if (!currentDate.isAvailable()) {
+                        SwipeMenuItem details = new SwipeMenuItem(context);
+                        details.setBackground(new ColorDrawable(Color.rgb(0x2E, 0x6D, 0xA8)));
+                        details.setWidth(wide);
+                        details.setIcon(R.drawable.baseline_contact_support_white);
+                        menu.addMenuItem(details);
+
+                        if (currentDate.getApproved() == 0) {
+                            SwipeMenuItem approve = new SwipeMenuItem(context);
+                            approve.setBackground(new ColorDrawable(Color.rgb(0x71, 0xBF, 0x3D)));
+                            approve.setWidth(wide);
+                            approve.setIcon(R.drawable.done);
+                            menu.addMenuItem(approve);
+                        }
+                    }
                 }
             };
 
@@ -156,19 +155,15 @@ public class DatesListAdapter extends ArrayAdapter {
                         case 1:
                             moreDetails(i_position, viewHolder.getView());
                             break;
+                        case 2:
+                            confirmAppointment(i_position,viewHolder.getView());
+                            break;
                     }
                     return false;
                 }
             });
 
             listView.setSwipeDirection(SwipeMenuListView.DIRECTION_RIGHT);
-//            viewHolder.getView().setOnLongClickListener(new View.OnLongClickListener() {
-//                @Override
-//                public boolean onLongClick(View v) {
-//                    DeleteRowPopup(currentDate,position);
-//                    return false;
-//                }
-//            });
         }
 
         int currentHour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY);
@@ -205,7 +200,16 @@ public class DatesListAdapter extends ArrayAdapter {
                             }
                         }
                     });
-                    viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_your_order));
+                    if(user.getId() == 1) {
+                        String managerStatus = convertView.getResources().getString(R.string.order_adapter_personal_approved_prefix);
+                        managerStatus += (currentDate.getApproved() == 1) ?
+                                convertView.getResources().getString(R.string.string_yes) :
+                                convertView.getResources().getString(R.string.string_no);
+                        viewHolder.textStatus.setText(managerStatus);
+                    } else {
+                        viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_your_order));
+                    }
+
                 } else {
                     viewHolder.textStatus.setText(convertView.getResources().getString(R.string.order_adapter_already_taken));
                 }
@@ -228,6 +232,92 @@ public class DatesListAdapter extends ArrayAdapter {
         }
 
         return convertView;
+    }
+
+    private void confirmAppointment(final int position,final View view) {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        ((Activity) view.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int displayWidth = displayMetrics.widthPixels;
+        int displayHeight = displayMetrics.heightPixels;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(Objects.requireNonNull(viewHolder.dialogConfirmAppointment.getWindow()).getAttributes());
+        float multiple_Width = 0.8f, multiple_Height = 0.3f;
+        int dialogWindowWidth = (int) (displayWidth * multiple_Width);
+        int dialogWindowHeight = (int) (displayHeight * multiple_Height);
+
+        Guideline guideline_left, guideline_right, guideline_bottom;
+        guideline_left = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_left);
+        guideline_bottom = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_bottom);
+        guideline_right = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_guideline_right);
+
+        guideline_left.setGuidelineBegin(0);
+        guideline_right.setGuidelineBegin(dialogWindowWidth - (int) (30 * displayMetrics.density));
+        guideline_bottom.setGuidelineBegin(dialogWindowHeight - (int) (30 * displayMetrics.density));
+
+        layoutParams.width = dialogWindowWidth;
+        layoutParams.height = dialogWindowHeight;
+
+        TextView alertText = viewHolder.dialogConfirmAppointment.findViewById(R.id.popup_alert_text);
+        Button btnYes = viewHolder.dialogConfirmAppointment.findViewById(R.id.btn_popup_yes),
+                btnNo = viewHolder.dialogConfirmAppointment.findViewById(R.id.btn_popup_no);
+
+        alertText.setText(view.getResources().getString(R.string.alert_confirm_appointment_text));
+
+        btnNo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.dialogConfirmAppointment.cancel();
+            }
+        });
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentDate = dateArrayList.get(position);
+                queue = Volley.newRequestQueue(v.getContext());
+                map.put("Day", Integer.toString(currentDate.getDay()));
+                map.put("Month", Integer.toString(currentDate.getMonth()));
+                map.put("Year", Integer.toString(currentDate.getYear()));
+                map.put("Hour", Integer.toString(currentDate.getHour()));
+                map.put("Min", Integer.toString(currentDate.getMin()));
+                Log.d(TAG, "onClick: " + map.toString());
+                final JSONObject jsonObject = new JSONObject(map);
+                request = new JsonObjectRequest(
+                        Request.Method.POST, // the request method
+                        ServerURLSManager.User_manager_approve_appointment, jsonObject,
+                        new Response.Listener<JSONObject>() { // the response listener
+                            @Override
+                            public void onResponse(JSONObject response) {
+                                try {
+                                    if (response.getString("status").equals("true")) {
+                                        CustomToast.showToast(view.getContext(),
+                                                view.getResources().getString(R.string.appointment_confirm_successfully),1);
+                                        GetAppointmentListData.getData(context, currentDate.getDay(), currentDate.getMonth(), currentDate.getYear(), listView, progressBar);
+                                        viewHolder.dialogConfirmAppointment.cancel();
+                                    } else {
+                                        CustomToast.showToast(view.getContext(),
+                                                view.getResources().getString(R.string.appointment_confirm_failed),0);
+                                        viewHolder.dialogConfirmAppointment.cancel();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        },
+                        new Response.ErrorListener() { // the error listener
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Toast.makeText(getContext(), "Oops! Got error from server!", Toast.LENGTH_SHORT).show();
+                                viewHolder.dialogConfirmAppointment.cancel();
+                            }
+                        });
+
+                queue.add(request);
+            }
+        });
+
+        viewHolder.dialogConfirmAppointment.show();
+        viewHolder.dialogConfirmAppointment.getWindow().setAttributes(layoutParams);
     }
 
     private boolean dateIsLessThanToday(int day, int month, int year) {
@@ -733,7 +823,7 @@ public class DatesListAdapter extends ArrayAdapter {
     private class ViewHolder {
         final TextView textDate, textTime, textStatus;
         final Button option;
-        final Dialog dialogNewAppointment, dialogConfirmDelete, popupMoreDetails;
+        final Dialog dialogNewAppointment, dialogConfirmDelete, popupMoreDetails, dialogConfirmAppointment;
         final View view;
         final ImageView deleteButton;
 
@@ -741,11 +831,13 @@ public class DatesListAdapter extends ArrayAdapter {
             this.textDate = v.findViewById(R.id.order_adapter_date);
             this.textTime = v.findViewById(R.id.order_adapter_time);
             this.textStatus = v.findViewById(R.id.order_adapter_status);
-            this.option = v.findViewById(R.id.order_adapter_btn_option);
+            this.option = v.findViewById(R.id.order_adapter_btn_export);
             this.deleteButton = v.findViewById(R.id.order_adapter_delete);
             dialogNewAppointment = new Dialog(v.getContext());
             dialogConfirmDelete = new Dialog(v.getContext());
             popupMoreDetails = new Dialog(v.getContext());
+            dialogConfirmAppointment = new Dialog(v.getContext());
+            this.dialogConfirmAppointment.setContentView(R.layout.popup_simple_yes_or_no);
             this.popupMoreDetails.setContentView(R.layout.popup_more_details);
             this.dialogConfirmDelete.setContentView(R.layout.dialog_delete_appointment);
             this.dialogNewAppointment.setContentView(R.layout.dialog_make_new_appointment);

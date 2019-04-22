@@ -21,6 +21,8 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
                 return new ManageCalendar_AddNewWindow();
             case 1:
                 return new ManageTreatmentsTypes();
+            case 2:
+                return new ManageAppointments();
             default:
                 return null;
         }

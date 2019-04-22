@@ -1,8 +1,6 @@
 package com.idohayun.mybusiness;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -169,14 +167,14 @@ public class UserPanel extends Fragment {
 
     private void showMyAppointments(final View view) {
         final ProgressBar progressBar = new ProgressBar(view.getContext());
-        final SwipeMenuListView listView = view.findViewById(R.id.order_appointment_list);
+        final SwipeMenuListView listView = view.findViewById(R.id.manage_appointment_list);
         final SwipeRefreshLayout swipeRefreshLayout;
         RequestQueue queue = Volley.newRequestQueue(view.getContext());
         Map<String,String> map = new HashMap<>();
         map.put("UserID", Integer.toString(user.getId()));
         Log.d(TAG, "onClick: " + map.toString());
         final JSONObject jsonObject = new JSONObject(map);
-        swipeRefreshLayout = view.findViewById(R.id.order_swipe_refresh);
+        swipeRefreshLayout = view.findViewById(R.id.manage_appointment_listview_refresh);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
                 ServerURLSManager.Appointment_get_all_user_appointments, jsonObject,

@@ -19,9 +19,12 @@ public class ManagerPanel extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        String[] tabsTitles = new String[]{"New Window","Manage Treatment Types"};
+        String[] tabsTitles = new String[]{getString(
+                R.string.manager_panel_new_window),
+                getString(R.string.manager_panel_treatment_type),
+                getString(R.string.manager_panel_approve_appointments)};
 
-        pagerAdapter = new PagerAdapter(getChildFragmentManager(),2,tabsTitles);
+        pagerAdapter = new PagerAdapter(getChildFragmentManager(),tabsTitles.length,tabsTitles);
         viewPager = view.findViewById(R.id.view_pager_container);
         viewPager.setAdapter(pagerAdapter);
 

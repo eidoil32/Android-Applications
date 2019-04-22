@@ -65,7 +65,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/order_swipe_refresh"
+            android:id="@+id/manage_appointment_listview_refresh"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="invisible"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toTopOf="@+id/guideline">
 
             <com.baoyz.swipemenulistview.SwipeMenuListView
-                android:id="@+id/order_appointment_list"
+                android:id="@+id/manage_appointment_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
