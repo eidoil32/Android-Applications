@@ -182,6 +182,8 @@ public class DatesListAdapterManager extends ArrayAdapter {
                 map.put("Year", Integer.toString(currentDate.getYear()));
                 map.put("Hour", Integer.toString(currentDate.getHour()));
                 map.put("Min", Integer.toString(currentDate.getMin()));
+                map.put("UserID", Integer.toString(currentDate.getUserID()));
+                map.put("Type", Integer.toString(currentDate.getType()));
                 Log.d(TAG, "onClick: " + map.toString());
                 final JSONObject jsonObject = new JSONObject(map);
                 request = new JsonObjectRequest(

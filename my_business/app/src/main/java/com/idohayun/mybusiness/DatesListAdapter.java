@@ -749,20 +749,21 @@ public class DatesListAdapter extends ArrayAdapter {
                         ViewCompat.setBackgroundTintList(username, colorStateListBAD);
                         Log.d(TAG, "onClick: name empty");
                     }
-                    int int_phoneNumber;
-                    try {
-                        int_phoneNumber = Integer.parseInt(phoneNumber.getText().toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        int_phoneNumber = 0;
-                    }
-                    if (int_phoneNumber != 0) {
-                        if (Integer.toString(int_phoneNumber).length() != 10 || int_phoneNumber < 0 || baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phoneNumber))) {
-                            is_addPhone = true;
-                            appointmentDetails.put("Phone", phoneNumber.getText().toString());
+                    String s_phoneNumber = phoneNumber.getText().toString();
+                    if (!s_phoneNumber.isEmpty()) {
+                        int int_phone = Integer.parseInt(s_phoneNumber);
+                        Log.d(TAG, "onClick: " + s_phoneNumber + " valid: " + !baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phone)) + " test: " + (s_phoneNumber.length() == 10 && int_phone > 0));
+                        if(checkIF_PhoneIsAlreadyInDB(Integer.toString(int_phone))) {
+                            if ((s_phoneNumber.length() == 10 && int_phone > 0) && (!baseUSER.firstTwoDigitsNotExist(Integer.toString(int_phone)))) {
+                                is_addPhone = true;
+                                appointmentDetails.put("Phone", phoneNumber.getText().toString());
+                            } else {
+                                ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
+                                Log.d(TAG, "onClick: phone invalid");
+                            }
                         } else {
                             ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
-                            Log.d(TAG, "onClick: phone invalid");
+                            CustomToast.showToast(context,context.getString(R.string.phone_already_signed),0);
                         }
                     } else {
                         ViewCompat.setBackgroundTintList(phoneNumber, colorStateListBAD);
@@ -818,6 +819,16 @@ public class DatesListAdapter extends ArrayAdapter {
         });
         viewHolder.dialogNewAppointment.show();
         viewHolder.dialogNewAppointment.getWindow().setAttributes(layoutParams);
+    }
+
+    private boolean checkIF_PhoneIsAlreadyInDB(String s_phoneNumber) {
+        List<String> phoneList = PhoneList.getPhoneList();
+        for (int i = 0 ; i < phoneList.size(); i++) {
+            if(s_phoneNumber.equals(phoneList.get(i)))
+                return false;
+        }
+
+        return true;
     }
 
     private class ViewHolder {

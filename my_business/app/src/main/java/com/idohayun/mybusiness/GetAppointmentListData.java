@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -97,8 +98,16 @@ public class GetAppointmentListData {
                                     return ((DateArray) synchronizedListOne).getHour() - (((DateArray) synchronizedListTwo).getHour());
                                 }
                             });
-                            DatesListAdapter datesListAdapter = new DatesListAdapter(context, R.layout.order_list_adapter, dateArrayList,listView,progressBar);
-                            listView.setAdapter(datesListAdapter);
+                            if(dateArrayList.isEmpty()) {
+                                List<String> stringList = new ArrayList<>();
+                                stringList.add(context.getString(R.string.no_available_window));
+                                ArrayAdapter<String> emptyList = new ArrayAdapter<String>(
+                                        context,android.R.layout.simple_list_item_1,android.R.id.text1,stringList);
+                                listView.setAdapter(emptyList);
+                            } else {
+                                DatesListAdapter datesListAdapter = new DatesListAdapter(context, R.layout.order_list_adapter, dateArrayList, listView, progressBar);
+                                listView.setAdapter(datesListAdapter);
+                            }
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

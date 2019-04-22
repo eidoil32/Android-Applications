@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         view = View.inflate(this, R.layout.activity_main, null);
 
+        PhoneList.setPhoneList(this);
+
         Log.d(TAG, "onCreate: " + user.getId());
         navigationView  = findViewById(R.id.nav_view);
         fragmentManager = getSupportFragmentManager();

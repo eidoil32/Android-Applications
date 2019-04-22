@@ -90,19 +90,20 @@ public class baseUSER {
     public void setGuestUser(View view, int phone, String name, Map<String, String> map) {
         this.password = "no_password";
         this.phone = phone;
-        Random r = new Random();
-        this.name = "Guest_" + r.nextInt(10000);
-        updateIDFromServer(map);
+        this.name = name;
+        updateIDFromServer(map,name,Integer.toString(phone));
         this.exist = true;
         this.isGuest = true;
     }
 
-    private void updateIDFromServer(final Map<String, String> i_map) {
+    private void updateIDFromServer(final Map<String, String> i_map, String name, String phone) {
         final baseUSER currentUser = this;
         currentUser.setId(-2);
         RequestQueue queue = Volley.newRequestQueue(view.getContext());
         Map<String, String> map = new HashMap<>();
         map.put("LastID", " ");
+        map.put("Name",name);
+        map.put("Phone",phone);
         final JSONObject jsonObject = new JSONObject(map);
         JsonObjectRequest request = new JsonObjectRequest(
                 Request.Method.POST, // the request method
@@ -117,6 +118,7 @@ public class baseUSER {
                                 i_map.put("UserID", Integer.toString(currentUser.getId()));
                             } else {
                                 Log.d(TAG, "onResponse: error from getLastUserID php");
+                                Log.d(TAG, "onResponse: " + response.getString("data"));
                                 currentUser.setId(-2);
                             }
                         } catch (JSONException e) {
@@ -358,8 +360,8 @@ public class baseUSER {
     }
 
     public static boolean validPhone(String phone) {
-        if(phone.length() < 8 || phone.length() > 10) {
-            return firstTwoDigitsNotExist(phone);
+        if(phone.length() > 8 && phone.length() < 10) {
+            return !firstTwoDigitsNotExist(phone);
         }
         return false;
     }
@@ -367,7 +369,7 @@ public class baseUSER {
     public static boolean firstTwoDigitsNotExist(String phoneString) {
         String firstTwoDigits = Character.toString(phoneString.charAt(0)) + Character.toString(phoneString.charAt(1));
         int twoDigit = Integer.parseInt(firstTwoDigits);
-
+        Log.d(TAG, "firstTwoDigitsNotExist: " + twoDigit);
         if ((twoDigit < 50 || twoDigit > 59))
             if (twoDigit < 64 || twoDigit > 69)
                 return true;

@@ -15,8 +15,8 @@
         android:text="@string/dialog_delete_appointment_confirm"
         android:textAlignment="center"
         android:textColor="@color/colorTextSimple"
-        app:layout_constraintEnd_toEndOf="@+id/dialog_new_apnt_title"
-        app:layout_constraintStart_toStartOf="@+id/dialog_new_apnt_title"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_new_apt_ok"
+        app:layout_constraintStart_toStartOf="@+id/dialog_new_apt_cancel"
         app:layout_constraintTop_toBottomOf="@+id/dialog_new_apt_date" />
 
     <TextView
@@ -59,7 +59,7 @@
         android:textColor="@color/colorTextSimple"
         android:textColorLink="@color/colorTextSimple"
         android:textSize="18sp"
-        app:layout_constraintStart_toStartOf="@+id/dialog_new_apnt_title"
+        app:layout_constraintStart_toStartOf="@+id/dialog_new_apt_cancel"
         app:layout_constraintTop_toBottomOf="@+id/dialog_new_apnt_title"
         tools:text="20-01-2019" />
 
@@ -72,7 +72,7 @@
         android:textColor="@color/colorTextSimple"
         android:textColorLink="@color/colorTextSimple"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/dialog_new_apnt_title"
+        app:layout_constraintEnd_toEndOf="@+id/dialog_new_apt_ok"
         app:layout_constraintTop_toBottomOf="@+id/dialog_new_apnt_title"
         tools:text="18:00" />
 

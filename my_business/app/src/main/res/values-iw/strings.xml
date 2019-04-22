@@ -153,4 +153,6 @@
     <string name="alert_confirm_appointment_text">האם אתה בטוח שברצונך לאשר פגישה זו?</string>
     <string name="appointment_confirm_successfully">פגישה אושרה בהצלחה!</string>
     <string name="appointment_confirm_failed">אישור הפגישה נכשל!</string>
+    <string name="no_available_window">מצטערים, אבל אין לנו חלונות פנויים ביום זה, אנא נסי ביום אחר!</string>
+    <string name="phone_already_signed">טלפון זה קיים כבר במערכת, ייתכן שכבר נרשמת בעבר?</string>
 </resources>

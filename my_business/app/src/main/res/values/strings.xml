@@ -157,4 +157,6 @@
     <string name="alert_confirm_appointment_text">Are you sure you want to approve this appointment?</string>
     <string name="appointment_confirm_successfully">Appointment confirm successfully!</string>
     <string name="appointment_confirm_failed">Confirm appointment failed!</string>
+    <string name="no_available_window">Sorry, but we don\'t have available windows in this day, Please try another day!</string>
+    <string name="phone_already_signed">Phone is already in database, You already signed to our system?</string>
 </resources>
