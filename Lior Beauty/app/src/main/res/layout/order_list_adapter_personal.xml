@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/order_adapter_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/order_list_text_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/order_adapter_btn_export"
+        tools:text="01-01-2000" />
+
+    <Button
+        android:id="@+id/order_adapter_btn_export"
+        style="@style/button_with_background"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/button_with_background"
+        android:text="@string/order_adapter_btn_export"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="82dp" />
+
+    <TextView
+        android:id="@+id/order_adapter_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/order_list_text_background"
+        app:layout_constraintBaseline_toBaselineOf="@+id/order_adapter_date"
+        app:layout_constraintStart_toEndOf="@+id/order_adapter_date"
+        tools:text="18:00" />
+
+    <ImageView
+        android:id="@+id/order_adapter_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/order_list_text_background"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/order_adapter_time"
+        app:layout_constraintStart_toEndOf="@+id/order_adapter_time"
+        app:layout_constraintTop_toTopOf="@+id/order_adapter_time"
+        app:srcCompat="@drawable/baseline_delete_black_18dp" />
+
+    <TextView
+        android:id="@+id/order_adapter_personal_approved_prefix"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/heebo_medium"
+        android:text="@string/order_adapter_personal_approved_prefix"
+        app:layout_constraintStart_toStartOf="@+id/order_adapter_date"
+        app:layout_constraintTop_toBottomOf="@+id/order_adapter_date" />
+
+    <TextView
+        android:id="@+id/order_adapter_personal_approved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/heebo_light"
+        app:layout_constraintBottom_toBottomOf="@+id/order_adapter_personal_approved_prefix"
+        app:layout_constraintStart_toEndOf="@+id/order_adapter_personal_approved_prefix"
+        app:layout_constraintTop_toTopOf="@+id/order_adapter_personal_approved_prefix"
+        tools:text="YES / NO" />
+
+</android.support.constraint.ConstraintLayout>

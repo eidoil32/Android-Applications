@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#e5e5e5</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBackground">#FFFFFF</color>
+    <color name="colorTextSimple">#000000</color>
+    <color name="colorText_Hint_simple">#969696</color>
+    <color name="drawer_background_color">#ed0677</color>
+    <color name="button_border">#ed0677</color>
+    <color name="button_no_background_pressed">#FFEFF6</color>
+    <color name="drawer_icon_color">#f0f0f0</color>
+    <color name="toast_error">#99b23737</color>
+    <color name="toast_success">#996bb237</color>
+    <color name="toast_message">#99808080</color>
+    <color name="toast_text_color">#FFFFFF</color>
+    <color name="white_text">#FFFFFF</color>
+    <color name="button_with_background_pressed">#cc0768</color>
+    <color name="background_text_order">#ececec</color>
+    <color name="transparent">#00000000</color>
+    <color name="adapter_long_press">#e3e3e3</color>
+    <color name="navbar_text_color">#000000</color>
+    <color name="navbar_background_color">#FFFFFF</color>
+    <color name="text_simple_black">#000000</color>
+    <color name="text_basic_color">#222222</color>
+    <color name="background_window_is_over">#dcdcdc</color>
+    <color name="button_not_useable">#979797</color>
+    <color name="delete_row_background">#9c2d2d</color>
+</resources>
